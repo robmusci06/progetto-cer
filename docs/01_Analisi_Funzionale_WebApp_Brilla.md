@@ -60,17 +60,25 @@ Il sistema prevede quattro profili utente, ognuno con una vista specifica:
 *   **UC-R02 - Suggerimenti di Manutenzione Predittiva:** Ricezione di alert basati su anomalie di produzione (es. "Produzione inferiore del 15% rispetto alla media stagionale: verificare pulizia pannelli").
 *   **UC-R03 - Diagnostica Inverter:** Log tecnici e stato di salute dei dispositivi.
 
-## 5. Linee Guida UX/UI
+## 5. Linee Guida UX/UI "Pro Max" (Design System Avanzato)
 
-*   **Design Language:** "Clean Tech", 12px border-radius, ombre morbide.
-*   **Colori:**
-    *   Primary: Verde Smeraldo.
-    *   Secondary: Blu Navy.
-    *   Accent: Ambra (per i suggerimenti urgenti).
-*   **Interazioni:** Box dei suggerimenti con animazione "pulse" discreta quando è presente un nuovo consiglio non letto.
+Per garantire un effetto "WOW" al primo impatto e trasmettere la sensazione di una piattaforma premium, moderna e viva, il design supererà i layout tradizionali per abbracciare un'estetica all'avanguardia:
 
-## 6. Prompt per Generazione Mockup AI
+### 5.1 Estetica e Layout
+*   **Bento Grid Architecture:** Sostituzione delle classiche card con un layout a griglia asimmetrico in stile "Bento Box". Questo permette di incastrare widget di dimensioni diverse (es. widget consumo grande, meteo piccolo) in modo armonioso.
+*   **Glassmorphism & Depth:** Utilizzo di sfondi semi-trasparenti `backdrop-blur-xl` su layer sovrapposti per creare un senso di profondità spaziale, specialmente nei modali e nei menu a scorrimento, evitando i soliti sfondi piatti.
+*   **Dark Mode Nativa (Sleek Dark):** Non un semplice "sfondo nero", ma un ecosistema di grigi profondi (es. Tailwind `slate-900` / `hsl(222, 47%, 11%)`) contrastato da elementi luminosi "neon-like".
 
-*   **Dashboard con Suggerimenti (User View):** "UI design of an Energy Community Dashboard. Clean white layout with emerald green accents. A prominent 'Smart Suggestions' card on the right side with actionable tips like 'Shift your heavy loads to 2 PM today for maximum cashback'. High-fidelity, modern typography, dashboard showing Gauges and Area Charts."
-*   **Sezione Prosumer e Storage (Battery View):** "UI dashboard for a Prosumer with an 48kWh battery. Central visual shows a battery level at 85%. Below, a 'Community Strategy' suggestion box states: 'High community demand detected. System is discharging battery to increase shared energy incentives'. Minimalist icons, tech-focused design."
-*   **Portale Gestore (Admin View):** "Admin dashboard for a Public Administration managing an Energy Community. Section 'Community Performance' with a summary of how many users followed the energy-saving suggestions. List of 5 PODs with status lights. Export to Excel buttons. Professional, clean, data-driven UI."
+### 5.2 Tipografia ed Elementi Visivi
+*   **Google Fonts Premium:** Utilizzo di **Outfit** (geometrico e moderno per heading e numeri) combinato con **Inter** (estremamente leggibile per i dati e le tabelle).
+*   **Color Palette Armoniosa (HSL):**
+    *   *Primary (Eco-Tech):* Sfumature dal verde smeraldo vivo al menta brillante (`#10B981` → `#34D399`) per i successi e i risparmi.
+    *   *Background & Cards:* Superfici in Slate/Zinc profondo con bordi leggermente luminosi (`border-white/10`).
+    *   *Accent (Alerts/Tips):* Ambra vibrante (`#F59E0B`) per suggerimenti dinamici, applicato come gradiente radiale morbido.
+*   **Data VIZ Avanzata:** Grafici interattivi non statici. Uso di linee curve fluide nei chart, gradienti di riempimento al posto di tinte unite, e animazioni di disegno del grafico al caricamento.
+
+### 5.3 Micro-interazioni e Dinamismo
+*   **Skeleton Loaders:** Addio agli spinner di caricamento. Transizioni morbide usando skeleton pulsanti che pre-calcolano lo spazio delle card durante il fetching dei dati dal BMS/Inverter.
+*   **Hover Effects (Magnetic & Glow):** I widget reagiscono al passaggio del mouse illuminandosi dolcemente sui bordi (effetto *glow*) o sollevandosi leggermente (`scale-105`), incoraggiando l'utente a cliccare.
+*   **Transizioni Fluide:** Ogni cambio di pagina o apertura di modale avverrà tramite animazioni *spring* (es. libreria Framer Motion), evitando cali di frame e salti bruschi.
+*   **Empty States Emozionali:** Se non ci sono dati o notifiche, l'UI mostrerà illustrazioni tech o 3D sfocate per mantenere alta l'esperienza visiva invece delle classiche scritte "Nessun dato".
