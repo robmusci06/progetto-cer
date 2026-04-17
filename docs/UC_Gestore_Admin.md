@@ -12,15 +12,24 @@ L'amministratore (Gestore PA d'Ente) supervisiona il network. Il suo scopo non �
 *   **Azione Utente:** Clicca sul dropdown posizionato nella Topbar (header glassmorphism). Seleziona la comunità dal menù a tendina (es. da "CER Centro" a "CER Area Industriale").
 *   **UX Flow & Risultato:** Tramite un'animazione fade-in scattante, i widget della dashboard (grafici, numeri) ripopolano istantaneamente i dati associati alla CER scelta, mantenendo l'utente nel contesto.
 
-## UC-G02: Configurazione Ripartizione Incentivi (Asset Allocation)
-*   **Trigger:** Necessità di modificare le percentuali premio in base alle assemblee comunitarie.
-*   **Azione Utente:** Naviga in Impostazioni > Ripartizione.
-*   **UX Flow & Risultato:** Interagisce con tre cursori a scorrimento (Slider interattivi) associati a Producer, Consumer ed Ente. Movendo uno slider, un algoritmo di compensazione UI regola in tempo reale gli altri per sommare sempre il 100%. Conferma i dati usando un "Swipe to Save" button per evitare update accidentali.
+## UC-G02: Gestione Anagrafica Comunità (Lista Membri)
+*   **Trigger:** L'admin deve verificare lo stato dei partecipanti o aggiungere/modificare un utente.
+*   **Azione Utente:** Naviga in "Comunità". Visualizza una tabella avanzata.
+*   **Contenuti Tabella:** 
+    * Nome e Cognome / Ragione Sociale (es. Mario Rossi o Azienda X).
+    * Ruolo: Etichetta colorata (Consumer, Producer, Prosumer).
+    * ID POD: Codice identificativo del punto di prelievo.
+    * Stato: Indicatori "Attivo", "In Attesa di Validazione GSE" o "Offline".
+*   **UX Flow & Risultato:** Possibilità di filtrare per ruolo o cercare un membro specifico. Cliccando sulla riga, si accede al dettaglio dei consumi del singolo utente.
 
-## UC-G03: Alerting alla Community (Push Notification Panel)
-*   **Trigger:** Calo drastico della produzione non previsto, o surplus energetico elevato.
-*   **Azione Utente:** Accede al modulo "Smart Comms". Sceglie un quick-alert o ne digita uno custom (es. *"La produzione della CER crollerà per maltempo tra un'ora. Sospendere pompe di calore"*).
-*   **UX Flow & Risultato:** Notifica broadcast a tutti i consumer/prosumer della CER. A schermo l'admin riceve un effetto particellare discreto ("Notifiche Inviate a 144 membri").
+## UC-G03: Monitoraggio e Configurazione Incentivi (Tab View)
+Questo modulo è il "cuore economico" della piattaforma e si divide in due sezioni principali tramite tab:
+*   **Tab A: Andamento Incentivi (Trend):**
+    * Azione: Visualizza grafici storici sull'accumulo del fondo incentivi.
+    * Risultato: Visualizzazione del fondo maturato (es. 1.250,00 €) con proiezioni basate sul sincronismo attuale.
+*   **Tab B: Configurazione Ripartizione (Asset Allocation):**
+    * Azione: L'admin regola le percentuali di ripartizione (es. 50% Prosumer, 30% Consumer, 20% Fondo Comune).
+    * UX Flow: Utilizzo di Slider interattivi. Muovendo uno slider, gli altri si adattano automaticamente per mantenere il totale al 100%. Richiede conferma tramite pulsante "Salva Modifiche" con feedback visivo di successo.
 
 ## UC-G04: Supervisione Gamification e Premiazione
 *   **Trigger:** Fine mese, bilancio dei Punti Sostenibilità.
@@ -31,7 +40,7 @@ L'amministratore (Gestore PA d'Ente) supervisiona il network. Il suo scopo non �
 *   **Trigger:** I dati mensili GSE sono incrociati.
 *   **UX Flow & Risultato:** Usa un modale sicuro con checkmark visivi ("Tutti i nodi approvati"). Genera istantaneamente file report PDF.
 
-## UC-G06: Gestione Membri (Comunità)
-*   **Trigger:** L'amministratore vuole visionare l'anagrafica e lo stato d'immissione dei membri.
-*   **Azione Utente:** Naviga in "Comunità" dalla sidebar.
-*   **UX Flow & Risultato:** Viene mostrata una lista ricercabile o una tabella di tutti i membri associati alla CER (Producer, Consumer, Prosumer) con le relative informazioni anagrafiche e lo stato del loro impianto o contatore. Cliccando su un membro si può vedere il dettaglio della singola fornitura.
+## UC-G06: Alerting alla Community (Push Notification Panel)
+*   **Trigger:** Calo drastico della produzione non previsto, o surplus energetico elevato.
+*   **Azione Utente:** Accede al modulo "Smart Comms". Sceglie un quick-alert o ne digita uno custom (es. *"La produzione della CER crollerà per maltempo tra un'ora. Sospendere pompe di calore"*).
+*   **UX Flow & Risultato:** Notifica broadcast a tutti i consumer/prosumer della CER. A schermo l'admin riceve un effetto particellare discreto ("Notifiche Inviate a 144 membri").

@@ -1,7 +1,10 @@
 import { useState } from 'react'
-import { Save, AlertCircle } from 'lucide-react'
+import { Save, AlertCircle, TrendingUp, Settings2 } from 'lucide-react'
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
 
 export default function AdminSettings() {
+  const [activeTab, setActiveTab] = useState<'trend' | 'allocation'>('trend')
+  
   const [producer, setProducer] = useState(40)
   const [consumer, setConsumer] = useState(40)
   const [ente, setEnte] = useState(20)
@@ -62,17 +65,72 @@ export default function AdminSettings() {
     }, 1200)
   }
 
+  const mockTrendData = [
+    { name: 'Gen', fondo: 400 },
+    { name: 'Feb', fondo: 850 },
+    { name: 'Mar', fondo: 1250 },
+  ]
+
   return (
     <div className="space-y-8 max-w-4xl mx-auto h-full pb-10">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight text-zinc-900">Ripartizione Incentivi</h1>
-        <p className="text-zinc-500 mt-1">Configura l'asset allocation degli incentivi GSE (Cashback CER).</p>
+        <h1 className="text-3xl font-bold tracking-tight text-zinc-900">Monitoraggio e Configurazione Incentivi</h1>
+        <p className="text-zinc-500 mt-1">Analizza il trend del fondo maturato e configura l'asset allocation degli incentivi GSE (Cashback CER).</p>
+      </div>
+
+      {/* Tabs */}
+      <div className="flex bg-zinc-100 p-1 rounded-xl w-fit">
+        <button 
+          onClick={() => setActiveTab('trend')}
+          className={`flex items-center gap-2 px-6 py-2.5 rounded-lg text-sm font-bold transition-all ${activeTab === 'trend' ? 'bg-white text-indigo-700 shadow-sm' : 'text-zinc-500 hover:text-zinc-700'}`}
+        >
+          <TrendingUp className="w-4 h-4" /> Andamento Incentivi
+        </button>
+        <button 
+          onClick={() => setActiveTab('allocation')}
+          className={`flex items-center gap-2 px-6 py-2.5 rounded-lg text-sm font-bold transition-all ${activeTab === 'allocation' ? 'bg-white text-indigo-700 shadow-sm' : 'text-zinc-500 hover:text-zinc-700'}`}
+        >
+          <Settings2 className="w-4 h-4" /> Configurazione Ripartizione
+        </button>
       </div>
 
       <div className="bg-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-zinc-200 overflow-hidden">
-        <div className="p-6 border-b border-zinc-100 bg-zinc-50/50">
-           <div className="flex items-start gap-4">
-              <div className="p-3 bg-indigo-100 text-indigo-600 rounded-xl">
+        {activeTab === 'trend' ? (
+           <div className="p-8 space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+             <div className="flex items-center justify-between">
+                <div>
+                  <h3 className="text-lg font-bold text-zinc-900">Fondo Comunità Attuale</h3>
+                  <p className="text-zinc-500 text-sm mt-1">Stimato in base all'autoconsumo virtuale sincronizzato negli ultimi 3 mesi.</p>
+                </div>
+                <div className="text-right">
+                  <div className="text-4xl font-black text-emerald-600">€ 1.250,00</div>
+                  <div className="text-sm font-bold text-emerald-700 bg-emerald-100 inline-block px-2 py-1 rounded-md mt-2">+15% vs trimestre princ.</div>
+                </div>
+             </div>
+             
+             <div className="h-80 w-full pt-6 border-t border-zinc-100">
+                <ResponsiveContainer width="100%" height="100%">
+                  <AreaChart data={mockTrendData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+                    <defs>
+                      <linearGradient id="colorFondo" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="#10b981" stopOpacity={0.3}/>
+                        <stop offset="95%" stopColor="#10b981" stopOpacity={0}/>
+                      </linearGradient>
+                    </defs>
+                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f4f4f5" />
+                    <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fill: '#a1a1aa' }} dy={10} />
+                    <YAxis axisLine={false} tickLine={false} tick={{ fill: '#a1a1aa' }} tickFormatter={(val) => `€ ${val}`} />
+                    <Tooltip contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }} />
+                    <Area type="monotone" dataKey="fondo" stroke="#10b981" strokeWidth={3} fillOpacity={1} fill="url(#colorFondo)" />
+                  </AreaChart>
+                </ResponsiveContainer>
+             </div>
+           </div>
+        ) : (
+          <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+            <div className="p-6 border-b border-zinc-100 bg-zinc-50/50">
+               <div className="flex items-start gap-4">
+                  <div className="p-3 bg-indigo-100 text-indigo-600 rounded-xl">
                  <AlertCircle className="w-6 h-6" />
               </div>
               <div>
@@ -188,6 +246,8 @@ export default function AdminSettings() {
            </div>
         </div>
       </div>
-    </div>
+    )}
+  </div>
+</div>
   )
 }

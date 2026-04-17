@@ -1,12 +1,12 @@
 import { useState } from 'react'
-import { Users, Search, Filter, MoreHorizontal, User, ShieldCheck, Mail, MapPin } from 'lucide-react'
+import { Users, Search, Filter, MoreHorizontal, User, Mail } from 'lucide-react'
 
 const mockMembers = [
-  { id: 'MEM-001', name: 'Mario Rossi', email: 'm.rossi@example.com', role: 'Consumer', address: 'Via Roma 12', status: 'Attivo', joinedAt: '12 Gen 2026', performance: 'Ottima' },
-  { id: 'MEM-002', name: 'Giulia Bianchi', email: 'g.bianchi@example.com', role: 'Prosumer', address: 'Via Milano 45', status: 'Attivo', joinedAt: '03 Feb 2026', performance: 'Ottima' },
-  { id: 'MEM-003', name: 'Luca Verdi', email: 'l.verdi@example.com', role: 'Producer', address: 'Area Ind. Capannone 3', status: 'Manutenzione', joinedAt: '14 Mar 2026', performance: 'Critica' },
-  { id: 'MEM-004', name: 'Anna Neri', email: 'a.neri@example.com', role: 'Consumer', address: 'Corso Genova 8', status: 'In Attivazione', joinedAt: '16 Apr 2026', performance: 'N/A' },
-  { id: 'MEM-005', name: 'Condominio Sole', email: 'admin@condominiosole.it', role: 'Prosumer', address: 'Via Napoli 100', status: 'Attivo', joinedAt: '25 Gen 2026', performance: 'Buona' },
+  { id: 'MEM-001', pod: 'IT001E12345678', name: 'Mario Rossi', email: 'm.rossi@example.com', role: 'Consumer', address: 'Via Roma 12', status: 'Attivo', joinedAt: '12 Gen 2026', performance: 'Ottima' },
+  { id: 'MEM-002', pod: 'IT001E87654321', name: 'Azienda X', email: 'admin@aziendax.it', role: 'Prosumer', address: 'Via Milano 45', status: 'Attivo', joinedAt: '03 Feb 2026', performance: 'Ottima' },
+  { id: 'MEM-003', pod: 'IT001E11223344', name: 'Luca Verdi', email: 'l.verdi@example.com', role: 'Producer', address: 'Area Ind. Capannone 3', status: 'Offline', joinedAt: '14 Mar 2026', performance: 'Critica' },
+  { id: 'MEM-004', pod: 'IT001E99887766', name: 'Anna Neri', email: 'a.neri@example.com', role: 'Consumer', address: 'Corso Genova 8', status: 'In Attesa di Validazione GSE', joinedAt: '16 Apr 2026', performance: 'N/A' },
+  { id: 'MEM-005', pod: 'IT001E55443322', name: 'Condominio Sole', email: 'admin@condominiosole.it', role: 'Prosumer', address: 'Via Napoli 100', status: 'Attivo', joinedAt: '25 Gen 2026', performance: 'Buona' },
 ]
 
 export default function AdminCommunity() {
@@ -50,7 +50,7 @@ export default function AdminCommunity() {
             />
           </div>
           <div className="flex items-center gap-2 w-full sm:w-auto">
-            <button className="flex items-center gap-2 px-4 py-2 border border-zinc-200 bg-white rounded-xl text-sm font-medium text-zinc-700 hover:bg-zinc-50 transition-colors w-full sm:w-auto">
+             <button className="flex items-center gap-2 px-4 py-2 border border-zinc-200 bg-white rounded-xl text-sm font-medium text-zinc-700 hover:bg-zinc-50 transition-colors w-full sm:w-auto">
               <Filter className="w-4 h-4" />
               Filtra
             </button>
@@ -63,35 +63,38 @@ export default function AdminCommunity() {
              <thead>
                <tr className="bg-white border-b border-zinc-100 text-xs uppercase tracking-wider font-semibold text-zinc-500">
                  <th className="p-4 pl-6">Membro</th>
-                 <th className="p-4">Contatti & Info</th>
-                 <th className="p-4 hidden md:table-cell">Tipologia Nodo</th>
+                 <th className="p-4">POD & Contatti</th>
+                 <th className="p-4 hidden md:table-cell">Ruolo</th>
                  <th className="p-4 hidden lg:table-cell">Stato</th>
                  <th className="p-4 text-right pr-6">Azioni</th>
                </tr>
              </thead>
              <tbody className="divide-y divide-zinc-100 text-sm">
                {filteredMembers.map((member) => (
-                 <tr key={member.id} className="hover:bg-zinc-50/80 transition-colors group">
+                 <tr 
+                   key={member.id} 
+                   className="hover:bg-zinc-50/80 transition-colors group cursor-pointer"
+                   onClick={() => alert(`Apertura dettaglio consumi per: ${member.name}`)}
+                 >
                    <td className="p-4 pl-6">
                       <div className="flex items-center gap-4">
                         <div className="w-10 h-10 rounded-full bg-zinc-100 border border-zinc-200 flex items-center justify-center text-zinc-500 font-bold overflow-hidden">
                            <User className="w-5 h-5 opacity-50" />
                         </div>
                         <div>
-                          <p className="font-bold text-zinc-900 group-hover:text-indigo-600 transition-colors cursor-pointer">{member.name}</p>
+                          <p className="font-bold text-zinc-900 group-hover:text-indigo-600 transition-colors">{member.name}</p>
                           <p className="text-xs text-zinc-500 mt-0.5">ID: {member.id}</p>
                         </div>
                       </div>
                    </td>
                    <td className="p-4">
                       <div className="space-y-1">
-                        <div className="flex items-center gap-2 text-zinc-600">
-                           <Mail className="w-3.5 h-3.5" />
-                           <span className="text-xs font-medium">{member.email}</span>
+                        <div className="flex items-center gap-2 text-zinc-900 font-mono text-xs font-semibold">
+                           {member.pod}
                         </div>
                         <div className="flex items-center gap-2 text-zinc-500 hidden sm:flex">
-                           <MapPin className="w-3.5 h-3.5" />
-                           <span className="text-xs">{member.address}</span>
+                           <Mail className="w-3.5 h-3.5" />
+                           <span className="text-xs">{member.email}</span>
                         </div>
                       </div>
                    </td>
@@ -108,14 +111,14 @@ export default function AdminCommunity() {
                       <div className="flex items-center gap-2 text-xs">
                         <div className={`w-2 h-2 rounded-full ${
                           member.status === 'Attivo' ? 'bg-emerald-500' :
-                          member.status === 'Manutenzione' ? 'bg-rose-500' :
+                          member.status === 'Offline' ? 'bg-rose-500' :
                           'bg-amber-500'
                         }`} />
                         <span className="font-medium text-zinc-700">{member.status}</span>
                       </div>
                    </td>
                    <td className="p-4 text-right pr-6">
-                      <button className="p-2 text-zinc-400 hover:text-indigo-600 rounded-lg hover:bg-indigo-50 transition-colors">
+                      <button className="p-2 text-zinc-400 hover:text-indigo-600 rounded-lg hover:bg-indigo-50 transition-colors" onClick={(e) => e.stopPropagation()}>
                         <MoreHorizontal className="w-5 h-5" />
                       </button>
                    </td>
