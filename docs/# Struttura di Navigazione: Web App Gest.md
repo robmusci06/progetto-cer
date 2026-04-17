@@ -27,9 +27,31 @@ L'amministratore ha una visione "God Mode" globale e trasversale, con il compito
 *   **Configuratore Ripartizione Incentivi:** Un modulo settings cruciale. Qui l'Ente può gestire algoritmicamente o tramite slider le percentuali di ripartizione degli incentivi tra Producer, Prosumer, e Consumer.
 *   **Centro Comunicazioni (Notifiche Push):** Strumento per inviare alert istantanei ai Consumer (es. *"La produzione sta crollando, riducete i carichi ora!"*).
 
-## Menu Laterale Collassabile (Sidebar)
-*   📊 **Dashboard** (Differenziata in base al ruolo)
-*   🏢 **La mia CER / Le mie CER** (Lista nodi, membri e Performance)
-*   🌤 **Meteo & Insights** (Per la programmazione attiva)
-*   🏆 **Bacheca Sostenibilità** (Gamification e CO2)
-*   ⚙️ **Configurazione** (Solo Gestore: Ripartizione incentivi, settings)
+## Struttura di Navigazione (Sidebar & Menu per Attore)
+
+### 1. Navigazione Gestore (Admin)
+*   📊 **Dashboard Globale** (Vista aggregata multi-CER)
+*   🏢 **Gestione CER** (Lista nodi, membri, performance complessive)
+*   📢 **Centro Comunicazioni** (Notifiche push, alert)
+*   🏆 **Gamification & Premi** (Supervisione leaderboards, erogazione sconti)
+*   ⚙️ **Impostazioni & Ripartizioni** (Configurazione percentuale incentivi, switch tenant)
+
+### 2. Navigazione Prosumer
+*   📊 **Dashboard Ibrida** (Energy Flow completo: produzione, accumulo, consumo)
+*   ⚡ **Le mie Statistiche** (Mancato prelievo, quote immesse in rete)
+*   🌤 **Consumo Consapevole** (Meteo e programmazione carichi)
+*   🏆 **Bacheca Sostenibilità** (Leaderboard e Punti Comunità)
+*   ⚙️ **Smart Settings** (Impostazione scarica forzata batteria)
+
+### 3. Navigazione Producer
+*   📊 **Dashboard Produzione** (Metriche primarie di immissione e ROI)
+*   📈 **Report & Statistiche** (Grafici esportabili, rendimento storico)
+*   🛠 **Diagnostica Impianto** (Stato inverter, alert manutenzione)
+*   🌱 **Impatto Ambientale** (Report CO2 evitata per CSR aziendale)
+*   ⚙️ **Impostazioni Tecniche**
+
+### 4. Navigazione Consumer
+*   📊 **Dashboard Consumi** (Energy Flow semplificato e andamento prelievi)
+*   🌤 **Meteo & Programmazione** (Consigli ottimizzazione orari)
+*   🏆 **Bacheca Sostenibilità** (Leaderboard, sfide, risparmio)
+*   ⚙️ **Impostazioni Profilo**

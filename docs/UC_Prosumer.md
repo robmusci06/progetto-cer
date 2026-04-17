@@ -2,6 +2,11 @@
 
 Il Prosumer dispone sia di un impianto di produzione proprio (Pannelli) sia di un consumo interno, e molto spesso di un Accumulo (Batterie). Il suo obiettivo primario è l'autoconsumo fisico, mentre la sua quota in eccedenza sfama la CER (autoconsumo logico/virtuale comunitario).
 
+## UC-P00: Navigazione Menu Prosumer (Sidebar)
+*   **Trigger:** Il prosumer vuole scorrere tra monitoraggio, meteo e gamification.
+*   **Azione Utente:** Naviga tramite la sidebar laterale (Dashboard Ibrida, Statistiche, Consumo Consapevole, Bacheca Sostenibilità, Smart Settings).
+*   **UX Flow & Risultato:** Transizioni morbide tra i moduli. Elementi interattivi mantengono l'attenzione del Prosumer sulle attività chiave (es. badge notifiche per la batteria).
+
 ## UC-P01: Visualizzazione Flusso "Four Node" (Produzione/Accumulo/Rete/Abitazione)
 *   **Trigger:** Comprendere a colpo d'occhio cosa stanno facendo i propri pannelli.
 *   **Azione Utente:** Osserva il componente Energy Flow.

@@ -2,6 +2,11 @@
 
 L'amministratore (Gestore PA d'Ente) supervisiona il network. Il suo scopo non è produrre o consumare energia termica, ma ottimizzare l'infrastruttura, configurare logiche contrattuali per gli incentivi ed educare i cittadini al consumo responsabile.
 
+## UC-G00: Navigazione Principale (Sidebar Admin)
+*   **Trigger:** L'amministratore entra nella piattaforma e vuole accedere ai vari moduli.
+*   **Azione Utente:** Espande e interagisce con la sidebar dedicata (Dashboard, Gestione CER, Comunicazioni, Premi, Impostazioni).
+*   **UX Flow & Risultato:** La sidebar ha un design compatto e collassabile. Il click su una voce cambia istantaneamente la vista principale (SPA navigation). La voce attiva è evidenziata con il colore principale istituzionale.
+
 ## UC-G01: Switch Multi-CER (Gestione Multi-Tenant)
 *   **Trigger:** L'amministratore apre la web app.
 *   **Azione Utente:** Clicca sul dropdown posizionato nella Topbar (header glassmorphism). Seleziona la comunità dal menù a tendina (es. da "CER Centro" a "CER Area Industriale").

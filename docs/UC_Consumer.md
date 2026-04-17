@@ -2,6 +2,11 @@
 
 Il Consumer è un attore che preleva solamente energia dalla rete. La sua arma per ottenere uno sconto in bolletta e incentivi tramite la CER è esclusivamente il "Sincronismo": deve essere virtuoso spostando l'utilizzo di apparecchi energivori nelle fasce in cui c'è surplus energetico.
 
+## UC-C00: Navigazione Semplificata (Sidebar Consumer)
+*   **Trigger:** Il consumer accede all'app per controllare le proprie performance.
+*   **Azione Utente:** Interagisce con le sole voci rilevanti nella sua sidebar (Dashboard Consumi, Meteo & Programmazione, Bacheca Sostenibilità).
+*   **UX Flow & Risultato:** Essendo un utente non tecnico, il menu ha icone amichevoli, non presenta funzionalità superflue e garantisce un orientamento e uno switch rapido tra i moduli ludici e operativi.
+
 ## UC-C01: Lettura della propria "Energy Flow Canvas"
 *   **Trigger:** Accesso rapido giornaliero per valutare l'andamento del portafoglio energetico.
 *   **Azione Utente:** L'utente accede alla propria dashboard. Non è un tecnico, quindi ignora grafici complessi. Guarda la mappa olografica (Grafo a nodi).

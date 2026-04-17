@@ -29,11 +29,11 @@ export default function Dashboard() {
         </div>
         
         <nav className="flex-1 px-4 space-y-2 mt-4">
-          <a href="#" className="flex items-center gap-3 px-3 py-2 rounded-lg bg-indigo-500/10 text-indigo-400 transition-colors">
+          <a href="/dashboard" className="flex items-center gap-3 px-3 py-2 rounded-lg bg-indigo-500/10 text-indigo-400 transition-colors">
             <LayoutDashboard className="h-5 w-5" />
             <span className="font-medium">Dashboard</span>
           </a>
-          <a href="#" className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-zinc-900 hover:text-zinc-100 transition-colors">
+          <a href="/community" className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-zinc-900 hover:text-zinc-100 transition-colors">
             <Users className="h-5 w-5" />
             <span className="font-medium">Comunità (CER)</span>
           </a>
