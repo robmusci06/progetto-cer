@@ -16,7 +16,7 @@ export default function AdminLayout() {
   return (
     <div className="flex min-h-screen bg-zinc-50 font-sans">
       {/* Sidebar */}
-      <aside className="w-64 bg-zinc-950 text-zinc-300 flex flex-col border-r border-zinc-800">
+      <aside className="w-64 bg-zinc-950 text-zinc-300 flex flex-col border-r border-zinc-800 sticky top-0 h-screen">
         <div className="p-6 border-b border-zinc-800 flex items-center gap-3">
           <div className="h-8 w-8 rounded-lg bg-indigo-500/20 flex items-center justify-center border border-indigo-500/30">
             <Settings className="w-4 h-4 text-indigo-400" />
