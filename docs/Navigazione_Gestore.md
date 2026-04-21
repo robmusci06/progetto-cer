@@ -27,8 +27,10 @@ Questa sezione accorpa tutti i parametri tecnici ed economici della comunità, o
     * Localizzazione geografica tramite Mappa interattiva.
     * Monitoraggio Asset e POD Collegati: Stato dell'unico impianto fotovoltaico (54kW) e dei 5 POD associati ai membri (1 Producer, 1 Prosumer, 3 Consumer).
 *   **Ripartizione Incentivi**:
-    *   **Regole di Ripartizione**: Configurazione delle percentuali di asset allocation (Producer, Consumer, Ente).
-    *   **Ripartizione per Membro**: Visualizzazione dell'incentivo spettante a ogni singolo partecipante in base all'autoconsumo virtuale generato.
+    *   **Monitoraggio Maturato (Widget Unificato):** L'admin supervisiona un widget orizzontale in testata che accorpa gli **Incentivi Maturati** (es. € 1.250,00) e la **Quota Recupero Investimento** mensile, indicando chiaramente lo stato dell'erogazione GSE (es. "In attesa").
+    *   **Modello Proporzionale**: Visualizzazione grafica della composizione in percentuale dell'allocazione del ricavo (es. Produttori 45%, Consumatori 30%, Fondo CER 25%).
+    *   **Regole di Ripartizione**: Modale per la ricalibrazione delle percentuali totali del tesoretto e della quota fissa.
+    *   **Quote Individuali dei Membri**: Lista analitica (su doppia colonna) che mostra il ruolo degli utenti, la ripartizione spettante applicata e la stima mensile calibrata sull'incentivo maturato.
 
 ### 👥 Comunità & Membri
 Gestione dell'anagrafica e monitoraggio dei partecipanti:

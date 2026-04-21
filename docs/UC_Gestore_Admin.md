@@ -104,8 +104,10 @@ L'amministratore (Gestore PA d'Ente) supervisiona il network. Il suo scopo non �
         *   **Anagrafica Tecnica:** Form per Nome CER, Codice Area, Codice Fiscale, Indirizzo e Note libere (il caricamento documentale è rimosso in favore di maggiori campi descrittivi).
         *   **Asset e POD Collegati:** Visualizzazione dello stato dell'unico impianto di produzione (Fotovoltaico 54kW) e dei 5 POD associati ai membri (1 Producer, 1 Prosumer, 3 Consumer) con indicatori real-time.
     2.  **Ripartizione Incentivi (Financial Rules):**
-        *   **Configurazione Ripartizione:** L'admin regola le percentuali di asset allocation tramite slider interattivi (es. 50% Prosumer, 30% Consumer, 20% Fondo Comune).
-        *   **Ripartizione per Membro:** Elenco analitico che mostra come il "tesoretto" di incentivi maturati viene diviso tra i membri in base al loro apporto al sincronismo.
+        *   **Monitoraggio Maturato:** L'admin supervisiona il box degli **Incentivi Maturati** (es. € 1.250,00) con lo stato dell'erogazione GSE (es. "In attesa").
+        *   **Recupero Investimento:** Visualizzazione affiancata della quota fissa mensile destinata alla copertura costi.
+        *   **Modifica Regolamento (Modale):** Tramite una finestra specifica, il Gestore aggiorna con input numerici le 3 quote percentuali (es. Produttori 45%, Consumatori 30%, CER 25%) con validazione al 100%.
+        *   **Quote Individuali dei Membri:** Elenco analitico (disposto su griglia ottimizzata) che indica ruolo, peso e stima mensile calcolata pro-quota sul maturato attuale.
 *   **UX Flow & Risultato:** Interfaccia a 2 Tab. La Tab Dati Generali combina configurazione anagrafica e monitoraggio hardware, fornendo una dashboard verticale unificata.
 
 ## UC-G05: Supervisione Gamification e Premiazione
