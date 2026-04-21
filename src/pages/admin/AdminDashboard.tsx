@@ -1,5 +1,5 @@
 import { XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line, Legend } from 'recharts'
-import { Zap, Battery, ArrowDownToLine, Activity, Leaf, Euro, BarChart3, AlertTriangle } from 'lucide-react'
+import { Zap, Battery, ArrowDownToLine, Activity, Leaf, Euro, BarChart3, AlertTriangle, Sun, Cloud, CloudRain, Wind, Thermometer, Lightbulb } from 'lucide-react'
 
 const mockData = [
   { name: 'Lun', prelievo: 400, produzione: 240, autoconsumo: 240 },
@@ -9,6 +9,37 @@ const mockData = [
   { name: 'Ven', prelievo: 189, produzione: 480, autoconsumo: 189 },
   { name: 'Sab', prelievo: 239, produzione: 380, autoconsumo: 239 },
   { name: 'Dom', prelievo: 349, produzione: 430, autoconsumo: 349 },
+]
+
+// Forecast orario (mock)
+const hourlyForecast = [
+  { time: '07:00', icon: 'cloudy', temp: 13, irr: 120 },
+  { time: '08:00', icon: 'sunny', temp: 15, irr: 280 },
+  { time: '09:00', icon: 'sunny', temp: 16, irr: 420 },
+  { time: '10:00', icon: 'sunny', temp: 17, irr: 580 },
+  { time: '11:00', icon: 'sunny', temp: 18, irr: 680 },
+  { time: '12:00', icon: 'sunny', temp: 19, irr: 720 },
+  { time: '13:00', icon: 'sunny', temp: 19, irr: 690 },
+  { time: '14:00', icon: 'sunny', temp: 18, irr: 610 },
+  { time: '15:00', icon: 'partly', temp: 17, irr: 480 },
+  { time: '16:00', icon: 'partly', temp: 16, irr: 320 },
+  { time: '17:00', icon: 'cloudy', temp: 15, irr: 160 },
+  { time: '18:00', icon: 'cloudy', temp: 14, irr: 60 },
+  { time: '19:00', icon: 'cloudy', temp: 13, irr: 10 },
+]
+
+function WeatherIcon({ type, size = 'sm' }: { type: string; size?: 'sm' | 'lg' }) {
+  const cls = size === 'lg' ? 'w-12 h-12' : 'w-4 h-4'
+  if (type === 'sunny') return <Sun className={`${cls} text-amber-400`} />
+  if (type === 'partly') return <Cloud className={`${cls} text-sky-400`} />
+  if (type === 'cloudy') return <Cloud className={`${cls} text-zinc-400`} />
+  if (type === 'rainy') return <CloudRain className={`${cls} text-blue-400`} />
+  return <Sun className={`${cls} text-amber-400`} />
+}
+
+const smartTips = [
+  { time: '10:00 – 14:00', tip: 'Picco di irradianza previsto (680–720 W/m²). Avviare carichi industriali o lavatrici per massimizzare l\'autoconsumo.', highlight: true },
+  { time: '15:00 – 17:00', tip: 'Calo progressivo della produzione. Programmare carichi differibili entro le 14:30.', highlight: false },
 ]
 
 export default function AdminDashboard() {
@@ -21,6 +52,95 @@ export default function AdminDashboard() {
         </div>
         <div className="bg-white px-4 py-2 rounded-lg border border-zinc-200 shadow-sm text-sm font-medium text-zinc-600">
           Ultimo aggiornamento: <span className="text-zinc-900">Oggi, 14:30</span>
+        </div>
+      </div>
+
+      {/* ── Meteo & Previsioni ── */}
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 animate-in fade-in slide-in-from-top-2 duration-500">
+
+        {/* Card: Meteo Corrente */}
+        <div className="bg-gradient-to-br from-sky-500 to-indigo-600 rounded-2xl p-4 text-white shadow-lg relative overflow-hidden">
+          <div className="absolute -top-6 -right-6 w-32 h-32 bg-white/5 rounded-full" />
+          <div className="absolute -bottom-8 -left-8 w-40 h-40 bg-white/5 rounded-full" />
+          <div className="relative z-10">
+            <p className="text-[10px] font-semibold uppercase tracking-widest text-sky-100/80 mb-2">Meteo · Matera</p>
+            <div className="flex items-center gap-3 mb-3">
+              <WeatherIcon type="sunny" size="lg" />
+              <div>
+                <p className="text-4xl font-bold tracking-tight">16.1°</p>
+                <p className="text-xs text-sky-100 mt-0.5">Soleggiato</p>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-2 pt-3 border-t border-white/20">
+              <div className="flex items-center gap-1.5 text-xs">
+                <Wind className="w-3 h-3 text-sky-200" />
+                <span className="text-sky-100">Nuvolosità: <strong className="text-white">0%</strong></span>
+              </div>
+              <div className="flex items-center gap-1.5 text-xs">
+                <Thermometer className="w-3 h-3 text-sky-200" />
+                <span className="text-sky-100">Irradianza: <strong className="text-white">327 W/m²</strong></span>
+              </div>
+            </div>
+            <div className="mt-3 flex justify-center">
+              <span className="inline-flex items-center gap-1.5 bg-emerald-400/20 border border-emerald-300/30 text-emerald-100 text-xs font-bold px-3 py-1 rounded-full">
+                😊 Produzione Ottimale
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* Card: Timeline Previsioni Orarie */}
+        <div className="lg:col-span-3 bg-white rounded-2xl p-4 shadow-sm border border-zinc-200">
+          <div className="flex items-center justify-between mb-3">
+            <h3 className="text-xs font-bold text-zinc-900 flex items-center gap-1.5">
+              <Sun className="w-3.5 h-3.5 text-amber-400" /> Previsioni di Oggi · Matera
+            </h3>
+            <span className="text-[10px] text-zinc-400">Irradianza (W/m²)</span>
+          </div>
+
+          {/* Timeline */}
+          <div className="flex justify-between items-end w-full">
+            {hourlyForecast.map((h) => {
+              const irrRatio = h.irr / 720
+              const isPeak = h.irr >= 600
+              return (
+                <div
+                  key={h.time}
+                  className={`flex flex-col items-center gap-1 py-2 px-1 rounded-lg transition-all cursor-default flex-1 ${isPeak ? 'bg-amber-50 border border-amber-200' : 'hover:bg-zinc-50'}`}
+                >
+                  <span className="text-[9px] font-semibold text-zinc-400 whitespace-nowrap">{h.time}</span>
+                  <WeatherIcon type={h.icon} />
+                  <span className="text-[11px] font-bold text-zinc-800">{h.temp}°</span>
+                  <div className="h-5 w-2 bg-zinc-100 rounded-full overflow-hidden flex items-end">
+                    <div
+                      className="w-full rounded-full transition-all"
+                      style={{
+                        height: `${Math.max(irrRatio * 100, 4)}%`,
+                        background: irrRatio > 0.7 ? '#f59e0b' : irrRatio > 0.4 ? '#fbbf24' : '#e4e4e7',
+                      }}
+                    />
+                  </div>
+                  <span className={`text-[9px] font-bold ${isPeak ? 'text-amber-600' : 'text-zinc-400'}`}>{h.irr}</span>
+                </div>
+              )
+            })}
+          </div>
+
+          {/* Smart Tips */}
+          <div className="mt-3 pt-3 border-t border-zinc-100 flex flex-col gap-1.5">
+            <p className="text-[10px] font-bold text-zinc-500 uppercase tracking-wider flex items-center gap-1">
+              <Lightbulb className="w-3 h-3 text-amber-500" /> Smart Tips – Programmazione Carichi
+            </p>
+            {smartTips.map((tip, idx) => (
+              <div
+                key={idx}
+                className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-[11px] ${tip.highlight ? 'bg-amber-50 border border-amber-200' : 'bg-zinc-50 border border-zinc-100'}`}
+              >
+                <span className={`font-bold whitespace-nowrap ${tip.highlight ? 'text-amber-700' : 'text-zinc-500'}`}>{tip.time}</span>
+                <p className={tip.highlight ? 'text-amber-800' : 'text-zinc-600'}>{tip.tip}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 

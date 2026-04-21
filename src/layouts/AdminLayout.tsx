@@ -1,44 +1,79 @@
 import { Outlet, NavLink } from 'react-router-dom'
-import { LayoutDashboard, Bell, Trophy, Settings, LogOut, Users } from 'lucide-react'
+import { 
+  LayoutDashboard, Bell, Settings, LogOut, Users, Zap, 
+  ChevronLeft, Menu 
+} from 'lucide-react'
 import { useState } from 'react'
+import Breadcrumbs from '../components/Breadcrumbs'
 
 export default function AdminLayout() {
   const [tenant, setTenant] = useState('cer-centro')
+  const [isCollapsed, setIsCollapsed] = useState(false)
 
   const navItems = [
     { name: 'Dashboard Globale', path: '/admin/dashboard', icon: LayoutDashboard },
+    { name: 'CER', path: '/admin/cer', icon: Zap },
     { name: 'Comunità & Membri', path: '/admin/community', icon: Users },
-    { name: 'Ripartizioni', path: '/admin/settings', icon: Settings },
     { name: 'Comunicazioni', path: '/admin/communications', icon: Bell },
-    { name: 'Gamification & Premi', path: '/admin/gamification', icon: Trophy },
   ]
 
   return (
     <div className="flex min-h-screen bg-zinc-50 font-sans">
       {/* Sidebar */}
-      <aside className="w-64 bg-zinc-950 text-zinc-300 flex flex-col border-r border-zinc-800 sticky top-0 h-screen">
-        <div className="p-6 border-b border-zinc-800 flex items-center gap-3">
-          <div className="h-8 w-8 rounded-lg bg-indigo-500/20 flex items-center justify-center border border-indigo-500/30">
-            <Settings className="w-4 h-4 text-indigo-400" />
+      <aside 
+        className={`${
+          isCollapsed ? 'w-20' : 'w-64'
+        } bg-zinc-950 text-zinc-300 flex flex-col border-r border-zinc-800 sticky top-0 h-screen transition-all duration-300 ease-in-out z-20`}
+      >
+        <div className={`p-6 border-b border-zinc-800 flex items-center ${isCollapsed ? 'justify-center' : 'justify-between'} transition-all`}>
+          <div className="flex items-center gap-3">
+            <div className="h-8 w-8 rounded-lg bg-indigo-500/20 flex items-center justify-center border border-indigo-500/30 shrink-0">
+              <Settings className="w-4 h-4 text-indigo-400" />
+            </div>
+            {!isCollapsed && <span className="font-semibold text-white tracking-wide animate-in fade-in duration-500">Brilla Admin</span>}
           </div>
-          <span className="font-semibold text-white tracking-wide">Brilla Admin</span>
+          {!isCollapsed && (
+             <button 
+               onClick={() => setIsCollapsed(true)}
+               className="p-1.5 rounded-lg hover:bg-zinc-900 text-zinc-500 hover:text-white transition-colors"
+             >
+               <ChevronLeft className="w-4 h-4" />
+             </button>
+          )}
         </div>
         
-        <nav className="flex-1 p-4 space-y-1">
+        {isCollapsed && (
+          <div className="flex justify-center p-4 border-b border-zinc-800/50">
+             <button 
+               onClick={() => setIsCollapsed(false)}
+               className="p-2 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-indigo-400 transition-all border border-zinc-800"
+             >
+               <Menu className="w-5 h-5" />
+             </button>
+          </div>
+        )}
+        
+        <nav className="flex-1 p-4 space-y-2">
           {navItems.map((item) => (
             <NavLink
               key={item.path}
               to={item.path}
               className={({ isActive }) =>
-                `flex items-center gap-3 px-3 xl:px-4 py-2.5 rounded-xl transition-all font-medium text-sm ${
+                `flex items-center ${isCollapsed ? 'justify-center' : 'gap-3 px-4'} py-3 rounded-xl transition-all font-medium text-sm group relative ${
                   isActive
                     ? 'bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 shadow-[0_0_10px_rgba(99,102,241,0.1)]'
                     : 'text-zinc-400 hover:text-zinc-100 hover:bg-zinc-900/50'
                 }`
               }
             >
-              <item.icon className="w-5 h-5" />
-              {item.name}
+              <item.icon className="w-5 h-5 shrink-0" />
+              {!isCollapsed && <span className="animate-in fade-in slide-in-from-left-2 duration-300">{item.name}</span>}
+              
+              {isCollapsed && (
+                <div className="absolute left-full ml-4 px-2 py-1 bg-zinc-800 text-white text-xs rounded opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all whitespace-nowrap z-50">
+                  {item.name}
+                </div>
+              )}
             </NavLink>
           ))}
         </nav>
@@ -46,10 +81,16 @@ export default function AdminLayout() {
         <div className="p-4 border-t border-zinc-800">
           <button 
             onClick={() => window.location.href = '/'}
-            className="flex items-center gap-3 px-4 py-2 w-full text-zinc-400 hover:text-red-400 transition-colors text-sm font-medium"
+            className={`flex items-center ${isCollapsed ? 'justify-center' : 'gap-3 px-4'} py-2 w-full text-zinc-400 hover:text-red-400 transition-colors text-sm font-medium group relative`}
           >
-            <LogOut className="w-5 h-5" />
-            Esci
+            <LogOut className="w-5 h-5 shrink-0" />
+            {!isCollapsed && <span>Esci</span>}
+            
+            {isCollapsed && (
+              <div className="absolute left-full ml-4 px-2 py-1 bg-red-900 text-white text-xs rounded opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all whitespace-nowrap z-50">
+                Esci
+              </div>
+            )}
           </button>
         </div>
       </aside>
@@ -88,6 +129,7 @@ export default function AdminLayout() {
 
         {/* Page Content */}
         <main className="flex-1 p-8 overflow-y-auto">
+          <Breadcrumbs />
           <Outlet />
         </main>
       </div>

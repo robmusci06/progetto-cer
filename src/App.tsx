@@ -1,15 +1,14 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import Login from './pages/Login'
 import Dashboard from './pages/Dashboard'
-
 import Community from './pages/Community'
 
 import AdminLayout from './layouts/AdminLayout'
 import AdminDashboard from './pages/admin/AdminDashboard'
-import AdminSettings from './pages/admin/AdminSettings'
 import AdminCommunications from './pages/admin/AdminCommunications'
-import AdminGamification from './pages/admin/AdminGamification'
 import AdminCommunity from './pages/admin/AdminCommunity'
+import AdminMemberDetail from './pages/admin/AdminMemberDetail'
+import AdminCER from './pages/admin/AdminCER'
 
 function App() {
   return (
@@ -23,10 +22,10 @@ function App() {
         <Route path="/admin" element={<AdminLayout />}>
           <Route index element={<Navigate to="/admin/dashboard" replace />} />
           <Route path="dashboard" element={<AdminDashboard />} />
+          <Route path="cer" element={<AdminCER />} />
           <Route path="community" element={<AdminCommunity />} />
-          <Route path="settings" element={<AdminSettings />} />
+          <Route path="community/:id" element={<AdminMemberDetail />} />
           <Route path="communications" element={<AdminCommunications />} />
-          <Route path="gamification" element={<AdminGamification />} />
         </Route>
 
         <Route path="*" element={<Navigate to="/" replace />} />

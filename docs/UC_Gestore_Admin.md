@@ -33,8 +33,22 @@ L'amministratore (Gestore PA d'Ente) supervisiona il network. Il suo scopo non �
     *   **Cluster Efficienza e Sincronismo:**
         *   *Indice di Sincronismo (%):* Indica la quota di energia prodotta che viene consumata istantaneamente all'interno della CER. Se scende (es. sotto il 50%), il gestore sa che deve stimolare i membri a spostare i propri carichi.
         *   *Energia "Sprecata" (Immessa senza incentivo):* Quota di energia finita in rete in esubero. Identifica il margine di miglioramento potenziale per la comunità.
+    *   **Cluster Meteo & Programmazione (Consumo Consapevole):**
+        *   *Widget Meteo Real-time:* Visualizzazione di Temperatura, Stato (Soleggiato/Piovoso), Nuvolosità (%) e Irradianza (W/m²).
+        *   *Timeline Previsioni di Oggi:* Un grafico orario (es. 07:00 - 19:00) che mostra l'evoluzione attesa del tempo, delle temperature, dell'irradianza e della nuvolosità.
+        *   *Status Produzione (Qualitativo):* Indicatore visivo (es. Smiley o badge) che valida se la produzione corrente è "Ottimale", "Parziale" o "Sotto Soglia" rispetto al meteo rilevato.
+        *   *Smart Tips (Tips Proattivi):* Consigli su quando programmare carichi pesanti per massimizzare l'indice di sincronismo (es. *"Tra 2 ore: picco di irradianza, avviare cicli industriali"*).
     *   **Membri CER (Pannello Rapido):** Una panoramica rapida laterale sugli iscritti (nome, ruolo, stato di attività: Attivo, In Attesa, Offline) che rimpiazza il precedente elenco grezzo dei nodi.
 *   **UX Flow:** L'interfaccia usa Card separate (Glassmorphism), icone chiare e badge colorati per evidenziare eventuali parametri critici.
+
+## UC-G02.1: Analisi Meteo e Programmazione Proattiva
+*   **Trigger:** L'amministratore vuole ottimizzare il sincronismo della CER per il giorno seguente o la giornata corrente.
+*   **Azione Utente:** Consulta il widget Meteo nella Dashboard Globale.
+*   **Risultato e Visualizzazione:**
+    *   Vede una timeline delle previsioni meteo incrociata con la curva di produzione attesa.
+    *   Riceve una notifica visiva (Tip) sulla convenienza di spostare carichi energetici.
+    *   Può utilizzare il dato per inviare istantaneamente una comunicazione alla community (tramite UC-G07).
+*   **Valore Aggiunto:** Trasforma un dato meteorologico passivo in uno strumento decisionale strategico per incrementare il valore economico della CER.
 
 ## UC-G03: Gestione Anagrafica Comunità (Card Membri)
 *   **Trigger:** L'admin deve verificare lo stato dei partecipanti o aggiungere/modificare un utente.
@@ -53,10 +67,10 @@ L'amministratore (Gestore PA d'Ente) supervisiona il network. Il suo scopo non �
     | # | Nome | Ruolo | ID POD | Stato | Incentivo Maturato |
     |---|------|-------|--------|-------|-------------------|
     | 1 | **Marco Bianchi** | 🔵 Consumer | `IT001E00012345` | 🟢 Attivo | **€ 12,40 / mese** |
-    | 2 | **Laura Ferretti** | 🔵 Consumer | `IT001E00067890` | 🟡 In Attesa GSE | — |
+    | 2 | **Laura Ferretti** | 🔵 Consumer | `IT001E00067890` | 🟡 In Attesa GSE |**€ 12,40 / mese** |
     | 3 | **Giovanni Mazza** | 🔵 Consumer | `IT001E00054321` | 🟢 Attivo | **€ 8,90 / mese** |
     | 4 | **Sofia Gentile** | 🟠 Prosumer | `IT001E00098765` | 🟢 Attivo | **€ 34,20 / mese** |
-    | 5 | **Azienda Sole Srl** | 🟢 Producer | `IT001E00011111` | 🔴 Offline | — |
+    | 5 | **Azienda Sole Srl** | 🟢 Producer | `IT001E00011111` | 🔴 Offline | **€ 12,40 / mese** |
 
 *   **UX Flow & Risultato:**
     *   La griglia si adatta responsivamente (1 colonna su mobile, 2 su tablet, 3 su desktop).
@@ -64,6 +78,18 @@ L'amministratore (Gestore PA d'Ente) supervisiona il network. Il suo scopo non �
     *   Chip-filter per ruolo (Tutti / Consumer / Prosumer / Producer) con counter aggiornato.
     *   Hover sulla card: leggera elevazione con ombra e reveal del bottone \"Vedi Dettaglio\".
     *   Click sulla card (o sul pulsante): navigazione al dettaglio consumi/anagrafica del membro.
+
+## UC-G03.1: Dettaglio Membro e Profilo Energetico
+*   **Trigger**: L'admin clicca su una card membro nella vista Comunità.
+*   **Azione Utente**: Visualizza i dettagli tecnici ed energetici di un singolo nodo della CER.
+*   **Contenuti della Pagina**:
+    *   **Header**: Nome del membro, badge ruolo, stato (Live dot) e pulsante per tornare alla lista.
+    *   **Sezione Anagrafica**: Riepilogo dati (POD, Indirizzo, Email, Data adesione, Tipologia utenza).
+    *   **Sezione Analisi Energetica**:
+        *   **KPI Real-time**: Focus su Consumo Attuale, Produzione (se Producer/Prosumer) e Incentivo maturato nel mese.
+        *   **Grafico Andamento**: Visualizzazione temporale dei flussi energetici del singolo membro per identificare picchi o anomalie.
+    *   **Azioni Rapide**: Pulsanti per contattare il membro o scaricare un report energetico individuale (PDF).
+*   **Risultato**: L'admin ha una visione granulare del comportamento del singolo membro, utile per attività di auditing o supporto tecnico.
 
 ## UC-G04: Monitoraggio e Configurazione Incentivi (Tab View)
 Questo modulo è il "cuore economico" della piattaforma e si divide in due sezioni principali tramite tab:

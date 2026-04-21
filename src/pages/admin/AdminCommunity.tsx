@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { Users, Search, Plus, MapPin, Zap, Sun, Clock, Cpu, Wifi, WifiOff, ArrowRight, LayoutDashboard, Euro } from 'lucide-react'
 
 // ─────────────────────────────────────────────
@@ -131,6 +132,7 @@ type RoleFilter = 'Tutti' | 'Consumer' | 'Prosumer' | 'Producer'
 // Componente
 // ─────────────────────────────────────────────
 export default function AdminCommunity() {
+  const navigate = useNavigate()
   const [searchTerm, setSearchTerm] = useState('')
   const [activeFilter, setActiveFilter] = useState<RoleFilter>('Tutti')
 
@@ -221,7 +223,7 @@ export default function AdminCommunity() {
               <div
                 key={member.id}
                 className={`group relative bg-white rounded-2xl border border-zinc-100 border-t-4 ${rc.topBorder} shadow-[0_2px_16px_rgb(0,0,0,0.05)] hover:shadow-[0_8px_32px_rgb(0,0,0,0.10)] hover:-translate-y-1 transition-all duration-300 overflow-hidden cursor-pointer`}
-                onClick={() => alert(`Apertura dettaglio consumi per: ${member.name}`)}
+                onClick={() => navigate(`/admin/community/${member.id}`)}
               >
                 {/* Glassmorphism hover glow */}
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none bg-gradient-to-br from-indigo-50/40 to-transparent" />
@@ -311,7 +313,7 @@ export default function AdminCommunity() {
                     </span>
                     <button
                       className="inline-flex items-center gap-1 text-xs font-semibold text-indigo-600 hover:text-indigo-800 transition-colors group/btn"
-                      onClick={(e) => { e.stopPropagation(); alert(`Apertura dettaglio consumi per: ${member.name}`) }}
+                      onClick={(e) => { e.stopPropagation(); navigate(`/admin/community/${member.id}`) }}
                     >
                       Vedi Dettaglio
                       <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover/btn:translate-x-0.5" />
