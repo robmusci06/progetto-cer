@@ -11,11 +11,21 @@ La sidebar è il centro di controllo dell'amministratore. Di seguito il dettagli
 *   **Pannello Rapido Membri**: Sidebar contestuale a destra che elenca i membri attivi/offline con stato in tempo reale.
 *   **Grafico Settimanale**: Visualizzazione comparativa di Produzione, Prelievo e Autoconsumo.
 *   **Meteo & Previsioni (Consumo Consapevole)**: Pannello interattivo con timeline oraria delle previsioni, irradianza e indicatore qualitativo della produzione (es. "Ottimale" con smiley) per guidare l'autoconsumo.
+*   **Grafico Flussi Energetici (Real-time Flow Diagram)**: Visualizzazione a nodi e frecce dei flussi energetici istantanei dell'intera CER. Posizionato in fondo alla Dashboard, offre una lettura immediata e visiva della situazione energetica aggregata in tempo reale.
+    *   **Nodi principali**: Prodotta (totale impianti FV), Accumulo (batterie), Consumata (carico aggregato community), Rete (rete elettrica pubblica).
+    *   **Flussi visualizzati con frecce direzionali e colori semantici**:
+        *   🟡 **Immessa in Rete** (kW): quota di energia prodotta in eccesso rispetto al consumo, ceduta alla rete.
+        *   🔴 **Prelevata dalla Rete** (kW): energia aggiuntiva assorbita dalla rete per soddisfare la domanda.
+        *   🔵 **Autoconsumata** (kW): energia prodotta usata direttamente dai prosumer/producer.
+        *   🟢 **Autoconsumata Virtualmente** (kW): quota di produzione condivisa con i consumer della CER tramite il meccanismo di autoconsumo virtuale GSE.
+    *   **Timestamp**: indica l'orario dell'ultimo aggiornamento dei dati (es. "Ultimo aggiornamento: 05/08/2023 16:00:00").
 
 ### ⚡ CER (Gestione & Configurazione)
-Questa sezione accorpa tutti i parametri tecnici ed economici della comunità, organizzata tramite una navigazione a tab o moduli:
-*   **Dati e Parametri CER**: Configurazione dell'ID CER, area geografica e parametri tecnici depositati presso il GSE.
-*   **Gestione Impianto**: Monitoraggio dei nodi di produzione (fotovoltaico, eolico, accumulo) e stato degli inverter comunitari.
+Questa sezione accorpa tutti i parametri tecnici ed economici della comunità, organizzata tramite una navigazione a 2 tab principali:
+*   **Dati Generali**: 
+    * Configurazione dell'anagrafica della CER (Nome, Indirizzo, Codice Fiscale, Codice Area, Note).
+    * Localizzazione geografica tramite Mappa interattiva.
+    * Monitoraggio Asset e POD Collegati: Stato dell'unico impianto fotovoltaico (54kW) e dei 5 POD associati ai membri (1 Producer, 1 Prosumer, 3 Consumer).
 *   **Ripartizione Incentivi**:
     *   **Regole di Ripartizione**: Configurazione delle percentuali di asset allocation (Producer, Consumer, Ente).
     *   **Ripartizione per Membro**: Visualizzazione dell'incentivo spettante a ogni singolo partecipante in base all'autoconsumo virtuale generato.

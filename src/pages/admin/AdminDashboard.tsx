@@ -55,94 +55,7 @@ export default function AdminDashboard() {
         </div>
       </div>
 
-      {/* ── Meteo & Previsioni ── */}
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 animate-in fade-in slide-in-from-top-2 duration-500">
 
-        {/* Card: Meteo Corrente */}
-        <div className="bg-gradient-to-br from-sky-500 to-indigo-600 rounded-2xl p-4 text-white shadow-lg relative overflow-hidden">
-          <div className="absolute -top-6 -right-6 w-32 h-32 bg-white/5 rounded-full" />
-          <div className="absolute -bottom-8 -left-8 w-40 h-40 bg-white/5 rounded-full" />
-          <div className="relative z-10">
-            <p className="text-[10px] font-semibold uppercase tracking-widest text-sky-100/80 mb-2">Meteo · Matera</p>
-            <div className="flex items-center gap-3 mb-3">
-              <WeatherIcon type="sunny" size="lg" />
-              <div>
-                <p className="text-4xl font-bold tracking-tight">16.1°</p>
-                <p className="text-xs text-sky-100 mt-0.5">Soleggiato</p>
-              </div>
-            </div>
-            <div className="grid grid-cols-2 gap-2 pt-3 border-t border-white/20">
-              <div className="flex items-center gap-1.5 text-xs">
-                <Wind className="w-3 h-3 text-sky-200" />
-                <span className="text-sky-100">Nuvolosità: <strong className="text-white">0%</strong></span>
-              </div>
-              <div className="flex items-center gap-1.5 text-xs">
-                <Thermometer className="w-3 h-3 text-sky-200" />
-                <span className="text-sky-100">Irradianza: <strong className="text-white">327 W/m²</strong></span>
-              </div>
-            </div>
-            <div className="mt-3 flex justify-center">
-              <span className="inline-flex items-center gap-1.5 bg-emerald-400/20 border border-emerald-300/30 text-emerald-100 text-xs font-bold px-3 py-1 rounded-full">
-                😊 Produzione Ottimale
-              </span>
-            </div>
-          </div>
-        </div>
-
-        {/* Card: Timeline Previsioni Orarie */}
-        <div className="lg:col-span-3 bg-white rounded-2xl p-4 shadow-sm border border-zinc-200">
-          <div className="flex items-center justify-between mb-3">
-            <h3 className="text-xs font-bold text-zinc-900 flex items-center gap-1.5">
-              <Sun className="w-3.5 h-3.5 text-amber-400" /> Previsioni di Oggi · Matera
-            </h3>
-            <span className="text-[10px] text-zinc-400">Irradianza (W/m²)</span>
-          </div>
-
-          {/* Timeline */}
-          <div className="flex justify-between items-end w-full">
-            {hourlyForecast.map((h) => {
-              const irrRatio = h.irr / 720
-              const isPeak = h.irr >= 600
-              return (
-                <div
-                  key={h.time}
-                  className={`flex flex-col items-center gap-1 py-2 px-1 rounded-lg transition-all cursor-default flex-1 ${isPeak ? 'bg-amber-50 border border-amber-200' : 'hover:bg-zinc-50'}`}
-                >
-                  <span className="text-[9px] font-semibold text-zinc-400 whitespace-nowrap">{h.time}</span>
-                  <WeatherIcon type={h.icon} />
-                  <span className="text-[11px] font-bold text-zinc-800">{h.temp}°</span>
-                  <div className="h-5 w-2 bg-zinc-100 rounded-full overflow-hidden flex items-end">
-                    <div
-                      className="w-full rounded-full transition-all"
-                      style={{
-                        height: `${Math.max(irrRatio * 100, 4)}%`,
-                        background: irrRatio > 0.7 ? '#f59e0b' : irrRatio > 0.4 ? '#fbbf24' : '#e4e4e7',
-                      }}
-                    />
-                  </div>
-                  <span className={`text-[9px] font-bold ${isPeak ? 'text-amber-600' : 'text-zinc-400'}`}>{h.irr}</span>
-                </div>
-              )
-            })}
-          </div>
-
-          {/* Smart Tips */}
-          <div className="mt-3 pt-3 border-t border-zinc-100 flex flex-col gap-1.5">
-            <p className="text-[10px] font-bold text-zinc-500 uppercase tracking-wider flex items-center gap-1">
-              <Lightbulb className="w-3 h-3 text-amber-500" /> Smart Tips – Programmazione Carichi
-            </p>
-            {smartTips.map((tip, idx) => (
-              <div
-                key={idx}
-                className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-[11px] ${tip.highlight ? 'bg-amber-50 border border-amber-200' : 'bg-zinc-50 border border-zinc-100'}`}
-              >
-                <span className={`font-bold whitespace-nowrap ${tip.highlight ? 'text-amber-700' : 'text-zinc-500'}`}>{tip.time}</span>
-                <p className={tip.highlight ? 'text-amber-800' : 'text-zinc-600'}>{tip.tip}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
 
       {/* Riga 1: KPI 2x2 (sinistra) + Impatto Ambientale (destra) */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
@@ -317,6 +230,197 @@ export default function AdminDashboard() {
           <button className="w-full mt-4 py-2 border border-zinc-200 rounded-lg text-sm font-medium text-indigo-600 hover:bg-indigo-50 transition-colors">
             Vedi tutti i membri
           </button>
+        </div>
+      </div>
+
+      {/* ── Meteo & Previsioni ── */}
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 animate-in fade-in slide-in-from-top-2 duration-500 mb-6">
+
+        {/* Card: Meteo Corrente */}
+        <div className="bg-gradient-to-br from-sky-500 to-indigo-600 rounded-2xl p-4 text-white shadow-lg relative overflow-hidden">
+          <div className="absolute -top-6 -right-6 w-32 h-32 bg-white/5 rounded-full" />
+          <div className="absolute -bottom-8 -left-8 w-40 h-40 bg-white/5 rounded-full" />
+          <div className="relative z-10">
+            <p className="text-[10px] font-semibold uppercase tracking-widest text-sky-100/80 mb-2">Meteo · Matera</p>
+            <div className="flex items-center gap-3 mb-3">
+              <WeatherIcon type="sunny" size="lg" />
+              <div>
+                <p className="text-4xl font-bold tracking-tight">16.1°</p>
+                <p className="text-xs text-sky-100 mt-0.5">Soleggiato</p>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-2 pt-3 border-t border-white/20">
+              <div className="flex items-center gap-1.5 text-xs">
+                <Wind className="w-3 h-3 text-sky-200" />
+                <span className="text-sky-100">Nuvolosità: <strong className="text-white">0%</strong></span>
+              </div>
+              <div className="flex items-center gap-1.5 text-xs">
+                <Thermometer className="w-3 h-3 text-sky-200" />
+                <span className="text-sky-100">Irradianza: <strong className="text-white">327 W/m²</strong></span>
+              </div>
+            </div>
+            <div className="mt-3 flex justify-center">
+              <span className="inline-flex items-center gap-1.5 bg-emerald-400/20 border border-emerald-300/30 text-emerald-100 text-xs font-bold px-3 py-1 rounded-full">
+                😊 Produzione Ottimale
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* Card: Timeline Previsioni Orarie */}
+        <div className="lg:col-span-3 bg-white rounded-2xl p-4 shadow-sm border border-zinc-200">
+          <div className="flex items-center justify-between mb-3">
+            <h3 className="text-xs font-bold text-zinc-900 flex items-center gap-1.5">
+              <Sun className="w-3.5 h-3.5 text-amber-400" /> Previsioni di Oggi · Matera
+            </h3>
+            <span className="text-[10px] text-zinc-400">Irradianza (W/m²)</span>
+          </div>
+
+          {/* Timeline */}
+          <div className="flex justify-between items-end w-full">
+            {hourlyForecast.map((h) => {
+              const irrRatio = h.irr / 720
+              const isPeak = h.irr >= 600
+              return (
+                <div
+                  key={h.time}
+                  className={`flex flex-col items-center gap-1 py-2 px-1 rounded-lg transition-all cursor-default flex-1 ${isPeak ? 'bg-amber-50 border border-amber-200' : 'hover:bg-zinc-50'}`}
+                >
+                  <span className="text-[9px] font-semibold text-zinc-400 whitespace-nowrap">{h.time}</span>
+                  <WeatherIcon type={h.icon} />
+                  <span className="text-[11px] font-bold text-zinc-800">{h.temp}°</span>
+                  <div className="h-5 w-2 bg-zinc-100 rounded-full overflow-hidden flex items-end">
+                    <div
+                      className="w-full rounded-full transition-all"
+                      style={{
+                        height: `${Math.max(irrRatio * 100, 4)}%`,
+                        background: irrRatio > 0.7 ? '#f59e0b' : irrRatio > 0.4 ? '#fbbf24' : '#e4e4e7',
+                      }}
+                    />
+                  </div>
+                  <span className={`text-[9px] font-bold ${isPeak ? 'text-amber-600' : 'text-zinc-400'}`}>{h.irr}</span>
+                </div>
+              )
+            })}
+          </div>
+
+          {/* Smart Tips */}
+          <div className="mt-3 pt-3 border-t border-zinc-100 flex flex-col gap-1.5">
+            <p className="text-[10px] font-bold text-zinc-500 uppercase tracking-wider flex items-center gap-1">
+              <Lightbulb className="w-3 h-3 text-amber-500" /> Smart Tips – Programmazione Carichi
+            </p>
+            {smartTips.map((tip, idx) => (
+              <div
+                key={idx}
+                className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-[11px] ${tip.highlight ? 'bg-amber-50 border border-amber-200' : 'bg-zinc-50 border border-zinc-100'}`}
+              >
+                <span className={`font-bold whitespace-nowrap ${tip.highlight ? 'text-amber-700' : 'text-zinc-500'}`}>{tip.time}</span>
+                <p className={tip.highlight ? 'text-amber-800' : 'text-zinc-600'}>{tip.tip}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* ── Flussi Energetici Real-time ── */}
+      <div className="bg-white rounded-2xl p-6 shadow-sm border border-zinc-200 animate-in fade-in duration-500">
+        <div className="mb-10">
+          <h3 className="text-xl font-bold text-zinc-900">Ultimi flussi rilevati</h3>
+          <p className="text-xs text-zinc-400 mt-0.5 font-medium tracking-tight">Ultimo aggiornamento: Oggi, 14:30:00</p>
+        </div>
+
+        {/* Flow Diagram */}
+        <div className="relative w-full" style={{ height: '320px' }}>
+          <svg className="absolute inset-0 w-full h-full" viewBox="0 0 900 320" preserveAspectRatio="xMidYMid meet">
+            <defs>
+              <style>{`
+                @keyframes dash-flow { to { stroke-dashoffset: -24; } }
+                @keyframes dash-flow-rev { to { stroke-dashoffset: 24; } }
+                .flow-yellow { animation: dash-flow 0.8s linear infinite; }
+                .flow-red    { animation: dash-flow-rev 0.8s linear infinite; }
+                .flow-blue   { animation: dash-flow 0.8s linear infinite; }
+              `}</style>
+              <marker id="arrow-yellow" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto">
+                <path d="M0,0 L7,3.5 L0,7 Z" fill="#eab308" />
+              </marker>
+              <marker id="arrow-red" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto">
+                <path d="M0,0 L7,3.5 L0,7 Z" fill="#ef4444" />
+              </marker>
+              <marker id="arrow-blue" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto">
+                <path d="M0,0 L7,3.5 L0,7 Z" fill="#3b82f6" />
+              </marker>
+            </defs>
+
+            {/* === LINEE DI FLUSSO === */}
+
+            {/* 🟡 Immessa in rete: Arco alto di giunzione tra Prodotta e Rete */}
+            <path
+              d="M 120,70 L 120,38 L 780,38 L 780,70"
+              fill="none" stroke="#eab308" strokeWidth="2"
+              strokeDasharray="8 6" className="flow-yellow"
+              markerEnd="url(#arrow-yellow)"
+            />
+
+            {/* 🔵 Autoconsumata: Dal basso di prodotta verso Consumata */}
+            <path
+              d="M 120,185 L 120,245 L 398,245"
+              fill="none" stroke="#3b82f6" strokeWidth="2"
+              strokeDasharray="8 6" className="flow-blue"
+              markerEnd="url(#arrow-blue)"
+            />
+
+            {/* 🔴 Prelevata: Dal nodo Rete verso Consumata (abbassata leggermente) */}
+            <path
+              d="M 725,140 L 515,245"
+              fill="none" stroke="#ef4444" strokeWidth="2"
+              strokeDasharray="8 6" className="flow-red"
+              markerEnd="url(#arrow-red)"
+            />
+
+            {/* === VALORI E ETICHETTE (kW) === */}
+
+            {/* Immessa in Rete (Centro-Top) */}
+            <text x="450" y="22" textAnchor="middle" fontSize="15" fontWeight="800" fill="#ca8a04">18.28 kW</text>
+            <text x="450" y="34" textAnchor="middle" fontSize="10" fontWeight="600" fill="#a16207">Immessa in rete</text>
+
+            {/* Autoconsumata (Basso-Sinistra) */}
+            <text x="260" y="215" textAnchor="middle" fontSize="14" fontWeight="800" fill="#1d4ed8">6.26 kW</text>
+            <text x="260" y="228" textAnchor="middle" fontSize="10" fontWeight="600" fill="#3b82f6">Autoconsumata</text>
+
+            {/* Prelevata (Destra) — Spostata più in ALTO per evitare la freccia */}
+            <text x="680" y="125" textAnchor="middle" fontSize="14" fontWeight="800" fill="#dc2626">22.34 kW</text>
+            <text x="680" y="137" textAnchor="middle" fontSize="10" fontWeight="600" fill="#ef4444">Prelevata</text>
+
+            {/* Autoconsumo Virtuale (Dettaglio Prelevata) — Spostata decisamente in GIÙ per stare sotto la freccia */}
+            <text x="680" y="200" textAnchor="middle" fontSize="10" fontStyle="italic" fontWeight="700" fill="#22c55e">di cui</text>
+            <text x="680" y="213" textAnchor="middle" fontSize="13" fontWeight="800" fill="#16a34a">18.28 kW</text>
+            <text x="680" y="225" textAnchor="middle" fontSize="10" fontWeight="600" fill="#22c55e">Autoconsumata virt.</text>
+
+            {/* === NODI (Disposti su due livelli) === */}
+
+            {/* Prodotta (Sinistra) */}
+            <circle cx="120" cy="128" r="55" fill="white" stroke="#93c5fd" strokeWidth="2.5" />
+            <text x="120" y="115" textAnchor="middle" fontSize="14">☀️</text>
+            <text x="120" y="132" textAnchor="middle" fontSize="16" fontWeight="900" fill="#1d4ed8">24.54 kW</text>
+            <text x="120" y="148" textAnchor="middle" fontSize="10" fontWeight="700" fill="#6b7280">Prodotta</text>
+
+            {/* Accumulo (Al centro tra Prodotta e Rete) */}
+            <circle cx="300" cy="128" r="42" fill="white" stroke="#d1d5db" strokeWidth="2" />
+            <text x="300" y="118" textAnchor="middle" fontSize="13">🔋</text>
+            <text x="300" y="136" textAnchor="middle" fontSize="16" fontWeight="900" fill="#6b7280">0 kW</text>
+            <text x="300" y="152" textAnchor="middle" fontSize="10" fontWeight="700" fill="#9ca3af">Accumulo</text>
+
+            {/* Rete (Destra) */}
+            <circle cx="780" cy="128" r="55" fill="white" stroke="#fde047" strokeWidth="2.5" />
+            <text x="780" y="115" textAnchor="middle" fontSize="18">⚡</text>
+            <text x="780" y="138" textAnchor="middle" fontSize="11" fontWeight="700" fill="#9ca3af">Rete</text>
+
+            {/* Consumata (In basso al centro) */}
+            <circle cx="450" cy="245" r="52" fill="white" stroke="#fca5a5" strokeWidth="2.5" />
+            <text x="450" y="232" textAnchor="middle" fontSize="14">🏘️</text>
+            <text x="450" y="250" textAnchor="middle" fontSize="17" fontWeight="900" fill="#dc2626">28.6 kW</text>
+            <text x="450" y="265" textAnchor="middle" fontSize="10" fontWeight="700" fill="#9ca3af">Consumata</text>
+          </svg>
         </div>
       </div>
     </div>

@@ -33,6 +33,9 @@ L'amministratore (Gestore PA d'Ente) supervisiona il network. Il suo scopo non �
     *   **Cluster Efficienza e Sincronismo:**
         *   *Indice di Sincronismo (%):* Indica la quota di energia prodotta che viene consumata istantaneamente all'interno della CER. Se scende (es. sotto il 50%), il gestore sa che deve stimolare i membri a spostare i propri carichi.
         *   *Energia "Sprecata" (Immessa senza incentivo):* Quota di energia finita in rete in esubero. Identifica il margine di miglioramento potenziale per la comunità.
+    *   **Grafico Flussi Energetici (Real-time Flow):**
+        *   Visualizzazione a nodi (Prodotta, Accumulo, Consumata, Rete) con frecce animate che rappresentano i flussi istantanei di kW.
+        *   Consente di distinguere visivamente tra Autoconsumo fisico e Autoconsumo Virtuale.
     *   **Cluster Meteo & Programmazione (Consumo Consapevole):**
         *   *Widget Meteo Real-time:* Visualizzazione di Temperatura, Stato (Soleggiato/Piovoso), Nuvolosità (%) e Irradianza (W/m²).
         *   *Timeline Previsioni di Oggi:* Un grafico orario (es. 07:00 - 19:00) che mostra l'evoluzione attesa del tempo, delle temperature, dell'irradianza e della nuvolosità.
@@ -91,14 +94,19 @@ L'amministratore (Gestore PA d'Ente) supervisiona il network. Il suo scopo non �
     *   **Azioni Rapide**: Pulsanti per contattare il membro o scaricare un report energetico individuale (PDF).
 *   **Risultato**: L'admin ha una visione granulare del comportamento del singolo membro, utile per attività di auditing o supporto tecnico.
 
-## UC-G04: Monitoraggio e Configurazione Incentivi (Tab View)
-Questo modulo è il "cuore economico" della piattaforma e si divide in due sezioni principali tramite tab:
-*   **Tab A: Andamento Incentivi (Trend):**
-    * Azione: Visualizza grafici storici sull'accumulo del fondo incentivi.
-    * Risultato: Visualizzazione del fondo maturato (es. 1.250,00 €) con proiezioni basate sul sincronismo attuale.
-*   **Tab B: Configurazione Ripartizione (Asset Allocation):**
-    * Azione: L'admin regola le percentuali di ripartizione (es. 50% Prosumer, 30% Consumer, 20% Fondo Comune).
-    * UX Flow: Utilizzo di Slider interattivi. Muovendo uno slider, gli altri si adattano automaticamente per mantenere il totale al 100%. Richiede conferma tramite pulsante "Salva Modifiche" con feedback visivo di successo.
+## UC-G04: Gestione Integrata CER (Tecnica & Economica)
+*   **Trigger:** L'amministratore deve configurare i parametri legali o monitorare lo stato fisico degli impianti e la ripartizione economica.
+*   **Azione Utente:** Naviga nella sezione "CER", organizzata in 2 tabulati principali:
+*   **Tab e Funzionalità:**
+    1.  **Dati Generali:**
+        *   **Header Informativo:** Visualizzazione immediata di Nome, Potenza installata, Numero di Membri, e Località. 
+        *   **Mappa:** Visualizzazione interattiva della localizzazione della comunità.
+        *   **Anagrafica Tecnica:** Form per Nome CER, Codice Area, Codice Fiscale, Indirizzo e Note libere (il caricamento documentale è rimosso in favore di maggiori campi descrittivi).
+        *   **Asset e POD Collegati:** Visualizzazione dello stato dell'unico impianto di produzione (Fotovoltaico 54kW) e dei 5 POD associati ai membri (1 Producer, 1 Prosumer, 3 Consumer) con indicatori real-time.
+    2.  **Ripartizione Incentivi (Financial Rules):**
+        *   **Configurazione Ripartizione:** L'admin regola le percentuali di asset allocation tramite slider interattivi (es. 50% Prosumer, 30% Consumer, 20% Fondo Comune).
+        *   **Ripartizione per Membro:** Elenco analitico che mostra come il "tesoretto" di incentivi maturati viene diviso tra i membri in base al loro apporto al sincronismo.
+*   **UX Flow & Risultato:** Interfaccia a 2 Tab. La Tab Dati Generali combina configurazione anagrafica e monitoraggio hardware, fornendo una dashboard verticale unificata.
 
 ## UC-G05: Supervisione Gamification e Premiazione
 *   **Trigger:** Fine mese, bilancio dei Punti Sostenibilità.
