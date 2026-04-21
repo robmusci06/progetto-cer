@@ -165,18 +165,26 @@ export default function AdminDashboard() {
 
           <div className="space-y-4 flex-1">
             {[
-              { id: 'MEM-001', name: 'Mario Rossi', role: 'Consumer', status: 'Attivo', color: 'bg-emerald-500' },
-              { id: 'MEM-002', name: 'Azienda X', role: 'Prosumer', status: 'Attivo', color: 'bg-emerald-500' },
-              { id: 'MEM-003', name: 'Luca Verdi', role: 'Producer', status: 'Offline', color: 'bg-rose-500' },
-              { id: 'MEM-004', name: 'Anna Neri', role: 'Consumer', status: 'In Attesa', color: 'bg-amber-500' },
-              { id: 'MEM-005', name: 'Condominio Sole', role: 'Prosumer', status: 'Attivo', color: 'bg-emerald-500' },
+              { id: 'MEM-001', name: 'Marco Bianchi', role: 'Consumer', status: 'Attivo', color: 'bg-emerald-500', incentive: '€ 12,40' },
+              { id: 'MEM-002', name: 'Laura Ferretti', role: 'Consumer', status: 'In Attesa', color: 'bg-amber-500', incentive: null },
+              { id: 'MEM-003', name: 'Giovanni Mazza', role: 'Consumer', status: 'Attivo', color: 'bg-emerald-500', incentive: '€ 8,90' },
+              { id: 'MEM-004', name: 'Sofia Gentile', role: 'Prosumer', status: 'Attivo', color: 'bg-emerald-500', incentive: '€ 34,20' },
+              { id: 'MEM-005', name: 'Azienda Sole Srl', role: 'Producer', status: 'Offline', color: 'bg-rose-500', incentive: null },
             ].map(member => (
               <div key={member.id} className="flex items-center justify-between p-3 hover:bg-zinc-50 rounded-xl transition-colors border border-transparent hover:border-zinc-100 cursor-default">
                 <div className="flex items-center gap-3">
                   <div className={`w-2.5 h-2.5 rounded-full ${member.color} flex-shrink-0`} />
                   <div className="min-w-0">
                     <p className="font-semibold text-zinc-900 text-sm truncate">{member.name}</p>
-                    <p className="text-xs text-zinc-500 truncate">{member.role}</p>
+                    <div className="flex items-center gap-2">
+                      <p className="text-xs text-zinc-500 truncate">{member.role}</p>
+                      {member.incentive && (
+                        <>
+                          <span className="text-zinc-300">•</span>
+                          <p className="text-xs font-bold text-emerald-600">{member.incentive}</p>
+                        </>
+                      )}
+                    </div>
                   </div>
                 </div>
                 <div className="text-xs font-medium text-zinc-700 whitespace-nowrap bg-zinc-100 px-2.5 py-1 rounded-md ml-3">

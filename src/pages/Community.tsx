@@ -1,36 +1,158 @@
-import { Card, CardContent } from "@/components/ui/card"
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { LayoutDashboard, LogOut, Settings, Users, Zap, BarChart3, Bell, Search, Plus, MoreVertical, MapPin, Sun, UserCheck, ArrowUpRight } from "lucide-react"
+import {
+  LayoutDashboard, LogOut, Settings, Users, Zap, BarChart3, Bell,
+  Search, Plus, MapPin, Sun, UserCheck, ArrowUpRight, ArrowRight,
+  Wifi, WifiOff, Clock, Cpu
+} from "lucide-react"
 
+// ──────────────────────────────────────────────
+// Dati membri (UC-G03: 3 Consumer, 1 Prosumer, 1 Producer)
+// ──────────────────────────────────────────────
 const members = [
-  { id: 1, name: "Mario Rossi", role: "Prosumer", type: "Residenziale", power: "4.5 kWp", status: "Attivo", location: "Via Roma, 12" },
-  { id: 2, name: "Azienda Agricola Verdi", role: "Producer", type: "Impresa", power: "25.0 kWp", status: "Attivo", location: "Strada Prov. 4" },
-  { id: 3, name: "Condominio Fiori", role: "Consumer", type: "Condominio", power: "-", status: "Attivo", location: "Via Milano, 45" },
-  { id: 4, name: "Luigi Bianchi", role: "Consumer", type: "Residenziale", power: "-", status: "In Attesa", location: "Piazza Garibaldi, 2" },
-  { id: 5, name: "Scuola Elementare", role: "Consumer", type: "PA", power: "-", status: "Attivo", location: "Via Dante, 8" },
+  {
+    id: 1,
+    name: "Marco Bianchi",
+    role: "Consumer" as const,
+    type: "Residenziale",
+    pod: "IT001E00012345",
+    status: "Attivo" as const,
+    location: "Via Roma, 12",
+    lastUpdate: "Oggi, 09:42",
+    consumption: "3.2 kWh",
+  },
+  {
+    id: 2,
+    name: "Laura Ferretti",
+    role: "Consumer" as const,
+    type: "Residenziale",
+    pod: "IT001E00067890",
+    status: "In Attesa GSE" as const,
+    location: "Corso Italia, 5",
+    lastUpdate: "Ieri, 23:59",
+    consumption: "1.8 kWh",
+  },
+  {
+    id: 3,
+    name: "Giovanni Mazza",
+    role: "Consumer" as const,
+    type: "Condominio",
+    pod: "IT001E00054321",
+    status: "Attivo" as const,
+    location: "Via Dante, 8",
+    lastUpdate: "Oggi, 08:15",
+    consumption: "5.7 kWh",
+  },
+  {
+    id: 4,
+    name: "Sofia Gentile",
+    role: "Prosumer" as const,
+    type: "Residenziale",
+    pod: "IT001E00098765",
+    status: "Attivo" as const,
+    location: "Piazza Garibaldi, 2",
+    lastUpdate: "Oggi, 10:01",
+    consumption: "2.1 kWh",
+  },
+  {
+    id: 5,
+    name: "Azienda Sole Srl",
+    role: "Producer" as const,
+    type: "Impresa",
+    pod: "IT001E00011111",
+    status: "Offline" as const,
+    location: "Strada Prov. 4",
+    lastUpdate: "3 giorni fa",
+    consumption: "—",
+  },
 ]
 
+// ──────────────────────────────────────────────
+// Costanti di stile per ruolo e stato
+// ──────────────────────────────────────────────
+const roleConfig = {
+  Consumer: {
+    badge: "bg-blue-100 text-blue-700 border border-blue-200",
+    avatar: "bg-blue-500",
+    border: "border-t-blue-400",
+    icon: <Users className="h-3 w-3 mr-1" />,
+  },
+  Prosumer: {
+    badge: "bg-orange-100 text-orange-700 border border-orange-200",
+    avatar: "bg-orange-500",
+    border: "border-t-orange-400",
+    icon: <Zap className="h-3 w-3 mr-1" />,
+  },
+  Producer: {
+    badge: "bg-emerald-100 text-emerald-700 border border-emerald-200",
+    avatar: "bg-emerald-500",
+    border: "border-t-emerald-400",
+    icon: <Sun className="h-3 w-3 mr-1" />,
+  },
+}
+
+const statusConfig = {
+  Attivo: {
+    dot: "bg-emerald-500",
+    text: "text-emerald-700",
+    bg: "bg-emerald-50",
+    icon: <Wifi className="h-3 w-3" />,
+  },
+  "In Attesa GSE": {
+    dot: "bg-amber-400",
+    text: "text-amber-700",
+    bg: "bg-amber-50",
+    icon: <Clock className="h-3 w-3" />,
+  },
+  Offline: {
+    dot: "bg-rose-500",
+    text: "text-rose-700",
+    bg: "bg-rose-50",
+    icon: <WifiOff className="h-3 w-3" />,
+  },
+}
+
+type RoleFilter = "Tutti" | "Consumer" | "Prosumer" | "Producer"
+
+// ──────────────────────────────────────────────
+// Component
+// ──────────────────────────────────────────────
 export default function Community() {
+  const [search, setSearch] = useState("")
+  const [activeFilter, setActiveFilter] = useState<RoleFilter>("Tutti")
+
+  const filtered = members.filter((m) => {
+    const matchRole = activeFilter === "Tutti" || m.role === activeFilter
+    const q = search.toLowerCase()
+    const matchSearch =
+      m.name.toLowerCase().includes(q) ||
+      m.pod.toLowerCase().includes(q) ||
+      m.role.toLowerCase().includes(q)
+    return matchRole && matchSearch
+  })
+
+  const countByRole = (role: string) => members.filter((m) => m.role === role).length
+
   return (
     <div className="flex min-h-screen bg-zinc-50 font-sans">
-      {/* Sidebar */}
+      {/* ── Sidebar ── */}
       <aside className="w-64 bg-zinc-950 text-zinc-400 flex flex-col transition-all duration-300">
         <div className="p-6 flex items-center gap-3 text-white">
           <div className="h-8 w-8 rounded-lg bg-gradient-to-tr from-indigo-500 to-cyan-400 flex items-center justify-center p-[1px]">
-             <div className="h-full w-full bg-zinc-950 rounded-[7px] flex items-center justify-center">
-                <span className="font-bold text-xs">B</span>
-             </div>
+            <div className="h-full w-full bg-zinc-950 rounded-[7px] flex items-center justify-center">
+              <span className="font-bold text-xs">B</span>
+            </div>
           </div>
           <span className="font-semibold tracking-wide">Admin Brilla</span>
         </div>
-        
+
         <nav className="flex-1 px-4 space-y-2 mt-4">
           <a href="/dashboard" className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-zinc-900 hover:text-zinc-100 transition-colors">
             <LayoutDashboard className="h-5 w-5" />
             <span className="font-medium">Dashboard</span>
           </a>
-          <a href="/community" className="flex items-center gap-3 px-3 py-2 rounded-lg bg-indigo-500/10 text-indigo-500 transition-colors">
+          <a href="/community" className="flex items-center gap-3 px-3 py-2 rounded-lg bg-indigo-500/10 text-indigo-400 transition-colors">
             <Users className="h-5 w-5" />
             <span className="font-medium">Comunità (CER)</span>
           </a>
@@ -47,196 +169,201 @@ export default function Community() {
             <span className="font-medium">Impostazioni</span>
           </a>
         </nav>
-        
+
         <div className="p-4 mt-auto">
-           <button onClick={() => window.location.href = '/'} className="flex items-center gap-3 px-3 py-2 w-full rounded-lg hover:bg-zinc-900 hover:text-zinc-100 transition-colors text-left">
-             <LogOut className="h-5 w-5" />
-             <span className="font-medium">Logout</span>
-           </button>
+          <button
+            onClick={() => (window.location.href = "/")}
+            className="flex items-center gap-3 px-3 py-2 w-full rounded-lg hover:bg-zinc-900 hover:text-zinc-100 transition-colors text-left"
+          >
+            <LogOut className="h-5 w-5" />
+            <span className="font-medium">Logout</span>
+          </button>
         </div>
       </aside>
 
-      {/* Main Content */}
+      {/* ── Main ── */}
       <main className="flex-1 flex flex-col overflow-hidden">
         {/* Top Header */}
         <header className="h-16 bg-white border-b border-zinc-200 flex items-center justify-between px-8 z-10 sticky top-0">
-           <div className="flex items-center w-96 relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-400" />
-              <Input placeholder="Cerca membri, POD o ruoli..." className="pl-10 bg-zinc-50 border-none focus-visible:ring-1 focus-visible:ring-zinc-300" />
-           </div>
-           
-           <div className="flex items-center gap-4">
-              <button className="relative p-2 text-zinc-400 hover:bg-zinc-100 rounded-full transition-colors">
-                 <Bell className="h-5 w-5" />
-              </button>
-              <div className="h-8 w-8 rounded-full bg-gradient-to-r from-indigo-400 to-cyan-400 flex items-center justify-center text-white font-medium text-sm shadow-sm cursor-pointer">
-                 A
-              </div>
-           </div>
+          <div className="flex items-center w-96 relative">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-400" />
+            <Input
+              placeholder="Cerca per nome, POD o ruolo..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="pl-10 bg-zinc-50 border-none focus-visible:ring-1 focus-visible:ring-zinc-300"
+            />
+          </div>
+          <div className="flex items-center gap-4">
+            <button className="relative p-2 text-zinc-400 hover:bg-zinc-100 rounded-full transition-colors">
+              <Bell className="h-5 w-5" />
+            </button>
+            <div className="h-8 w-8 rounded-full bg-gradient-to-r from-indigo-400 to-cyan-400 flex items-center justify-center text-white font-medium text-sm shadow-sm cursor-pointer">
+              A
+            </div>
+          </div>
         </header>
 
-        {/* Community Content */}
+        {/* ── Content ── */}
         <div className="flex-1 overflow-auto p-8">
-           <div className="flex justify-between items-end mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-             <div>
-               <h1 className="text-3xl font-bold tracking-tight text-zinc-900">Gestione Comunità</h1>
-               <p className="text-zinc-500 mt-1">Supervisiona i membri della CER e approva nuove richieste.</p>
-             </div>
-             <Button className="bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm transition-all h-10">
-               <Plus className="mr-2 h-4 w-4" /> Nuovo Membro
-             </Button>
-           </div>
-           
-           {/* Metric Cards */}
-           <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8 animate-in fade-in slide-in-from-bottom-6 duration-700 delay-100">
-              <Card className="border-none shadow-[0_2px_10px_rgb(0,0,0,0.04)]">
-                <CardContent className="p-6">
-                  <div className="flex justify-between items-start">
-                     <div>
-                        <p className="text-sm font-medium text-zinc-500">Totale Membri</p>
-                        <h3 className="text-3xl font-bold text-zinc-900 mt-2">5</h3>
-                     </div>
-                     <div className="h-10 w-10 rounded-full bg-indigo-50 flex items-center justify-center">
-                        <Users className="h-5 w-5 text-indigo-600" />
-                     </div>
-                  </div>
-                  <div className="mt-4 flex items-center text-sm">
-                     <span className="text-emerald-600 font-medium flex items-center"><ArrowUpRight className="h-3 w-3 mr-1"/> +12</span>
-                     <span className="text-zinc-400 ml-2">questo mese</span>
-                  </div>
-                </CardContent>
-              </Card>
 
-              <Card className="border-none shadow-[0_2px_10px_rgb(0,0,0,0.04)]">
-                <CardContent className="p-6">
-                  <div className="flex justify-between items-start">
-                     <div>
-                        <p className="text-sm font-medium text-zinc-500">Potenza Installata</p>
-                        <h3 className="text-3xl font-bold text-zinc-900 mt-2">142 kWp</h3>
-                     </div>
-                     <div className="h-10 w-10 rounded-full bg-amber-50 flex items-center justify-center">
-                        <Sun className="h-5 w-5 text-amber-600" />
-                     </div>
-                  </div>
-                  <div className="mt-4 flex items-center text-sm">
-                     <span className="text-emerald-600 font-medium flex items-center"><ArrowUpRight className="h-3 w-3 mr-1"/> +5.4 kWp</span>
-                     <span className="text-zinc-400 ml-2">questo mese</span>
-                  </div>
-                </CardContent>
-              </Card>
+          {/* Page Header */}
+          <div className="flex justify-between items-end mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+            <div>
+              <h1 className="text-3xl font-bold tracking-tight text-zinc-900">Gestione Comunità</h1>
+              <p className="text-zinc-500 mt-1">Supervisiona i membri della CER e approva nuove richieste.</p>
+            </div>
+            <Button className="bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm transition-all h-10">
+              <Plus className="mr-2 h-4 w-4" /> Nuovo Membro
+            </Button>
+          </div>
 
-              <Card className="border-none shadow-[0_2px_10px_rgb(0,0,0,0.04)]">
-                <CardContent className="p-6">
-                  <div className="flex justify-between items-start">
-                     <div>
-                        <p className="text-sm font-medium text-zinc-500">Richieste in Sospeso</p>
-                        <h3 className="text-3xl font-bold text-zinc-900 mt-2">8</h3>
-                     </div>
-                     <div className="h-10 w-10 rounded-full bg-rose-50 flex items-center justify-center">
-                        <UserCheck className="h-5 w-5 text-rose-600" />
-                     </div>
+          {/* KPI Strip */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 animate-in fade-in slide-in-from-bottom-6 duration-700 delay-100">
+            {[
+              { label: "Totale Membri", value: "5", sub: "+12 questo mese", icon: <Users className="h-5 w-5 text-indigo-600" />, bg: "bg-indigo-50", color: "text-emerald-600" },
+              { label: "Attivi", value: "3", sub: "60% del totale", icon: <Wifi className="h-5 w-5 text-emerald-600" />, bg: "bg-emerald-50", color: "text-emerald-600" },
+              { label: "In Attesa GSE", value: "1", sub: "Azione richiesta", icon: <UserCheck className="h-5 w-5 text-amber-600" />, bg: "bg-amber-50", color: "text-amber-600" },
+              { label: "Offline", value: "1", sub: "Ultimo contatto 3gg fa", icon: <WifiOff className="h-5 w-5 text-rose-600" />, bg: "bg-rose-50", color: "text-rose-600" },
+            ].map((kpi) => (
+              <div key={kpi.label} className="bg-white rounded-xl border border-zinc-100 p-5 shadow-[0_2px_10px_rgb(0,0,0,0.04)]">
+                <div className="flex justify-between items-start">
+                  <div>
+                    <p className="text-sm font-medium text-zinc-500">{kpi.label}</p>
+                    <p className="text-3xl font-bold text-zinc-900 mt-1">{kpi.value}</p>
                   </div>
-                  <div className="mt-4 flex items-center text-sm">
-                     <span className="text-rose-600 font-medium flex items-center">Azione richiesta</span>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card className="border-none shadow-[0_2px_10px_rgb(0,0,0,0.04)] border border-indigo-100 bg-gradient-to-br from-indigo-50 to-white">
-                <CardContent className="p-6">
-                  <div className="flex justify-between items-start">
-                     <div>
-                        <p className="text-sm font-medium text-indigo-600">Salute della CER</p>
-                        <h3 className="text-3xl font-bold text-indigo-900 mt-2">Eccellente</h3>
-                     </div>
-                     <div className="h-10 w-10 rounded-full bg-white shadow-sm flex items-center justify-center">
-                        <Zap className="h-5 w-5 text-indigo-600 fill-indigo-100" />
-                     </div>
-                  </div>
-                  <div className="mt-4 flex items-center text-sm">
-                     <span className="text-indigo-600 font-medium">85% Sincronismo Medio</span>
-                  </div>
-                </CardContent>
-              </Card>
-           </div>
-           
-           {/* Members List */}
-           <div className="bg-white rounded-xl shadow-[0_2px_10px_rgb(0,0,0,0.04)] border border-zinc-100 overflow-hidden animate-in fade-in slide-in-from-bottom-8 duration-700 delay-200">
-             <div className="px-6 py-4 border-b border-zinc-100 flex justify-between items-center bg-zinc-50/50">
-                <h3 className="font-semibold text-zinc-900">Elenco Membri</h3>
-                <div className="flex gap-2">
-                   <Button variant="outline" size="sm" className="h-8 text-xs bg-white">Filtra per Ruolo</Button>
-                   <Button variant="outline" size="sm" className="h-8 text-xs bg-white">Esporta CSV</Button>
+                  <div className={`h-10 w-10 rounded-full ${kpi.bg} flex items-center justify-center`}>{kpi.icon}</div>
                 </div>
-             </div>
-             <div className="overflow-x-auto">
-               <table className="w-full text-sm text-left">
-                  <thead className="text-xs text-zinc-500 bg-white border-b border-zinc-100">
-                     <tr>
-                        <th className="px-6 py-4 font-medium">Membro</th>
-                        <th className="px-6 py-4 font-medium">Ruolo</th>
-                        <th className="px-6 py-4 font-medium">Tipologia</th>
-                        <th className="px-6 py-4 font-medium">Potenza</th>
-                        <th className="px-6 py-4 font-medium">Stato</th>
-                        <th className="px-6 py-4 font-medium text-right">Azioni</th>
-                     </tr>
-                  </thead>
-                  <tbody>
-                     {members.map((member) => (
-                        <tr key={member.id} className="border-b border-zinc-50 hover:bg-zinc-50/50 transition-colors group">
-                           <td className="px-6 py-4">
-                              <div className="flex items-center gap-3">
-                                 <div className="h-9 w-9 rounded-full bg-zinc-100 flex items-center justify-center text-zinc-600 font-medium text-xs">
-                                    {member.name.substring(0,2).toUpperCase()}
-                                 </div>
-                                 <div>
-                                    <div className="font-medium text-zinc-900">{member.name}</div>
-                                    <div className="text-xs text-zinc-500 flex items-center mt-0.5"><MapPin className="h-3 w-3 mr-1 inline"/> {member.location}</div>
-                                 </div>
-                              </div>
-                           </td>
-                           <td className="px-6 py-4">
-                              <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                                 member.role === 'Prosumer' ? 'bg-indigo-50 text-indigo-700' :
-                                 member.role === 'Producer' ? 'bg-amber-50 text-amber-700' :
-                                 'bg-emerald-50 text-emerald-700'
-                              }`}>
-                                 {member.role === 'Prosumer' && <Zap className="h-3 w-3 mr-1" />}
-                                 {member.role === 'Producer' && <Sun className="h-3 w-3 mr-1" />}
-                                 {member.role === 'Consumer' && <Users className="h-3 w-3 mr-1" />}
-                                 {member.role}
-                              </span>
-                           </td>
-                           <td className="px-6 py-4 text-zinc-600">{member.type}</td>
-                           <td className="px-6 py-4 font-medium text-zinc-900">{member.power}</td>
-                           <td className="px-6 py-4">
-                              <div className="flex items-center">
-                                 <div className={`h-2 w-2 rounded-full mr-2 ${member.status === 'Attivo' ? 'bg-emerald-500' : 'bg-amber-500'}`}></div>
-                                 <span className={member.status === 'Attivo' ? 'text-zinc-700' : 'text-amber-600 font-medium'}>{member.status}</span>
-                              </div>
-                           </td>
-                           <td className="px-6 py-4 text-right">
-                              <Button variant="ghost" size="icon" className="h-8 w-8 text-zinc-400 opacity-0 group-hover:opacity-100 transition-opacity">
-                                 <MoreVertical className="h-4 w-4" />
-                              </Button>
-                           </td>
-                        </tr>
-                     ))}
-                  </tbody>
-               </table>
-             </div>
-             <div className="px-6 py-4 border-t border-zinc-100 flex items-center justify-between bg-zinc-50/50">
-               <span className="text-xs text-zinc-500">Mostrando 5 di 5 membri</span>
-               <div className="flex gap-1">
-                  <Button variant="outline" size="sm" className="h-8 px-2" disabled>Precedente</Button>
-                  <Button variant="outline" size="sm" className="h-8 px-2 bg-indigo-50 text-indigo-600 border-indigo-100">1</Button>
-                  <Button variant="outline" size="sm" className="h-8 px-2">2</Button>
-                  <Button variant="outline" size="sm" className="h-8 px-2">3</Button>
-                  <span className="px-2 text-zinc-400">...</span>
-                  <Button variant="outline" size="sm" className="h-8 px-2">Successivo</Button>
-               </div>
-             </div>
-           </div>
+                <p className={`text-xs mt-3 font-medium flex items-center gap-1 ${kpi.color}`}>
+                  <ArrowUpRight className="h-3 w-3" /> {kpi.sub}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          {/* Filter row */}
+          <div className="flex items-center gap-3 mb-6 animate-in fade-in slide-in-from-bottom-6 duration-700 delay-150">
+            <span className="text-sm font-medium text-zinc-500 mr-1">Filtra per ruolo:</span>
+            {(["Tutti", "Consumer", "Prosumer", "Producer"] as RoleFilter[]).map((f) => {
+              const count = f === "Tutti" ? members.length : countByRole(f)
+              const isActive = activeFilter === f
+              return (
+                <button
+                  key={f}
+                  onClick={() => setActiveFilter(f)}
+                  className={`inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-sm font-medium transition-all border ${
+                    isActive
+                      ? "bg-indigo-600 text-white border-indigo-600 shadow-sm"
+                      : "bg-white text-zinc-600 border-zinc-200 hover:border-indigo-300 hover:text-indigo-600"
+                  }`}
+                >
+                  {f}
+                  <span className={`text-xs rounded-full px-1.5 py-0.5 ${isActive ? "bg-indigo-500 text-white" : "bg-zinc-100 text-zinc-500"}`}>
+                    {count}
+                  </span>
+                </button>
+              )
+            })}
+            <span className="ml-auto text-xs text-zinc-400">{filtered.length} risultat{filtered.length === 1 ? "o" : "i"}</span>
+          </div>
+
+          {/* ── Member Cards Grid ── */}
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-200">
+            {filtered.length === 0 ? (
+              <div className="col-span-3 flex flex-col items-center justify-center py-20 text-zinc-400">
+                <Search className="h-10 w-10 mb-3 opacity-30" />
+                <p className="text-lg font-medium">Nessun membro trovato</p>
+                <p className="text-sm mt-1">Prova a modificare il filtro o la ricerca</p>
+              </div>
+            ) : (
+              filtered.map((member) => {
+                const rc = roleConfig[member.role]
+                const sc = statusConfig[member.status]
+                return (
+                  <div
+                    key={member.id}
+                    className={`group relative bg-white rounded-2xl border border-zinc-100 border-t-4 ${rc.border} shadow-[0_2px_16px_rgb(0,0,0,0.05)] hover:shadow-[0_8px_32px_rgb(0,0,0,0.10)] hover:-translate-y-1 transition-all duration-300 overflow-hidden`}
+                  >
+                    {/* Glassmorphism accent */}
+                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none bg-gradient-to-br from-white/60 to-transparent" />
+
+                    <div className="p-6">
+                      {/* Header: avatar + name + role badge */}
+                      <div className="flex items-start gap-4 mb-5">
+                        <div className={`h-12 w-12 rounded-xl ${rc.avatar} flex items-center justify-center text-white font-bold text-sm flex-shrink-0 shadow-sm`}>
+                          {member.name.split(" ").map((n) => n[0]).join("").substring(0, 2).toUpperCase()}
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <h3 className="font-semibold text-zinc-900 text-base leading-tight truncate">{member.name}</h3>
+                          <p className="text-xs text-zinc-400 mt-0.5 flex items-center gap-1">
+                            <MapPin className="h-3 w-3 flex-shrink-0" />
+                            <span className="truncate">{member.location}</span>
+                          </p>
+                        </div>
+                        <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold flex-shrink-0 ${rc.badge}`}>
+                          {rc.icon}{member.role}
+                        </span>
+                      </div>
+
+                      {/* Info rows */}
+                      <div className="space-y-3 mb-5">
+                        {/* POD */}
+                        <div className="flex items-center justify-between">
+                          <span className="text-xs text-zinc-400 flex items-center gap-1.5">
+                            <Cpu className="h-3.5 w-3.5" /> ID POD
+                          </span>
+                          <code className="text-xs font-mono text-zinc-700 bg-zinc-50 border border-zinc-200 px-2 py-0.5 rounded-md">
+                            {member.pod}
+                          </code>
+                        </div>
+
+                        {/* Tipologia */}
+                        <div className="flex items-center justify-between">
+                          <span className="text-xs text-zinc-400 flex items-center gap-1.5">
+                            <LayoutDashboard className="h-3.5 w-3.5" /> Tipologia
+                          </span>
+                          <span className="text-xs font-medium text-zinc-700">{member.type}</span>
+                        </div>
+
+                        {/* Consumo / Produzione */}
+                        <div className="flex items-center justify-between">
+                          <span className="text-xs text-zinc-400 flex items-center gap-1.5">
+                            <Zap className="h-3.5 w-3.5" /> {member.role === "Producer" ? "Produzione" : "Consumo"} (oggi)
+                          </span>
+                          <span className="text-xs font-semibold text-zinc-800">{member.consumption}</span>
+                        </div>
+
+                        {/* Ultimo aggiornamento */}
+                        <div className="flex items-center justify-between">
+                          <span className="text-xs text-zinc-400 flex items-center gap-1.5">
+                            <Clock className="h-3.5 w-3.5" /> Ultimo agg.
+                          </span>
+                          <span className="text-xs text-zinc-500">{member.lastUpdate}</span>
+                        </div>
+                      </div>
+
+                      {/* Divider */}
+                      <div className="border-t border-zinc-100 -mx-6 mb-4" />
+
+                      {/* Footer: status + CTA */}
+                      <div className="flex items-center justify-between">
+                        <span className={`inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full ${sc.bg} ${sc.text}`}>
+                          <span className={`h-1.5 w-1.5 rounded-full ${sc.dot} animate-${member.status === "Attivo" ? "pulse" : "none"}`} />
+                          {sc.icon}
+                          {member.status}
+                        </span>
+                        <button className="inline-flex items-center gap-1 text-xs font-semibold text-indigo-600 hover:text-indigo-800 transition-colors group/btn">
+                          Vedi Dettaglio
+                          <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover/btn:translate-x-0.5" />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                )
+              })
+            )}
+          </div>
+
         </div>
       </main>
     </div>

@@ -36,15 +36,34 @@ L'amministratore (Gestore PA d'Ente) supervisiona il network. Il suo scopo non �
     *   **Membri CER (Pannello Rapido):** Una panoramica rapida laterale sugli iscritti (nome, ruolo, stato di attività: Attivo, In Attesa, Offline) che rimpiazza il precedente elenco grezzo dei nodi.
 *   **UX Flow:** L'interfaccia usa Card separate (Glassmorphism), icone chiare e badge colorati per evidenziare eventuali parametri critici.
 
-## UC-G03: Gestione Anagrafica Comunità (Lista Membri)
+## UC-G03: Gestione Anagrafica Comunità (Card Membri)
 *   **Trigger:** L'admin deve verificare lo stato dei partecipanti o aggiungere/modificare un utente.
-*   **Azione Utente:** Naviga in "Comunità". Visualizza una tabella avanzata.
-*   **Contenuti Tabella:** 
-    * Nome e Cognome / Ragione Sociale (es. Mario Rossi o Azienda X).
-    * Ruolo: Etichetta colorata (Consumer, Producer, Prosumer).
-    * ID POD: Codice identificativo del punto di prelievo.
-    * Stato: Indicatori "Attivo", "In Attesa di Validazione GSE" o "Offline".
-*   **UX Flow & Risultato:** Possibilità di filtrare per ruolo o cercare un membro specifico. Cliccando sulla riga, si accede al dettaglio dei consumi del singolo utente.
+*   **Azione Utente:** Naviga in "Comunità". Visualizza una griglia di **card individuali**, una per ciascun membro, al posto della precedente tabella.
+*   **Layout Card:** Ogni card (stile Glassmorphism, con bordo colorato in base al ruolo) mostra:
+    *   **Avatar / Iniziali** del membro con colore di sfondo coerente al ruolo.
+    *   **Nome e Cognome / Ragione Sociale.**
+    *   **Badge Ruolo** colorato (es. verde per Producer, arancio per Prosumer, blu per Consumer).
+    *   **ID POD** con icona e testo monospaziato.
+    *   **Stato** con pallino colorato: 🟢 Attivo, 🟡 In Attesa di Validazione GSE, 🔴 Offline.
+    *   **Incentivo Maturato (€/mese):** Importo in Euro accumulato dal membro nel mese corrente grazie alla condivisione energetica, valorizzato secondo le tariffe GSE. Per i membri Offline o In Attesa il dato è sospeso ("—").
+    *   **Ultimo Aggiornamento** (timestamp dell'ultima lettura del contatore).
+    *   **Bottone azione**: \"Vedi Dettaglio\" che porta al profilo energetico del membro.
+*   **Membri di esempio (5 card totali):**
+
+    | # | Nome | Ruolo | ID POD | Stato | Incentivo Maturato |
+    |---|------|-------|--------|-------|-------------------|
+    | 1 | **Marco Bianchi** | 🔵 Consumer | `IT001E00012345` | 🟢 Attivo | **€ 12,40 / mese** |
+    | 2 | **Laura Ferretti** | 🔵 Consumer | `IT001E00067890` | 🟡 In Attesa GSE | — |
+    | 3 | **Giovanni Mazza** | 🔵 Consumer | `IT001E00054321` | 🟢 Attivo | **€ 8,90 / mese** |
+    | 4 | **Sofia Gentile** | 🟠 Prosumer | `IT001E00098765` | 🟢 Attivo | **€ 34,20 / mese** |
+    | 5 | **Azienda Sole Srl** | 🟢 Producer | `IT001E00011111` | 🔴 Offline | — |
+
+*   **UX Flow & Risultato:**
+    *   La griglia si adatta responsivamente (1 colonna su mobile, 2 su tablet, 3 su desktop).
+    *   Barra di ricerca in cima per filtrare per nome o POD.
+    *   Chip-filter per ruolo (Tutti / Consumer / Prosumer / Producer) con counter aggiornato.
+    *   Hover sulla card: leggera elevazione con ombra e reveal del bottone \"Vedi Dettaglio\".
+    *   Click sulla card (o sul pulsante): navigazione al dettaglio consumi/anagrafica del membro.
 
 ## UC-G04: Monitoraggio e Configurazione Incentivi (Tab View)
 Questo modulo è il "cuore economico" della piattaforma e si divide in due sezioni principali tramite tab:
