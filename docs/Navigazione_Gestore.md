@@ -7,10 +7,12 @@ La sidebar è il centro di controllo dell'amministratore. Di seguito il dettagli
 
 ### 📊 Dashboard Globale
 È la vista d'atterraggio. Non presenta sotto-pagine ma è ricca di navigazione informativa:
+*   **Meteo & Smart Tips (in cima)**: Prima sezione della dashboard. Composta da due pannelli affiancati:
+    *   *Widget Meteo Unificato* (1 colonna, sfondo blu gradiente): temperatura real-time, icona meteo, badge qualitativo (Ottimale/Parziale/Sotto Soglia), nuvolosità e irradianza. Sotto, **timeline oraria scrollabile** (scroll col mouse) che mostra 4 slot di previsione alla volta.
+    *   *Smart Tips* (2 colonne, sfondo bianco): consigli proattivi sulla programmazione dei carichi energetici in base alle previsioni di irradianza del giorno.
 *   **Widget KPI**: Quattro cluster principali (Energia, Economia, Sostenibilità, Efficienza).
 *   **Pannello Rapido Membri**: Sidebar contestuale a destra che elenca i membri attivi/offline con stato in tempo reale.
 *   **Grafico Settimanale**: Visualizzazione comparativa di Produzione, Prelievo e Autoconsumo.
-*   **Meteo & Previsioni (Consumo Consapevole)**: Pannello interattivo con timeline oraria delle previsioni, irradianza e indicatore qualitativo della produzione (es. "Ottimale" con smiley) per guidare l'autoconsumo.
 *   **Grafico Flussi Energetici (Real-time Flow Diagram)**: Visualizzazione a nodi e frecce dei flussi energetici istantanei dell'intera CER. Posizionato in fondo alla Dashboard, offre una lettura immediata e visiva della situazione energetica aggregata in tempo reale.
     *   **Nodi principali**: Prodotta (totale impianti FV), Accumulo (batterie), Consumata (carico aggregato community), Rete (rete elettrica pubblica).
     *   **Flussi visualizzati con frecce direzionali e colori semantici**:

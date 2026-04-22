@@ -110,10 +110,6 @@ L'amministratore (Gestore PA d'Ente) supervisiona il network. Il suo scopo non �
         *   **Quote Individuali dei Membri:** Elenco analitico (disposto su griglia ottimizzata) che indica ruolo, peso e stima mensile calcolata pro-quota sul maturato attuale.
 *   **UX Flow & Risultato:** Interfaccia a 2 Tab. La Tab Dati Generali combina configurazione anagrafica e monitoraggio hardware, fornendo una dashboard verticale unificata.
 
-## UC-G05: Supervisione Gamification e Premiazione
-*   **Trigger:** Fine mese, bilancio dei Punti Sostenibilità.
-*   **Azione Utente:** Consulta la "Bacheca Sostenibilità". Visualizza i membri in cima alla classifica per maggior aderenza al sincronismo (consumi durante ore di sole).
-*   **UX Flow & Risultato:** Vede utenti con badge dorati. Può cliccare su "Invia Extra Sconto" ai primi 3 classificati, trasformando i punti in un abbattimento quota.
 
 ## UC-G06: Consolidamento GSE (Sign-Off)
 *   **Trigger:** I dati mensili GSE sono incrociati.

@@ -182,7 +182,7 @@ export default function AdminCER() {
                     </div>
                   </div>
 
-                  <div className="p-6 rounded-3xl bg-white border border-zinc-100 shadow-sm hover:shadow-md hover:border-indigo-100 transition-all">
+                  <div className="p-6 rounded-3xl bg-white border border-zinc-100 shadow-sm transition-all">
                      <div className="flex items-center justify-between mb-6">
                        <div className="flex items-center gap-4">
                          <div className="h-12 w-12 rounded-2xl flex items-center justify-center bg-emerald-50 text-emerald-600">

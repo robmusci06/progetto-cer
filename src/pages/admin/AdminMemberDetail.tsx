@@ -319,26 +319,7 @@ export default function AdminMemberDetail() {
             </div>
           </div>
 
-          {/* Quick Stats / History */}
-          <div className="bg-zinc-50 p-6 rounded-2xl border border-zinc-200/50 flex flex-col md:flex-row items-center gap-8">
-             <div className="flex-1">
-                <h4 className="font-bold text-zinc-900 mb-2 whitespace-nowrap">Riepilogo Incentivi</h4>
-                <p className="text-xs text-zinc-500 leading-relaxed">
-                  L'utente ha contribuito per il 15% all'autoconsumo totale della CER in questa fascia oraria, maturando un incremento dell'incentivo rispetto alla media.
-                </p>
-             </div>
-             <div className="h-10 w-px bg-zinc-200 hidden md:block" />
-             <div className="flex gap-10">
-                <div className="text-center">
-                   <p className="text-2xl font-bold text-zinc-900">124 kWh</p>
-                   <p className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest mt-1">Tot. Mensile</p>
-                </div>
-                <div className="text-center">
-                   <p className="text-2xl font-bold text-indigo-600">€ 42.10</p>
-                   <p className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest mt-1">Risparmio Stim.</p>
-                </div>
-             </div>
-          </div>
+
 
         </div>
       </div>
