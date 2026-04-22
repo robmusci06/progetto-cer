@@ -153,32 +153,32 @@ export default function AdminCommunity() {
     <div className="space-y-8 max-w-7xl mx-auto pb-10">
 
       {/* Page Header */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4">
+      <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-5 px-4 sm:px-0">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight text-zinc-900">Comunità &amp; Membri</h1>
-          <p className="text-zinc-500 mt-1">Gestisci l'anagrafica, verifica le adesioni e monitora lo stato dei nodi.</p>
+          <h1 className="text-2xl lg:text-3xl font-bold tracking-tight text-zinc-900">Comunità &amp; Membri</h1>
+          <p className="text-zinc-500 mt-1 text-xs lg:text-sm">Gestisci l'anagrafica, verifica le adesioni e monitora lo stato dei nodi.</p>
         </div>
-        <div className="flex items-center gap-3">
-          <div className="bg-indigo-50 px-4 py-2 rounded-xl border border-indigo-100 flex items-center gap-2">
-            <Users className="w-4 h-4 text-indigo-600" />
-            <span className="text-sm font-bold text-indigo-900">5 Membri CER</span>
+        <div className="flex items-center gap-2 sm:gap-3 w-full sm:w-auto">
+          <div className="flex-1 sm:flex-none justify-center bg-indigo-50 dark:bg-indigo-900/40 px-3 lg:px-4 py-2 rounded-xl border border-indigo-100 dark:border-indigo-800 flex items-center gap-2 whitespace-nowrap">
+            <Users className="w-3.5 h-3.5 lg:w-4 lg:h-4 text-indigo-600 dark:text-indigo-400" />
+            <span className="text-xs lg:text-sm font-bold text-indigo-900 dark:text-indigo-200">5 Membri CER</span>
           </div>
-          <button className="bg-zinc-900 hover:bg-zinc-800 text-white px-4 py-2 text-sm font-medium rounded-xl transition-all shadow-sm flex items-center gap-1.5">
-            <Plus className="w-4 h-4" /> Nuovo Membro
+          <button className="flex-1 sm:flex-none justify-center bg-zinc-900 dark:bg-zinc-100 dark:text-zinc-900 hover:bg-zinc-800 dark:hover:bg-zinc-200 text-white px-3 lg:px-4 py-2 text-xs lg:text-sm font-medium rounded-xl transition-all shadow-sm flex items-center gap-1.5 whitespace-nowrap">
+            <Plus className="w-3.5 h-3.5 lg:w-4 lg:h-4" /> Nuovo
           </button>
         </div>
       </div>
 
       {/* Search + Filters */}
-      <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
-        <div className="relative w-full sm:w-80">
+      <div className="px-4 sm:px-0 flex flex-col lg:flex-row gap-4 items-start lg:items-center">
+        <div className="relative w-full lg:w-80">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-400" />
           <input
             type="text"
             placeholder="Cerca per nome, POD o ruolo..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="pl-9 pr-4 py-2 w-full border border-zinc-200 rounded-xl bg-white text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors shadow-sm"
+            className="pl-9 pr-4 py-2 w-full border border-zinc-200 dark:border-zinc-800 rounded-xl bg-white dark:bg-zinc-900 text-sm dark:text-zinc-100 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all shadow-sm"
           />
         </div>
 
@@ -190,25 +190,25 @@ export default function AdminCommunity() {
               <button
                 key={f}
                 onClick={() => setActiveFilter(f)}
-                className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-sm font-medium transition-all border ${
+                className={`inline-flex items-center gap-1.5 px-3 py-1 lg:px-3.5 lg:py-1.5 rounded-full text-[11px] lg:text-sm font-medium transition-all border ${
                   isActive
                     ? 'bg-indigo-600 text-white border-indigo-600 shadow-sm'
-                    : 'bg-white text-zinc-600 border-zinc-200 hover:border-indigo-300 hover:text-indigo-600'
+                    : 'bg-white dark:bg-zinc-900 text-zinc-600 dark:text-zinc-400 border-zinc-200 dark:border-zinc-800 hover:border-indigo-300 dark:hover:border-indigo-700 hover:text-indigo-600 dark:hover:text-indigo-400'
                 }`}
               >
                 {f}
-                <span className={`text-xs rounded-full px-1.5 py-0.5 font-semibold ${isActive ? 'bg-white/20 text-white' : 'bg-zinc-100 text-zinc-500'}`}>
+                <span className={`text-[10px] rounded-full px-1.5 py-0.5 font-semibold ${isActive ? 'bg-white/20 text-white' : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-500'}`}>
                   {count}
                 </span>
               </button>
             )
           })}
-          <span className="ml-2 text-xs text-zinc-400">{filtered.length} risultat{filtered.length === 1 ? 'o' : 'i'}</span>
+          <span className="ml-0 lg:ml-2 text-[10px] lg:text-xs text-zinc-400 dark:text-zinc-500">{filtered.length} risultat{filtered.length === 1 ? 'o' : 'i'}</span>
         </div>
       </div>
 
       {/* ── Cards Grid ── */}
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+      <div className="px-4 sm:px-0 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-5">
         {filtered.length === 0 ? (
           <div className="col-span-3 flex flex-col items-center justify-center py-20 text-zinc-400">
             <Search className="h-10 w-10 mb-3 opacity-30" />
@@ -222,7 +222,7 @@ export default function AdminCommunity() {
             return (
               <div
                 key={member.id}
-                className={`group relative bg-white rounded-2xl border border-zinc-100 border-t-4 ${rc.topBorder} shadow-[0_2px_16px_rgb(0,0,0,0.05)] hover:shadow-[0_8px_32px_rgb(0,0,0,0.10)] hover:-translate-y-1 transition-all duration-300 overflow-hidden cursor-pointer`}
+                className={`group relative bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-100 dark:border-zinc-800 border-t-4 ${rc.topBorder} shadow-[0_2px_16px_rgb(0,0,0,0.05)] hover:shadow-[0_8px_32px_rgb(0,0,0,0.20)] hover:-translate-y-1 transition-all duration-300 overflow-hidden cursor-pointer`}
                 onClick={() => navigate(`/admin/community/${member.id}`)}
               >
                 {/* Glassmorphism hover glow */}

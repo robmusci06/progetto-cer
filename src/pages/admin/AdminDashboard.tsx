@@ -38,10 +38,7 @@ function WeatherIcon({ type, size = 'sm' }: { type: string; size?: 'sm' | 'lg' }
 }
 
 const smartTips = [
-  { time: '10:00 – 14:00', tip: 'Picco di irradianza (680–720 W/m²). Avviare carichi industriali o lavatrici.', highlight: true },
-  { time: '15:00 – 17:00', tip: 'Calo produzione. Programmare carichi differibili entro le 14:30.', highlight: false },
-  { time: '07:00 – 09:00', tip: 'Produzione bassa. Evitare carichi elevati. Privilegiare consumi leggeri.', highlight: false },
-  { time: '18:00 – 20:00', tip: 'Nessuna produzione solare. Attenzione ai picchi di prelievo serale.', highlight: true },
+  { time: '10:00 – 14:00', tip: "È previsto un picco di irradianza (680–720 W/m²) che porterà l'impianto alla massima capacità produttiva. Ti consigliamo di avviare i tuoi carichi più energivori (come lavatrici, lavastoviglie o ricarica di veicoli elettrici) in questa fascia oraria.", highlight: true },
 ]
 
 export default function AdminDashboard() {
@@ -49,11 +46,11 @@ export default function AdminDashboard() {
     <div className="space-y-6 max-w-7xl mx-auto">
       <div className="flex justify-between items-end">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight text-zinc-900">Dashboard</h1>
-          <p className="text-zinc-500 mt-1">Visione d'insieme aggregata della Comunità Energetica Rinnovabile.</p>
+          <h1 className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">Dashboard</h1>
+          <p className="text-zinc-500 dark:text-zinc-400 mt-1">Visione d'insieme aggregata della Comunità Energetica Rinnovabile.</p>
         </div>
-        <div className="bg-white px-4 py-2 rounded-lg border border-zinc-200 shadow-sm text-sm font-medium text-zinc-600">
-          Ultimo aggiornamento: <span className="text-zinc-900">Oggi, 14:30</span>
+        <div className="bg-white dark:bg-zinc-900 px-4 py-2 rounded-lg border border-zinc-200 dark:border-zinc-800 shadow-sm text-sm font-medium text-zinc-600 dark:text-zinc-400">
+          Ultimo aggiornamento: <span className="text-zinc-900 dark:text-zinc-100">Oggi, 14:30</span>
         </div>
       </div>
 
@@ -117,17 +114,16 @@ export default function AdminDashboard() {
                 return (
                   <div
                     key={h.time}
-                    className={`flex flex-col items-center justify-between py-2 px-1 rounded-xl transition-all cursor-default shrink-0 w-[72px] h-[72px] ${
-                      isPeak
+                    className={`flex flex-col items-center justify-between py-2 px-1 rounded-xl transition-all cursor-default shrink-0 w-[72px] h-[72px] ${isPeak
                         ? 'bg-white/20 border border-white/30'
                         : 'bg-white/10 border border-white/10'
-                    }`}
+                      }`}
                   >
                     <span className="text-[8px] font-semibold text-sky-100/70">{h.time}</span>
                     <WeatherIcon type={h.icon} size="sm" />
                     <div className="flex flex-col items-center leading-none">
-                       <span className="text-[12px] font-bold text-white">{h.temp}°</span>
-                       <span className={`text-[7px] font-bold ${isPeak ? 'text-amber-300' : 'text-sky-200/50'}`}>
+                      <span className="text-[12px] font-bold text-white">{h.temp}°</span>
+                      <span className={`text-[7px] font-bold ${isPeak ? 'text-amber-300' : 'text-sky-200/50'}`}>
                         {h.irr}
                       </span>
                     </div>
@@ -138,41 +134,42 @@ export default function AdminDashboard() {
           </div>
         </div>
 
-        {/* Smart Tips — griglia 2x2, compatta */}
-        <div className="lg:col-span-2 bg-white rounded-2xl px-5 pt-4 pb-4 shadow-sm border border-zinc-200 flex flex-col">
-          <div className="flex items-center gap-2 mb-3">
-            <div className="p-1.5 rounded-lg bg-amber-50 border border-amber-100">
-              <Lightbulb className="w-4 h-4 text-amber-500" />
+        {/* Smart Tips — Unificato in box giallo */}
+        <div className="lg:col-span-2 bg-amber-50/70 dark:bg-amber-950/20 rounded-2xl p-6 shadow-sm border border-amber-200 dark:border-amber-900/50 flex flex-col justify-between transition-colors">
+          <div>
+            <div className="flex items-center gap-3 mb-6">
+              <div className="p-2 rounded-xl bg-amber-100 dark:bg-amber-900/40 border border-amber-200 dark:border-amber-800 shadow-sm">
+                <Lightbulb className="w-5 h-5 text-amber-600 dark:text-amber-400" />
+              </div>
+              <div>
+                <h3 className="text-base font-bold text-amber-900 dark:text-amber-100">Smart Tips</h3>
+                <p className="text-[11px] text-amber-700/60 dark:text-amber-500/60 font-semibold uppercase tracking-wider">Programmazione Carichi · Oggi</p>
+              </div>
             </div>
-            <div>
-              <h3 className="text-sm font-bold text-zinc-900">Smart Tips</h3>
-              <p className="text-[10px] text-zinc-400">Programmazione Carichi · Oggi</p>
-            </div>
-          </div>
 
-          <div className="grid grid-cols-2 gap-2 flex-1">
             {smartTips.map((tip, idx) => (
-              <div
-                key={idx}
-                className={`flex flex-col gap-1 px-3 py-2.5 rounded-xl text-[11px] border ${tip.highlight
-                    ? 'bg-amber-50 border-amber-200'
-                    : 'bg-zinc-50 border-zinc-100'
-                  }`}
-              >
-                <div className="flex items-center gap-1.5">
-                  <div className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${tip.highlight ? 'bg-amber-500' : 'bg-zinc-400'}`} />
-                  <span className={`text-[9px] font-bold uppercase tracking-wider ${tip.highlight ? 'text-amber-600' : 'text-zinc-500'}`}>
-                    {tip.time}
+              <div key={idx} className="space-y-4">
+                <div className="flex items-center gap-2">
+                  <div className="flex items-center justify-center w-8 h-8 rounded-full bg-white dark:bg-zinc-800 shadow-sm border border-amber-200 dark:border-amber-800">
+                    <Sun className="w-4 h-4 text-amber-500" />
+                  </div>
+                  <span className="text-[11px] font-bold uppercase tracking-widest text-amber-700 dark:text-amber-500">
+                    Fascia Oraria: <span className="text-amber-900 dark:text-amber-200">{tip.time}</span>
                   </span>
                 </div>
-                <p className={`leading-snug text-[10px] ${tip.highlight ? 'text-amber-800' : 'text-zinc-600'}`}>{tip.tip}</p>
+                <p className="leading-relaxed text-[15px] font-medium text-amber-900/80 dark:text-zinc-300">
+                  {tip.tip}
+                </p>
               </div>
             ))}
           </div>
 
-          <div className="mt-3 pt-3 border-t border-zinc-100 flex items-center justify-between text-[9px] text-zinc-400">
-            <span>Basato su previsioni Meteologix</span>
-            <span className="font-bold text-zinc-500">Aggiornato: 09:00</span>
+          <div className="mt-8 pt-4 border-t border-amber-200/50 dark:border-amber-900/30 flex items-center justify-between text-[10px] text-amber-700/50 dark:text-amber-500/40 font-medium">
+            <span className="flex items-center gap-1.5">
+              <div className="w-1 h-1 rounded-full bg-amber-400" />
+              Basato su previsioni Meteologix
+            </span>
+            <span className="font-bold">Aggiornato: 09:00</span>
           </div>
         </div>
 
@@ -180,23 +177,23 @@ export default function AdminDashboard() {
 
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-        {/* KPI Cards - Griglia 2x2 compatta */}
-        <div className="lg:col-span-2 grid grid-cols-2 gap-3">
+        {/* KPI Cards - Responsive Grid */}
+        <div className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-3">
           {[
-            { title: "Produzione Comunitaria", value: "1,240 kWh", trend: "+12%", icon: Zap, color: "text-amber-500", bg: "bg-amber-50" },
-            { title: "Prelievo da Rete", value: "850 kWh", trend: "-5%", icon: ArrowDownToLine, color: "text-rose-500", bg: "bg-rose-50" },
-            { title: "Autoconsumo Virtuale", value: "920 kWh", trend: "+18%", icon: Activity, color: "text-emerald-500", bg: "bg-emerald-50" },
-            { title: "Capacità Accumulo", value: "85%", trend: "Stabile", icon: Battery, color: "text-indigo-500", bg: "bg-indigo-50" },
+            { title: "Produzione Comunitaria", value: "1,240 kWh", trend: "+12%", icon: Zap, color: "text-amber-500", bg: "bg-amber-50 dark:bg-amber-950/30" },
+            { title: "Prelievo da Rete", value: "850 kWh", trend: "-5%", icon: ArrowDownToLine, color: "text-rose-500", bg: "bg-rose-50 dark:bg-rose-950/30" },
+            { title: "Autoconsumo Virtuale", value: "920 kWh", trend: "+18%", icon: Activity, color: "text-emerald-500", bg: "bg-emerald-50 dark:bg-emerald-950/30" },
+            { title: "Capacità Accumulo", value: "85%", trend: "Stabile", icon: Battery, color: "text-indigo-500", bg: "bg-indigo-50 dark:bg-indigo-950/30" },
           ].map((kpi, i) => (
-            <div key={i} className="bg-white px-4 py-3.5 rounded-2xl shadow-sm border border-zinc-200 flex items-center gap-3">
+            <div key={i} className="bg-white dark:bg-zinc-900 px-4 py-3.5 rounded-2xl shadow-sm border border-zinc-200 dark:border-zinc-800 flex items-center gap-3 transition-colors">
               <div className={`p-2 rounded-xl ${kpi.bg} flex-shrink-0`}>
                 <kpi.icon className={`w-4 h-4 ${kpi.color}`} />
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-[11px] font-medium text-zinc-400 truncate">{kpi.title}</p>
-                <h3 className="text-xl font-bold text-zinc-900 leading-tight">{kpi.value}</h3>
+                <p className="text-[11px] font-medium text-zinc-400 dark:text-zinc-500 truncate">{kpi.title}</p>
+                <h3 className="text-xl font-bold text-zinc-900 dark:text-zinc-100 leading-tight">{kpi.value}</h3>
               </div>
-              <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full flex-shrink-0 ${kpi.trend.startsWith('+') ? 'bg-emerald-100 text-emerald-700' : kpi.trend.startsWith('-') ? 'bg-rose-100 text-rose-700' : 'bg-zinc-100 text-zinc-600'}`}>
+              <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full flex-shrink-0 ${kpi.trend.startsWith('+') ? 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400' : kpi.trend.startsWith('-') ? 'bg-rose-100 dark:bg-rose-900/30 text-rose-700 dark:text-rose-400' : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400'}`}>
                 {kpi.trend}
               </span>
             </div>
@@ -204,8 +201,8 @@ export default function AdminDashboard() {
         </div>
 
         {/* Impatto Ambientale (destra) - compatto */}
-        <div className="bg-white rounded-2xl p-5 shadow-sm border border-zinc-200 flex flex-col justify-between">
-          <h3 className="text-sm font-bold text-zinc-900 mb-4 flex items-center gap-2">
+        <div className="bg-white dark:bg-zinc-900 rounded-2xl p-5 shadow-sm border border-zinc-200 dark:border-zinc-800 flex flex-col justify-between transition-colors">
+          <h3 className="text-sm font-bold text-zinc-900 dark:text-zinc-100 mb-4 flex items-center gap-2">
             <Leaf className="w-4 h-4 text-emerald-500" />
             Impatto Ambientale
           </h3>
@@ -213,41 +210,41 @@ export default function AdminDashboard() {
             {/* Punteggio Green + valore affiancati */}
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-xs font-medium text-zinc-400 mb-1">Punteggio Green</p>
+                <p className="text-xs font-medium text-zinc-400 dark:text-zinc-500 mb-1">Punteggio Green</p>
                 <div className="flex gap-0.5">
                   {[1, 2, 3, 4].map(i => <Leaf key={i} className="w-4 h-4 text-emerald-500 fill-emerald-500" />)}
-                  <Leaf className="w-4 h-4 text-emerald-100 fill-emerald-100" />
+                  <Leaf className="w-4 h-4 text-emerald-100 dark:text-emerald-900 fill-emerald-100 dark:fill-emerald-900" />
                 </div>
               </div>
-              <span className="text-3xl font-bold text-zinc-900">4.6</span>
+              <span className="text-3xl font-bold text-zinc-900 dark:text-zinc-100">4.6</span>
             </div>
-            <div className="pt-3 border-t border-zinc-100 space-y-2">
+            <div className="pt-3 border-t border-zinc-100 dark:border-zinc-800 space-y-2">
               <div className="flex justify-between items-center text-sm">
-                <span className="text-zinc-500">CO2 Evitata</span>
-                <span className="font-bold text-zinc-900">8.631 kg</span>
+                <span className="text-zinc-500 dark:text-zinc-400">CO2 Evitata</span>
+                <span className="font-bold text-zinc-900 dark:text-zinc-100">8.631 kg</span>
               </div>
               <div className="flex justify-between items-center text-sm">
-                <span className="text-zinc-500">Alberi Equivalenti</span>
-                <span className="font-bold text-zinc-900">719</span>
+                <span className="text-zinc-500 dark:text-zinc-400">Alberi Equivalenti</span>
+                <span className="font-bold text-zinc-900 dark:text-zinc-100">719</span>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Riga 2: Incentivi, Risparmio, Efficienza - 3 colonne */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      {/* Riga 2: Incentivi, Risparmio, Efficienza - Responsive columns */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {/* Box Incentivi Maturati */}
-        <div className="bg-amber-50/80 rounded-2xl p-5 shadow-sm border border-amber-200/80 flex items-center justify-between">
+        <div className="bg-amber-50/80 dark:bg-amber-950/20 rounded-2xl p-5 shadow-sm border border-amber-200 dark:border-amber-900/50 flex items-center justify-between transition-colors">
           <div>
-            <h3 className="text-xs font-bold text-amber-900 mb-1 flex items-center gap-1.5">
-              <Euro className="w-3.5 h-3.5 text-amber-600" />
+            <h3 className="text-xs font-bold text-amber-900 dark:text-amber-100 mb-1 flex items-center gap-1.5">
+              <Euro className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
               Incentivi Maturati
             </h3>
-            <p className="text-[11px] text-amber-700/70 mb-2">Energia condivisa e consumata</p>
-            <h4 className="text-2xl font-bold text-amber-900">€ 1.250,00</h4>
+            <p className="text-[11px] text-amber-700/70 dark:text-amber-500/70 mb-2">Energia condivisa e consumata</p>
+            <h4 className="text-2xl font-bold text-amber-900 dark:text-amber-100">€ 1.250,00</h4>
           </div>
-          <span className="text-[10px] font-bold uppercase tracking-wider text-amber-700 bg-amber-200/50 px-2.5 py-1 rounded-md self-start">In attesa GSE</span>
+          <span className="text-[10px] font-bold uppercase tracking-wider text-amber-700 dark:text-amber-400 bg-amber-200/50 dark:bg-amber-900/40 px-2.5 py-1 rounded-md self-start">In attesa GSE</span>
         </div>
 
         {/* Box Risparmio in Bolletta */}

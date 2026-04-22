@@ -7,6 +7,8 @@ const routeLabels: Record<string, string> = {
   cer: 'Gestione CER',
   community: 'Comunità',
   communications: 'Comunicazioni',
+  settings: 'Impostazioni',
+  users: 'Utenti',
 }
 
 export default function Breadcrumbs() {
@@ -33,8 +35,8 @@ export default function Breadcrumbs() {
         // Handle IDs or special segments
         let label = routeLabels[value] || value
         
-        // If it looks like an ID (contains digits or uppercase and is not in our map)
-        if (!routeLabels[value] && (/[0-9]/.test(value) || value.length > 5)) {
+        // If it looks like an ID (contains digits AND is not in our map)
+        if (!routeLabels[value] && /[0-9]/.test(value)) {
             label = 'Dettaglio Membro'
         }
 

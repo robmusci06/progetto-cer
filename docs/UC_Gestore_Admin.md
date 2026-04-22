@@ -40,7 +40,7 @@ L'amministratore (Gestore PA d'Ente) supervisiona il network. Il suo scopo non �
         *   *Widget Meteo Real-time:* Visualizzazione di Temperatura, Stato (Soleggiato/Piovoso), Nuvolosità (%) e Irradianza (W/m²).
         *   *Timeline Previsioni di Oggi:* Un grafico orario (es. 07:00 - 19:00) che mostra l'evoluzione attesa del tempo, delle temperature, dell'irradianza e della nuvolosità.
         *   *Status Produzione (Qualitativo):* Indicatore visivo (es. Smiley o badge) che valida se la produzione corrente è "Ottimale", "Parziale" o "Sotto Soglia" rispetto al meteo rilevato.
-        *   *Smart Tips (Tips Proattivi):* Consigli su quando programmare carichi pesanti per massimizzare l'indice di sincronismo (es. *"Tra 2 ore: picco di irradianza, avviare cicli industriali"*).
+        *   *Smart Tip (Tip Proattivo):* Un singolo consiglio prioritario su quando programmare carichi pesanti per massimizzare l'indice di sincronismo (es. *"Tra 2 ore: picco di irradianza, avviare cicli industriali"*).
     *   **Membri CER (Pannello Rapido):** Una panoramica rapida laterale sugli iscritti (nome, ruolo, stato di attività: Attivo, In Attesa, Offline) che rimpiazza il precedente elenco grezzo dei nodi.
 *   **UX Flow:** L'interfaccia usa Card separate (Glassmorphism), icone chiare e badge colorati per evidenziare eventuali parametri critici.
 
@@ -119,3 +119,16 @@ L'amministratore (Gestore PA d'Ente) supervisiona il network. Il suo scopo non �
 *   **Trigger:** Calo drastico della produzione non previsto, o surplus energetico elevato.
 *   **Azione Utente:** Accede al modulo "Smart Comms". Sceglie un quick-alert o ne digita uno custom (es. *"La produzione della CER crollerà per maltempo tra un'ora. Sospendere pompe di calore"*).
 *   **UX Flow & Risultato:** Notifica broadcast a tutti i consumer/prosumer della CER. A schermo l'admin riceve un effetto particellare discreto ("Notifiche Inviate a 144 membri").
+
+## UC-G08: Gestione Utenti Applicativo (Impostazioni)
+*   **Trigger:** L'admin ha la necessità di verificare, aggiungere o gestire l'accesso degli utenti che possono operare sull'applicativo web (non i membri finali della CER, ma lo staff o super-admin).
+*   **Azione Utente:** Espande la voce "Impostazioni" nella sidebar e fa click su "Utenti".
+*   **Contenuto Pagina:**
+    *   **Percorso (Breadcrumb):** Impostazioni / Utenti.
+    *   **Tabella lista utenti:** Una vista a tabella che elenca tutti i membri operativi del portale (10 per pagina).
+    *   **Paginazione:** Sistema di navigazione avanzato (es. `< 1 ... 4 5 6 7 8 ... 50 >`) per gestire grandi volumi di utenze operative.
+    *   **Paginazione:** Sistema di navigazione avanzato (es. `< 1 ... 4 5 6 7 8 ... 50 >`) per gestire grandi volumi di utenze operative.
+    *   **Colonne visualizzate:** Codice (es. `#790841`), Utente (Avatar + Nome e Cognome), Email, Ruolo, Stato (Badge colorato: Attivo, Disabilitato, Inattivo). La colonna azioni è rimossa per massimizzare la leggibilità dei dati su ogni riga.
+    *   **Funzionalità di ricerca e filtro:** Una barra di ricerca libera e un pulsante "Filtri" che apre un menu a comparsa (dropdown) per filtrare per Ruolo.
+    *   **CTA Primaria:** Pulsante "Nuovo Utente" per invitare un amministratore.
+*   **UX Flow & Risultato:** Usa il linguaggio di design consolidato (struttura Glassmorphism, Dark Mode out-of-the-box). Il titolo della pagina segue lo standard istituzionale (Font Bold, Tracking Tight). Migliora la governing hierarchy della CER.

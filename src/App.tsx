@@ -9,6 +9,7 @@ import AdminCommunications from './pages/admin/AdminCommunications'
 import AdminCommunity from './pages/admin/AdminCommunity'
 import AdminMemberDetail from './pages/admin/AdminMemberDetail'
 import AdminCER from './pages/admin/AdminCER'
+import AdminUsers from './pages/admin/AdminUsers'
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route path="community" element={<AdminCommunity />} />
           <Route path="community/:id" element={<AdminMemberDetail />} />
           <Route path="communications" element={<AdminCommunications />} />
+          <Route path="settings/users" element={<AdminUsers />} />
         </Route>
 
         <Route path="*" element={<Navigate to="/" replace />} />

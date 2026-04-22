@@ -9,7 +9,7 @@ La sidebar è il centro di controllo dell'amministratore. Di seguito il dettagli
 È la vista d'atterraggio. Non presenta sotto-pagine ma è ricca di navigazione informativa:
 *   **Meteo & Smart Tips (in cima)**: Prima sezione della dashboard. Composta da due pannelli affiancati:
     *   *Widget Meteo Unificato* (1 colonna, sfondo blu gradiente): temperatura real-time, icona meteo, badge qualitativo (Ottimale/Parziale/Sotto Soglia), nuvolosità e irradianza. Sotto, **timeline oraria scrollabile** (scroll col mouse) che mostra 4 slot di previsione alla volta.
-    *   *Smart Tips* (2 colonne, sfondo bianco): consigli proattivi sulla programmazione dei carichi energetici in base alle previsioni di irradianza del giorno.
+    *   *Smart Tip Singolo* (2 colonne, sfondo bianco): un consiglio proattivo prioritario sulla programmazione dei carichi energetici in base alle previsioni di irradianza del giorno.
 *   **Widget KPI**: Quattro cluster principali (Energia, Economia, Sostenibilità, Efficienza).
 *   **Pannello Rapido Membri**: Sidebar contestuale a destra che elenca i membri attivi/offline con stato in tempo reale.
 *   **Grafico Settimanale**: Visualizzazione comparativa di Produzione, Prelievo e Autoconsumo.
@@ -46,6 +46,14 @@ Centro di comando per le notifiche push alla community:
 *   **Quick-Alerts**: Modelli predefiniti per invio rapido di comunicazioni su maltempo o picchi di produzione.
 *   **History**: Elenco cronologico delle ultime notifiche inviate.
 
+### ⚙️ Impostazioni
+Configurazioni di base dell'applicativo e degli accessi:
+*   **Utenti**: Tabella di gestione per gli account che possono accedere all'applicativo web. 
+    *   **Breadcrumb**: Impostazioni / Utenti.
+    *   **Visualizzazione**: Tabella con 10 utenti per pagina servita da un sistema di paginazione avanzato (es. 1 di 50 pagine).
+    *   **Funzionalità**: Include ricerca globale e pulsante "Filtri" (dropdown per ruolo), con possibilità di creazione di un nuovo utente. 
+    *   **Dati**: Codice (#790841), Utente (Avatar e Nome), Email, Ruolo e Stato (Attivo, Disabilitato, Inattivo). Colonna azioni rimossa per pulizia visiva.
+
 ## 2. Topbar Funzionale
 Permette la gestione multi-tenant e il monitoraggio dello stato del sistema:
 
@@ -64,6 +72,8 @@ graph TD
     A --> D[Comunità & Membri]
     D --> D1[Dettaglio Membro]
     A --> E[Comunicazioni]
+    A --> F[Impostazioni]
+    F --> F1[Utenti]
 ```
 
 ## 4. Design & UX

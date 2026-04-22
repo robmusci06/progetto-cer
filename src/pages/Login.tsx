@@ -11,13 +11,8 @@ export default function Login() {
          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-indigo-900/40 via-[#0a0a0a] to-black"></div>
          
          {/* Top Logo */}
-         <div className="relative z-10 flex items-center gap-3">
-             <div className="h-10 w-10 rounded-xl bg-gradient-to-tr from-indigo-500 to-cyan-400 flex items-center justify-center p-[2px]">
-                <div className="h-full w-full bg-black/50 rounded-[10px] flex items-center justify-center backdrop-blur-md">
-                   <span className="font-bold text-lg text-white">B</span>
-                </div>
-             </div>
-             <span className="font-semibold text-xl tracking-wide text-zinc-100">Brilla Platform</span>
+         <div className="relative z-10 flex items-center">
+             <img src="/Brillalogo.svg" alt="Brilla Logo" className="h-20 w-auto" />
          </div>
          
          {/* Main Copy */}
