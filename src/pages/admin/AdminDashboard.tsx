@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom'
 import { XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line, Legend } from 'recharts'
 import { Zap, Battery, ArrowDownToLine, Activity, Leaf, Euro, BarChart3, AlertTriangle, Sun, Cloud, CloudRain, Wind, Thermometer, Lightbulb } from 'lucide-react'
 
@@ -42,6 +43,7 @@ const smartTips = [
 ]
 
 export default function AdminDashboard() {
+  const navigate = useNavigate()
   return (
     <div className="space-y-6 max-w-7xl mx-auto">
       <div className="flex justify-between items-end">
@@ -322,11 +324,11 @@ export default function AdminDashboard() {
               { id: 'MEM-004', name: 'Sofia Gentile', role: 'Prosumer', status: 'Attivo', color: 'bg-emerald-500', incentive: '€ 34,20' },
               { id: 'MEM-005', name: 'Azienda Sole Srl', role: 'Producer', status: 'Offline', color: 'bg-rose-500', incentive: null },
             ].map(member => (
-              <div key={member.id} className="flex items-center justify-between p-3 hover:bg-zinc-50 rounded-xl transition-colors border border-transparent hover:border-zinc-100 cursor-default">
+              <div key={member.id} onClick={() => navigate(`/admin/community/${member.id}`)} className="flex items-center justify-between p-3 hover:bg-zinc-50 rounded-xl transition-colors border border-transparent hover:border-zinc-100 cursor-pointer group">
                 <div className="flex items-center gap-3">
                   <div className={`w-2.5 h-2.5 rounded-full ${member.color} flex-shrink-0`} />
                   <div className="min-w-0">
-                    <p className="font-semibold text-zinc-900 text-sm truncate">{member.name}</p>
+                    <p className="font-semibold text-zinc-900 text-sm truncate group-hover:text-indigo-600 transition-colors">{member.name}</p>
                     <div className="flex items-center gap-2">
                       <p className="text-xs text-zinc-500 truncate">{member.role}</p>
                       {member.incentive && (
@@ -345,7 +347,7 @@ export default function AdminDashboard() {
             ))}
           </div>
 
-          <button className="w-full mt-4 py-2 border border-zinc-200 rounded-lg text-sm font-medium text-indigo-600 hover:bg-indigo-50 transition-colors">
+          <button onClick={() => navigate('/admin/community')} className="w-full mt-4 py-2 border border-zinc-200 rounded-lg text-sm font-medium text-indigo-600 hover:bg-indigo-50 transition-colors">
             Vedi tutti i membri
           </button>
         </div>

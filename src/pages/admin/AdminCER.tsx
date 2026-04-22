@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import {
   Zap, Shield, Globe,
   TrendingUp, Settings2, Users,
@@ -11,6 +12,7 @@ import {
 
 
 export default function AdminCER() {
+  const navigate = useNavigate()
   const [activeTab, setActiveTab] = useState<'general' | 'incentives'>('general')
 
   // State for Incentives Allocation
@@ -237,19 +239,19 @@ export default function AdminCER() {
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                   {[
-                    { name: 'Azienda Sole Srl', type: 'Producer', pod: 'IT001E12388822', status: 'Online', icon: <Zap className="w-4 h-4" />, color: 'text-amber-600', bg: 'bg-amber-50' },
-                    { name: 'Sofia Gentile', type: 'Prosumer', pod: 'IT001E87654321', status: 'Online', icon: <Battery className="w-4 h-4" />, color: 'text-indigo-600', bg: 'bg-indigo-50' },
-                    { name: 'Marco Bianchi', type: 'Consumer', pod: 'IT001E11223344', status: 'Online', icon: <Users className="w-4 h-4" />, color: 'text-emerald-600', bg: 'bg-emerald-50' },
-                    { name: 'Laura Ferretti', type: 'Consumer', pod: 'IT001E55667788', status: 'Online', icon: <Users className="w-4 h-4" />, color: 'text-emerald-600', bg: 'bg-emerald-50' },
-                    { name: 'Giovanni Mazza', type: 'Consumer', pod: 'IT001E99001122', status: 'Online', icon: <Users className="w-4 h-4" />, color: 'text-emerald-600', bg: 'bg-emerald-50' },
+                    { name: 'Azienda Sole Srl', type: 'Producer', pod: 'IT001E12388822', status: 'Online', icon: <Zap className="w-4 h-4" />, color: 'text-amber-600', bg: 'bg-amber-50', memberId: 'MEM-005' },
+                    { name: 'Sofia Gentile', type: 'Prosumer', pod: 'IT001E87654321', status: 'Online', icon: <Battery className="w-4 h-4" />, color: 'text-indigo-600', bg: 'bg-indigo-50', memberId: 'MEM-004' },
+                    { name: 'Marco Bianchi', type: 'Consumer', pod: 'IT001E11223344', status: 'Online', icon: <Users className="w-4 h-4" />, color: 'text-emerald-600', bg: 'bg-emerald-50', memberId: 'MEM-001' },
+                    { name: 'Laura Ferretti', type: 'Consumer', pod: 'IT001E55667788', status: 'Online', icon: <Users className="w-4 h-4" />, color: 'text-emerald-600', bg: 'bg-emerald-50', memberId: 'MEM-002' },
+                    { name: 'Giovanni Mazza', type: 'Consumer', pod: 'IT001E99001122', status: 'Online', icon: <Users className="w-4 h-4" />, color: 'text-emerald-600', bg: 'bg-emerald-50', memberId: 'MEM-003' },
                   ].map((pod, i) => (
-                    <div key={i} className="flex items-center justify-between p-4 rounded-2xl border border-zinc-100 bg-zinc-50/50 hover:bg-white hover:shadow-sm transition-all cursor-default">
+                    <div key={i} onClick={() => navigate(`/admin/community/${pod.memberId}`)} className="flex items-center justify-between p-4 rounded-2xl border border-zinc-100 bg-zinc-50/50 hover:bg-white hover:shadow-sm transition-all cursor-pointer group">
                       <div className="flex items-center gap-3">
                         <div className={`w-8 h-8 rounded-xl flex items-center justify-center ${pod.bg} ${pod.color}`}>
                           {pod.icon}
                         </div>
                         <div>
-                          <p className="text-sm font-bold text-zinc-900">{pod.name}</p>
+                          <p className="text-sm font-bold text-zinc-900 group-hover:text-indigo-600 transition-colors">{pod.name}</p>
                           <div className="flex items-center gap-1.5 mt-0.5">
                             <span className="text-[9px] font-black uppercase text-zinc-400">{pod.type}</span>
                             <span className="text-zinc-300">•</span>
@@ -366,11 +368,11 @@ export default function AdminCER() {
               <h4 className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest pl-1">Quote Individuali dei Membri</h4>
               <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
                 {[
-                  { name: 'Azienda Sole Srl', initials: 'AS', role: 'PRODUCER', type: 'producer', weight: 100 },
-                  { name: 'Sofia Gentile', initials: 'SG', role: 'PROSUMER', type: 'community', weight: 30 },
-                  { name: 'Marco Bianchi', initials: 'MB', role: 'CONSUMER', type: 'community', weight: 30 },
-                  { name: 'Laura Ferretti', initials: 'LF', role: 'CONSUMER', type: 'community', weight: 30 },
-                  { name: 'Giovanni Mazza', initials: 'GM', role: 'CONSUMER', type: 'community', weight: 30 },
+                  { name: 'Azienda Sole Srl', initials: 'AS', role: 'PRODUCER', type: 'producer', weight: 100, memberId: 'MEM-005' },
+                  { name: 'Sofia Gentile', initials: 'SG', role: 'PROSUMER', type: 'community', weight: 30, memberId: 'MEM-004' },
+                  { name: 'Marco Bianchi', initials: 'MB', role: 'CONSUMER', type: 'community', weight: 30, memberId: 'MEM-001' },
+                  { name: 'Laura Ferretti', initials: 'LF', role: 'CONSUMER', type: 'community', weight: 30, memberId: 'MEM-002' },
+                  { name: 'Giovanni Mazza', initials: 'GM', role: 'CONSUMER', type: 'community', weight: 30, memberId: 'MEM-003' },
                 ].map((member, i) => {
                   const totalSim = 1250; // Use the matured value for estimation context
                   let myQuote = 0;
@@ -385,13 +387,13 @@ export default function AdminCER() {
                   }
 
                   return (
-                    <div key={i} className="bg-white rounded-[1.25rem] p-5 lg:px-8 border border-zinc-100 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-6 hover:shadow-md transition-shadow">
+                    <div key={i} onClick={() => navigate(`/admin/community/${member.memberId}`)} className="bg-white rounded-[1.25rem] p-5 lg:px-8 border border-zinc-100 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-6 hover:shadow-md transition-shadow cursor-pointer group">
                       <div className="flex items-center gap-5">
                         <div className="w-12 h-12 rounded-full border border-zinc-200 flex items-center justify-center bg-zinc-50 text-xs font-bold text-zinc-400 flex-shrink-0">
                           {member.initials}
                         </div>
                         <div>
-                          <p className="font-bold text-zinc-900">{member.name}</p>
+                          <p className="font-bold text-zinc-900 group-hover:text-indigo-600 transition-colors">{member.name}</p>
                           <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-900 mt-1">{member.role}</p>
                         </div>
                       </div>

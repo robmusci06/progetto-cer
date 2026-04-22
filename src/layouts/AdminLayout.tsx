@@ -90,14 +90,14 @@ export default function AdminLayout() {
             </div>
           )}
           
-          <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
+          <nav className="flex-1 p-3 lg:p-4 space-y-1 lg:space-y-2 overflow-y-auto">
             {navItems.map((item) => (
               <NavLink
                 key={item.path}
                 to={item.path}
                 onClick={() => setIsMobileMenuOpen(false)}
                 className={({ isActive }) =>
-                  `flex items-center ${isCollapsed ? 'lg:justify-center' : 'gap-3 px-4'} py-3 rounded-xl transition-all font-medium text-sm group relative ${
+                  `flex items-center ${isCollapsed ? 'lg:justify-center' : 'gap-3 px-4'} py-3.5 lg:py-3 rounded-xl transition-all font-medium text-sm group relative active:scale-[0.98] ${
                     isActive
                       ? 'bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 shadow-[0_0_10px_rgba(99,102,241,0.1)]'
                       : 'text-zinc-400 hover:text-zinc-100 hover:bg-zinc-900/50'
@@ -122,7 +122,7 @@ export default function AdminLayout() {
                   setIsSettingsOpen(!isSettingsOpen)
                   if (isCollapsed) setIsCollapsed(false)
                 }}
-                className={`w-full flex items-center ${isCollapsed ? 'lg:justify-center' : 'justify-between px-4'} py-3 rounded-xl transition-all font-medium text-sm group relative text-zinc-400 hover:text-zinc-100 hover:bg-zinc-900/50`}
+                className={`w-full flex items-center ${isCollapsed ? 'lg:justify-center' : 'justify-between px-4'} py-3.5 lg:py-3 rounded-xl transition-all font-medium text-sm group relative text-zinc-400 hover:text-zinc-100 hover:bg-zinc-900/50 active:scale-[0.98]`}
               >
                 <div className="flex items-center gap-3">
                   <Settings className="w-5 h-5 shrink-0" />
@@ -146,7 +146,7 @@ export default function AdminLayout() {
                     to="/admin/settings/users"
                     onClick={() => setIsMobileMenuOpen(false)}
                     className={({ isActive }) =>
-                      `flex items-center gap-3 px-4 py-2.5 rounded-xl transition-all font-medium text-sm group relative ${
+                      `flex items-center gap-3 px-4 py-3.5 lg:py-2.5 rounded-xl transition-all font-medium text-sm group relative active:scale-[0.98] ${
                         isActive
                           ? 'bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 shadow-[0_0_10px_rgba(99,102,241,0.1)]'
                           : 'text-zinc-400 hover:text-zinc-100 hover:bg-zinc-900/50'
@@ -161,10 +161,10 @@ export default function AdminLayout() {
             </div>
           </nav>
 
-          <div className="p-4 border-t border-zinc-800">
+          <div className="p-3 lg:p-4 border-t border-zinc-800">
             <button 
               onClick={() => window.location.href = '/'}
-              className={`flex items-center ${isCollapsed ? 'lg:justify-center' : 'gap-3 px-4'} py-2 w-full text-zinc-400 hover:text-red-400 transition-colors text-sm font-medium group relative`}
+              className={`flex items-center ${isCollapsed ? 'lg:justify-center' : 'gap-3 px-4'} py-3 lg:py-2 w-full text-zinc-400 hover:text-red-400 transition-colors text-sm font-medium group relative active:scale-[0.98]`}
             >
               <LogOut className="w-5 h-5 shrink-0" />
               <span className={isCollapsed ? 'lg:hidden' : 'block'}>Esci</span>
