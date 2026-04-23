@@ -295,7 +295,7 @@ export default function AdminCER() {
                   Visualizza il modello di ripartizione e l'allocazione stimata per i membri.
                 </p>
               </div>
-              <button onClick={handleOpenModal} className="text-[11px] font-bold text-white bg-indigo-600 px-5 py-2.5 rounded-xl flex items-center gap-1.5 hover:bg-indigo-700 transition-colors shadow-lg shadow-indigo-200 active:scale-95">
+              <button onClick={handleOpenModal} className="self-end md:self-auto text-[11px] font-bold text-white bg-zinc-900 px-5 py-2.5 rounded-xl flex items-center gap-1.5 hover:bg-zinc-800 transition-all shadow-lg active:scale-95">
                  <Settings2 className="w-3.5 h-3.5" /> Modifica Regolamento
               </button>
             </div>

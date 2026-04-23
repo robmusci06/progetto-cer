@@ -1,82 +1,11 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { mockMembers } from '../../data/mockMembers'
 import { Users, Search, Plus, MapPin, Zap, Sun, Clock, Cpu, Wifi, WifiOff, ArrowRight, LayoutDashboard, Euro } from 'lucide-react'
 
 // ─────────────────────────────────────────────
 // Dati mock — UC-G03: 3 Consumer, 1 Prosumer, 1 Producer
 // ─────────────────────────────────────────────
-const mockMembers = [
-  {
-    id: 'MEM-001',
-    pod: 'IT001E00012345',
-    name: 'Marco Bianchi',
-    email: 'm.bianchi@example.com',
-    role: 'Consumer' as const,
-    type: 'Residenziale',
-    address: 'Via Roma, 12',
-    status: 'Attivo' as const,
-    joinedAt: '12 Gen 2026',
-    consumption: '3.2 kWh',
-    lastUpdate: 'Oggi, 09:42',
-    incentive: '€ 12,40',
-  },
-  {
-    id: 'MEM-002',
-    pod: 'IT001E00067890',
-    name: 'Laura Ferretti',
-    email: 'l.ferretti@example.com',
-    role: 'Consumer' as const,
-    type: 'Residenziale',
-    address: 'Corso Italia, 5',
-    status: 'In Attesa GSE' as const,
-    joinedAt: '16 Apr 2026',
-    consumption: '1.8 kWh',
-    lastUpdate: 'Ieri, 23:59',
-    incentive: null,
-  },
-  {
-    id: 'MEM-003',
-    pod: 'IT001E00054321',
-    name: 'Giovanni Mazza',
-    email: 'g.mazza@example.com',
-    role: 'Consumer' as const,
-    type: 'Condominio',
-    address: 'Via Dante, 8',
-    status: 'Attivo' as const,
-    joinedAt: '25 Gen 2026',
-    consumption: '5.7 kWh',
-    lastUpdate: 'Oggi, 08:15',
-    incentive: '€ 8,90',
-  },
-  {
-    id: 'MEM-004',
-    pod: 'IT001E00098765',
-    name: 'Sofia Gentile',
-    email: 's.gentile@example.com',
-    role: 'Prosumer' as const,
-    type: 'Residenziale',
-    address: 'Piazza Garibaldi, 2',
-    status: 'Attivo' as const,
-    joinedAt: '03 Feb 2026',
-    consumption: '2.1 kWh',
-    lastUpdate: 'Oggi, 10:01',
-    incentive: '€ 34,20',
-  },
-  {
-    id: 'MEM-005',
-    pod: 'IT001E00011111',
-    name: 'Azienda Sole Srl',
-    email: 'admin@aziendas.it',
-    role: 'Producer' as const,
-    type: 'Impresa',
-    address: 'Strada Prov. 4',
-    status: 'Offline' as const,
-    joinedAt: '14 Mar 2026',
-    consumption: '—',
-    lastUpdate: '3 giorni fa',
-    incentive: null,
-  },
-]
 
 // ─────────────────────────────────────────────
 // Stili per ruolo e stato

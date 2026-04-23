@@ -1,162 +1,174 @@
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
+import { mockMembers } from '../../data/mockMembers'
 import { 
-  ArrowLeft, Mail, Phone, MapPin, 
+  Mail, Phone, MapPin, 
   TrendingUp, Zap, 
   Calendar, Euro, Activity, 
-  Send, FileText, Cpu, Info, Save
+  Send, FileText, Cpu, Info, Users
 } from 'lucide-react'
+import { 
+  AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend
+} from 'recharts'
 
 export default function AdminMemberDetail() {
   const { id } = useParams()
-  const navigate = useNavigate()
 
-  // Mock data for a member
-  const member = {
-    id: id || 'MEM-001',
-    name: 'Marco Bianchi',
-    email: 'm.bianchi@example.com',
-    phone: '+39 347 123 4567',
-    address: 'Via Roma, 12, 75100 Matera (MT)',
-    pod: 'IT001E00012345',
-    type: 'Residenziale',
-    role: 'Consumer', // Producer, Consumer, Prosumer
-    status: 'Attivo',
-    joinedAt: '12 Gen 2026',
-    consumption: '420 kWh',
-    incentive: '€ 42.50',
-  }
+  // Find the member by ID or fallback to the first one
+  const member = mockMembers.find(m => m.id === id) || mockMembers[0]
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'Attivo': return { pill: 'bg-emerald-50 dark:bg-emerald-900/30', text: 'text-emerald-600', dot: 'bg-emerald-500' }
-      case 'Offline': return { pill: 'bg-rose-50 dark:bg-rose-900/30', text: 'text-rose-600', dot: 'bg-rose-500' }
-      default: return { pill: 'bg-zinc-100', text: 'text-zinc-600', dot: 'bg-zinc-400' }
-    }
-  }
-
-  const sc = getStatusColor(member.status);
+  const isProducerRole = member.role === 'Producer' || member.role === 'Prosumer'
 
   return (
-    <div className="space-y-8 animate-in fade-in duration-700 pb-10">
+    <div className="space-y-6 animate-in fade-in duration-700 pb-10">
       
-      {/* Header with Breadcrumbs & Main Actions */}
-      <div className="flex flex-col gap-6">
-        <div className="flex items-center justify-between">
-          <button 
-            onClick={() => navigate('/admin/community')}
-            className="flex items-center gap-2 text-zinc-500 hover:text-indigo-600 font-bold transition-colors text-sm group"
-          >
-            <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
-            Torna alla Community
-          </button>
-          
-          <div className="flex items-center gap-2">
-            <button className="p-2.5 bg-white border border-zinc-200 rounded-xl text-zinc-500 hover:text-indigo-600 transition-all hover:shadow-sm">
-                <Send className="w-4 h-4" />
-            </button>
-            <button className="p-2.5 bg-white border border-zinc-200 rounded-xl text-zinc-500 hover:text-indigo-600 transition-all hover:shadow-sm">
-                <FileText className="w-4 h-4" />
-            </button>
+      {/* Main Header Card */}
+      <div className="bg-white p-6 rounded-3xl border border-zinc-100 shadow-sm flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="flex items-center gap-5">
+          <div className="w-16 h-16 rounded-2xl bg-blue-500 text-white flex items-center justify-center text-2xl font-bold">
+            {member.name.split(' ').map(n => n[0]).join('')}
+          </div>
+          <div>
+            <h1 className="text-3xl font-bold text-zinc-900 tracking-tight">{member.name}</h1>
+            <div className="flex items-center gap-2 mt-1">
+              <span className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-indigo-50 text-indigo-600 text-[10px] font-bold uppercase tracking-wider">
+                <Users className="w-3 h-3" /> {member.role}
+              </span>
+              <span className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-emerald-50 text-emerald-600 text-[10px] font-bold uppercase tracking-wider">
+                <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" /> {member.status}
+              </span>
+            </div>
           </div>
         </div>
 
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-2">
-          <div className="flex items-center gap-4">
-            <div className={`w-16 h-16 sm:w-20 sm:h-20 rounded-3xl flex items-center justify-center text-3xl font-black ${member.role === 'Producer' ? 'bg-amber-100 text-amber-600' : 'bg-indigo-100 text-indigo-600 shadow-inner'}`}>
-              {member.name.charAt(0)}
-            </div>
-            <div>
-              <h1 className="text-2xl sm:text-3xl font-black text-zinc-900 tracking-tight">{member.name}</h1>
-               <div className="flex items-center gap-2 mt-1">
-                 <span className="text-[10px] font-black text-zinc-400 uppercase tracking-widest bg-zinc-100 px-2.5 py-1 rounded-md">
-                   {member.role}
-                 </span>
-                 <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold ${sc.pill} ${sc.text}`}>
-                    <span className={`h-1.5 w-1.5 rounded-full ${sc.dot} ${member.status === 'Attivo' ? 'animate-pulse' : ''}`} />
-                    {member.status}
-                 </span>
-              </div>
-            </div>
-          </div>
+        <div className="flex items-center gap-3">
+          <button className="bg-zinc-900 text-white px-6 py-3 rounded-xl text-xs font-bold flex items-center gap-2 hover:bg-black transition-all shadow-sm active:scale-95">
+             <Send className="w-4 h-4" /> Invia Messaggio
+          </button>
+          <button className="bg-white text-zinc-600 border border-zinc-200 px-6 py-3 rounded-xl text-xs font-bold flex items-center gap-2 hover:bg-zinc-50 transition-all shadow-sm">
+             <FileText className="w-4 h-4" /> Esporta Report
+          </button>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         
-        {/* ── Left Column: Registry & Info ── */}
-        <div className="lg:col-span-1 space-y-6">
-          <div className="bg-white p-6 rounded-[2rem] border border-zinc-100 shadow-[0_20px_50px_rgba(0,0,0,0.03)] transition-all">
-            <h3 className="text-lg font-bold text-zinc-900 mb-6 flex items-center gap-2">
-              <Info className="w-5 h-5 text-indigo-500" /> 
-              Anagrafica Membro
+        {/* ── Left Column: Registry ── */}
+        <div className="lg:col-span-4">
+          <div className="bg-white p-8 rounded-[2rem] border border-zinc-100 shadow-sm h-fit">
+            <h3 className="text-lg font-bold text-zinc-900 mb-8 flex items-center gap-2 tracking-tight">
+              <Info className="w-5 h-5 text-indigo-500" /> Anagrafica membro
             </h3>
             
             <div className="space-y-6">
               {[
-                { icon: <Cpu className="w-4 h-4" />, label: 'ID POD', value: member.pod, mono: true },
-                { icon: <MapPin className="w-4 h-4" />, label: 'Indirizzo', value: member.address },
-                { icon: <Mail className="w-4 h-4" />, label: 'Email', value: member.email },
-                { icon: <Phone className="w-4 h-4" />, label: 'Telefono', value: member.phone },
-                { icon: <Activity className="w-4 h-4" />, label: 'Tipologia', value: member.type },
-                { icon: <Calendar className="w-4 h-4" />, label: 'Membro dal', value: member.joinedAt },
+                { icon: <Cpu className="w-3.5 h-3.5" />, label: 'ID POD', value: member.pod, mono: true },
+                { icon: <MapPin className="w-3.5 h-3.5" />, label: 'Indirizzo', value: member.address },
+                { icon: <Mail className="w-3.5 h-3.5" />, label: 'Email', value: member.email },
+                { icon: <Phone className="w-3.5 h-3.5" />, label: 'Telefono', value: member.phone },
+                { icon: <Activity className="w-3.5 h-3.5" />, label: 'Tipologia', value: member.type },
+                { icon: <Calendar className="w-3.5 h-3.5" />, label: 'Membro dal', value: member.joinedAt },
               ].map((item, idx) => (
-                <div key={idx} className="flex flex-col gap-1.5">
-                  <span className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest flex items-center gap-1.5">
-                    {item.icon} {item.label}
-                  </span>
-                  <p className={`text-sm text-zinc-800 font-bold ${item.mono ? 'font-mono bg-zinc-50 px-2.5 py-1 rounded border border-zinc-100 w-fit' : ''}`}>
+                <div key={idx} className="space-y-1">
+                  <div className="flex items-center gap-2 text-[10px] font-bold text-zinc-400 uppercase tracking-widest">
+                    {item.label}
+                  </div>
+                  <p className={`text-sm text-zinc-900 font-bold ${item.mono ? 'bg-zinc-50 px-2 py-0.5 rounded border border-zinc-100/50 w-fit font-mono' : ''}`}>
                     {item.value}
                   </p>
                 </div>
               ))}
             </div>
-
-            <div className="mt-8 pt-6 border-t border-zinc-100 flex justify-start">
-               <button className="bg-zinc-900 hover:bg-zinc-800 text-white px-5 py-2.5 rounded-xl text-[11px] font-bold transition-all shadow-sm flex items-center gap-2">
-                 <Save className="w-3.5 h-3.5" /> Salva modifiche
-               </button>
-            </div>
           </div>
         </div>
 
-        {/* ── Right Column: Energy Analysis ── */}
-        <div className="lg:col-span-2 space-y-8">
+        {/* ── Right Column: Analysis ── */}
+        <div className="lg:col-span-8 space-y-6">
           
-          {/* Energy KPIs */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          {/* KPIs */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {[
-              { label: 'Consumo Oggi', value: member.consumption, icon: <Zap className="w-5 h-5" />, color: 'bg-amber-50 text-amber-600 border-amber-100' },
-              { label: 'Incentivo Mese', value: member.incentive, icon: <Euro className="w-5 h-5" />, color: 'bg-emerald-50 text-emerald-600 border-emerald-100' },
-              { label: 'Energy Score', value: '88/100', icon: <TrendingUp className="w-5 h-5" />, color: 'bg-indigo-50 text-indigo-600 border-indigo-100' },
+              { label: 'Consumo oggi', value: member.consumption, icon: <Zap className="w-4 h-4" />, color: 'text-amber-500', trend: member.trends.consumption },
+              { label: 'Incentivo mese', value: member.incentive, icon: <Euro className="w-4 h-4" />, color: 'text-emerald-500', trend: member.trends.incentive },
+              { label: 'Energy score', value: '88/100', icon: <TrendingUp className="w-4 h-4" />, color: 'text-indigo-500', trend: member.trends.score },
             ].map((kpi, idx) => (
-              <div key={idx} className={`p-5 rounded-2xl border shadow-sm flex flex-col gap-4 ${kpi.color} bg-white dark:bg-zinc-800 transition-all`}>
-                <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center shadow-sm">
-                   {kpi.icon}
+              <div key={idx} className="bg-white p-6 rounded-2xl border border-zinc-100 shadow-sm relative overflow-hidden group hover:shadow-md transition-all">
+                <div className="flex justify-between items-start mb-4">
+                   <div className={`w-8 h-8 rounded-xl bg-white border border-zinc-100 flex items-center justify-center shadow-sm ${kpi.color}`}>
+                      {kpi.icon}
+                   </div>
+                   <span className="text-[9px] font-bold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-lg">
+                      {kpi.trend}
+                   </span>
                 </div>
                 <div>
-                   <p className="text-[10px] font-bold uppercase tracking-widest opacity-70">{kpi.label}</p>
-                   <p className="text-2xl font-black">{kpi.value}</p>
+                   <p className="text-xs font-medium text-zinc-400 mb-0.5">{kpi.label}</p>
+                   <p className="text-2xl font-bold text-zinc-900 tracking-tight">{kpi.value}</p>
                 </div>
               </div>
             ))}
           </div>
 
-          {/* Progress Card */}
-          <div className="bg-white p-6 sm:p-8 rounded-[2rem] border border-zinc-100 shadow-sm relative overflow-hidden">
-             <h3 className="text-lg font-bold text-zinc-900 mb-6 flex items-center gap-2">
-                <Activity className="w-5 h-5 text-emerald-500" /> Sincronia Energetica
-             </h3>
-             <div className="flex items-end gap-1 h-32 mb-4">
-                {[40, 65, 80, 55, 90, 70, 85, 45, 60, 75, 50, 35].map((val, i) => (
-                   <div key={i} className="flex-1 bg-indigo-50 rounded-t-md relative group">
-                      <div className="absolute bottom-0 left-0 right-0 bg-indigo-500 rounded-t-md transition-all duration-500 group-hover:bg-indigo-600" style={{ height: `${val}%` }} />
-                   </div>
-                ))}
+          {/* Graph Card */}
+          <div className="bg-white p-8 rounded-[2rem] border border-zinc-100 shadow-sm flex flex-col">
+             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
+                <div>
+                  <h3 className="text-lg font-bold text-zinc-900 tracking-tight">Andamento energetico</h3>
+                  <p className="text-[10px] text-zinc-400 font-bold uppercase tracking-widest mt-1">Dettaglio flussi orari nelle ultime 24 ore</p>
+                </div>
              </div>
-             <div className="flex justify-between text-[10px] font-bold text-zinc-400 uppercase tracking-widest px-1">
-                <span>00:00</span>
-                <span>12:00</span>
-                <span>23:59</span>
+             
+             <div className="h-[280px] w-full">
+                <ResponsiveContainer width="100%" height="100%">
+                  <AreaChart data={member.energyData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                    <defs>
+                      <linearGradient id="colorConsumo" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.1}/>
+                        <stop offset="95%" stopColor="#3b82f6" stopOpacity={0}/>
+                      </linearGradient>
+                      <linearGradient id="colorProduzione" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="#f59e0b" stopOpacity={0.1}/>
+                        <stop offset="95%" stopColor="#f59e0b" stopOpacity={0}/>
+                      </linearGradient>
+                    </defs>
+                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f4f4f5" />
+                    <XAxis 
+                      dataKey="time" 
+                      axisLine={false} 
+                      tickLine={false} 
+                      tick={{ fill: '#a1a1aa', fontSize: 10, fontWeight: 700 }} 
+                      dy={10}
+                    />
+                    <YAxis 
+                      axisLine={false} 
+                      tickLine={false} 
+                      tick={{ fill: '#a1a1aa', fontSize: 10, fontWeight: 700 }} 
+                    />
+                    <Tooltip 
+                      contentStyle={{ borderRadius: '16px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }}
+                    />
+                    <Legend iconType="circle" verticalAlign="top" align="right" wrapperStyle={{ paddingBottom: '20px', fontSize: '10px', fontWeight: 'bold', textTransform: 'uppercase' }} />
+                    <Area 
+                      type="monotone" 
+                      dataKey="consumo" 
+                      name="Consumo (kWh)" 
+                      stroke="#3b82f6" 
+                      strokeWidth={3} 
+                      fillOpacity={1} 
+                      fill="url(#colorConsumo)" 
+                    />
+                    {isProducerRole && (
+                      <Area 
+                        type="monotone" 
+                        dataKey="produzione" 
+                        name="Produzione (kWh)" 
+                        stroke="#f59e0b" 
+                        strokeWidth={3} 
+                        fillOpacity={1} 
+                        fill="url(#colorProduzione)" 
+                      />
+                    )}
+                  </AreaChart>
+                </ResponsiveContainer>
              </div>
           </div>
         </div>
