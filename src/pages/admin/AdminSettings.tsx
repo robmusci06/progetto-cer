@@ -19,7 +19,6 @@ export default function AdminSettings() {
     if (type === 'producer') {
       const diff = newVal - producer
       setProducer(newVal)
-      // Distribute diff equally if possible
       const cRatio = consumer / (consumer + ente || 1)
       const eRatio = ente / (consumer + ente || 1)
       setConsumer(Math.max(0, consumer - diff * cRatio))
@@ -41,11 +40,9 @@ export default function AdminSettings() {
     }
   }
 
-  // Ensure strict sum to 100 on mouse up/blur
   const finalizeValues = () => {
     const total = producer + consumer + ente
     if (Math.abs(total - 100) > 0.1) {
-       // Simple normalization
        setProducer(Math.round(producer / total * 100))
        setConsumer(Math.round(consumer / total * 100))
        setEnte(Math.round(ente / total * 100))
@@ -73,34 +70,35 @@ export default function AdminSettings() {
 
   return (
     <div className="space-y-8 max-w-4xl mx-auto h-full pb-10">
-      <div>
-        <h1 className="text-3xl font-bold tracking-tight text-zinc-900">Monitoraggio e Configurazione Incentivi</h1>
-        <p className="text-zinc-500 mt-1">Analizza il trend del fondo maturato e configura l'asset allocation degli incentivi GSE (Cashback CER).</p>
+      <div className="flex flex-col sm:flex-row justify-between items-start md:items-end gap-4">
+        <div>
+          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-zinc-900">Configurazione Incentivi</h1>
+          <p className="text-zinc-500 mt-1 text-sm">Trend del fondo e asset allocation degli incentivi GSE.</p>
+        </div>
       </div>
 
-      {/* Tabs */}
-      <div className="flex bg-zinc-100 p-1 rounded-xl w-fit">
+      <div className="flex bg-zinc-100 p-1 rounded-xl w-fit shadow-sm">
         <button 
           onClick={() => setActiveTab('trend')}
           className={`flex items-center gap-2 px-6 py-2.5 rounded-lg text-sm font-bold transition-all ${activeTab === 'trend' ? 'bg-white text-indigo-700 shadow-sm' : 'text-zinc-500 hover:text-zinc-700'}`}
         >
-          <TrendingUp className="w-4 h-4" /> Andamento Incentivi
+          <TrendingUp className="w-4 h-4" /> Andamento
         </button>
         <button 
           onClick={() => setActiveTab('allocation')}
           className={`flex items-center gap-2 px-6 py-2.5 rounded-lg text-sm font-bold transition-all ${activeTab === 'allocation' ? 'bg-white text-indigo-700 shadow-sm' : 'text-zinc-500 hover:text-zinc-700'}`}
         >
-          <Settings2 className="w-4 h-4" /> Configurazione Ripartizione
+          <Settings2 className="w-4 h-4" /> Allocazione
         </button>
       </div>
 
-      <div className="bg-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-zinc-200 overflow-hidden">
+      <div className="bg-white rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.04)] border border-zinc-200 overflow-hidden">
         {activeTab === 'trend' ? (
            <div className="p-8 space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
              <div className="flex items-center justify-between">
                 <div>
                   <h3 className="text-lg font-bold text-zinc-900">Fondo Comunità Attuale</h3>
-                  <p className="text-zinc-500 text-sm mt-1">Stimato in base all'autoconsumo virtuale sincronizzato negli ultimi 3 mesi.</p>
+                  <p className="text-zinc-500 text-sm mt-1">Stimato negli ultimi 3 mesi.</p>
                 </div>
                 <div className="text-right">
                   <div className="text-4xl font-black text-emerald-600">€ 1.250,00</div>
@@ -136,8 +134,7 @@ export default function AdminSettings() {
               <div>
                  <h3 className="text-lg font-bold text-zinc-900">Regolamento di Ripartizione</h3>
                  <p className="text-zinc-500 text-sm mt-1 max-w-2xl">
-                   Modifica le percentuali di divisione degli incentivi. I tre valori sono matematicamente vincolati
-                   per generare sempre un totale del 100%. Salva per applicare le nuove logiche contrattuali dal prossimo periodo di calcolo.
+                   I tre valori sono matematicamente vincolati per generare sempre un totale del 100%. 
                  </p>
               </div>
            </div>
@@ -162,8 +159,8 @@ export default function AdminSettings() {
               
               <div className="space-y-4">
                  <div className="flex justify-between items-center">
-                    <label className="text-sm font-bold text-zinc-700 uppercase tracking-wider flex items-center gap-2">
-                      <span className="w-3 h-3 rounded-full bg-amber-400 inline-block"></span>
+                    <label className="text-xs font-bold text-zinc-400 uppercase tracking-widest flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-amber-400 inline-block"></span>
                       Quota Producer
                     </label>
                     <span className="text-xl font-bold text-amber-600">{Math.round(producer)}%</span>
@@ -175,15 +172,14 @@ export default function AdminSettings() {
                    onChange={(e) => handleSliderChange('producer', parseFloat(e.target.value))}
                    onMouseUp={finalizeValues}
                    onTouchEnd={finalizeValues}
-                   className="w-full h-2 bg-zinc-200 rounded-lg appearance-none cursor-pointer accent-amber-500"
+                   className="w-full h-1.5 bg-zinc-200 rounded-lg appearance-none cursor-pointer accent-amber-500"
                  />
-                 <p className="text-xs text-zinc-500">Percentuale destinata a chi possiede gli impianti fotovoltaici mettendo l'energia in rete.</p>
               </div>
 
               <div className="space-y-4">
                  <div className="flex justify-between items-center">
-                    <label className="text-sm font-bold text-zinc-700 uppercase tracking-wider flex items-center gap-2">
-                      <span className="w-3 h-3 rounded-full bg-emerald-400 inline-block"></span>
+                    <label className="text-xs font-bold text-zinc-400 uppercase tracking-widest flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-emerald-400 inline-block"></span>
                       Quota Consumer
                     </label>
                     <span className="text-xl font-bold text-emerald-600">{Math.round(consumer)}%</span>
@@ -195,15 +191,14 @@ export default function AdminSettings() {
                    onChange={(e) => handleSliderChange('consumer', parseFloat(e.target.value))}
                    onMouseUp={finalizeValues}
                    onTouchEnd={finalizeValues}
-                   className="w-full h-2 bg-zinc-200 rounded-lg appearance-none cursor-pointer accent-emerald-500"
+                   className="w-full h-1.5 bg-zinc-200 rounded-lg appearance-none cursor-pointer accent-emerald-500"
                  />
-                 <p className="text-xs text-zinc-500">Percentuale redistribuita sotto forma di sconto/cashback a chi consuma in sincronia (autoconsumo virtuale).</p>
               </div>
 
               <div className="space-y-4">
                  <div className="flex justify-between items-center">
-                    <label className="text-sm font-bold text-zinc-700 uppercase tracking-wider flex items-center gap-2">
-                      <span className="w-3 h-3 rounded-full bg-indigo-400 inline-block"></span>
+                    <label className="text-xs font-bold text-zinc-400 uppercase tracking-widest flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-indigo-400 inline-block"></span>
                       Quota Ente
                     </label>
                     <span className="text-xl font-bold text-indigo-600">{Math.round(ente)}%</span>
@@ -215,39 +210,35 @@ export default function AdminSettings() {
                    onChange={(e) => handleSliderChange('ente', parseFloat(e.target.value))}
                    onMouseUp={finalizeValues}
                    onTouchEnd={finalizeValues}
-                   className="w-full h-2 bg-zinc-200 rounded-lg appearance-none cursor-pointer accent-indigo-500"
+                   className="w-full h-1.5 bg-zinc-200 rounded-lg appearance-none cursor-pointer accent-indigo-500"
                  />
-                 <p className="text-xs text-zinc-500">Fondo cassa trattenuto dal Gestore della CER per coprire i costi amministrativi e organizzativi.</p>
               </div>
            </div>
 
-           {/* Actions */}
-           <div className="pt-6 border-t border-zinc-100 flex items-center justify-between">
-              <div>
-                 {showSuccess && (
-                     <div className="animate-in fade-in slide-in-from-left-4 text-emerald-600 font-medium text-sm flex items-center gap-2">
-                       <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
-                       Configurazione salvata con successo.
-                     </div>
-                 )}
-              </div>
+           <div className="pt-6 border-t border-zinc-100 flex flex-col sm:flex-row items-center justify-start gap-4">
               <button 
                 onClick={handleSave}
                 disabled={isSaving}
-                className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 disabled:opacity-70 disabled:cursor-not-allowed text-white px-6 py-3 rounded-xl font-medium transition-all shadow-md hover:shadow-lg focus:ring-4 focus:ring-indigo-500/30"
+                className="w-full sm:w-auto flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-700 disabled:opacity-70 disabled:cursor-not-allowed text-white px-8 py-3 rounded-xl text-xs font-bold transition-all shadow-lg active:scale-95"
               >
                  {isSaving ? (
-                   <span className="animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent inline-block"></span>
+                   <span className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent inline-block"></span>
                  ) : (
-                   <Save className="w-5 h-5" />
+                   <Save className="w-4 h-4" />
                  )}
-                 {isSaving ? 'Salvataggio...' : 'Swipe to Save (Conferma)'}
+                 {isSaving ? 'Salvataggio...' : 'Salva Configurazione'}
               </button>
+              {showSuccess && (
+                  <div className="animate-in fade-in slide-in-from-left-4 text-emerald-600 font-medium text-sm flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+                    Configurazione salvata con successo.
+                  </div>
+              )}
            </div>
         </div>
       </div>
     )}
   </div>
 </div>
-  )
+);
 }

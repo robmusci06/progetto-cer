@@ -7,9 +7,6 @@ import {
   Save,
   MapPin, X, Lock, Euro
 } from 'lucide-react'
-// Recharts removed as chart was replaced by unified boxes
-
-
 
 export default function AdminCER() {
   const navigate = useNavigate()
@@ -28,7 +25,6 @@ export default function AdminCER() {
   const [tempFee, setTempFee] = useState(fixedFee)
 
   const handleSaveRules = () => {
-    // Only save if sum is exactly 100
     if (tempAllocation.comunita + tempAllocation.produttore + tempAllocation.cer === 100) {
       setAllocation(tempAllocation)
       setFixedFee(tempFee)
@@ -44,13 +40,25 @@ export default function AdminCER() {
     setIsModalOpen(true)
   }
 
+  const producer = allocation.comunita
+  const consumer = allocation.produttore
+  const ente = allocation.cer
+
+  const members = [
+    { id: 'MEM-005', name: 'Azienda Sole Srl', type: 'Producer', initials: 'AS', quota: 'Quota Fissa (45%)', stima: '562,50 €' },
+    { id: 'MEM-004', name: 'Sofia Gentile', type: 'Prosumer', initials: 'SG', quota: '30%', stima: '112,50 €' },
+    { id: 'MEM-001', name: 'Marco Bianchi', type: 'Consumer', initials: 'MB', quota: '30%', stima: '112,50 €' },
+    { id: 'MEM-002', name: 'Laura Ferretti', type: 'Consumer', initials: 'LF', quota: '30%', stima: '112,50 €' },
+    { id: 'MEM-003', name: 'Giovanni Mazza', type: 'Consumer', initials: 'GM', quota: '30%', stima: '112,50 €' },
+  ]
+
   return (
     <div className="space-y-6 max-w-7xl mx-auto pb-10 animate-in fade-in duration-700">
 
       {/* Header View */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 px-4 sm:px-0">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight text-zinc-900">Gestione CER</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-zinc-900">Gestione CER</h1>
           <p className="text-zinc-500 mt-1">Configurazione tecnica, monitoraggio asset e regole finanziarie.</p>
         </div>
         <div className="flex items-center gap-3">
@@ -62,24 +70,28 @@ export default function AdminCER() {
         </div>
       </div>
 
-      {/* Main Tab Navigation */}
-      <div className="flex bg-zinc-100/80 dark:bg-zinc-900/80 backdrop-blur-md p-1 rounded-2xl w-fit border border-zinc-200 dark:border-zinc-800 mx-4 sm:mx-0 overflow-x-auto no-scrollbar transition-colors">
-        {[
-          { id: 'general', icon: Globe, label: 'Dati Generali' },
-          { id: 'incentives', icon: TrendingUp, label: 'Ripartizione Incentivi' },
-        ].map(tab => (
-          <button
-            key={tab.id}
-            onClick={() => setActiveTab(tab.id as any)}
-            className={`flex items-center gap-2 px-4 sm:px-6 py-2.5 rounded-xl text-[11px] sm:text-sm font-bold transition-all whitespace-nowrap ${activeTab === tab.id ? 'bg-white dark:bg-zinc-800 text-indigo-700 dark:text-indigo-400 shadow-sm border border-zinc-100 dark:border-zinc-700' : 'text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200'}`}
-          >
-            <tab.icon className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> {tab.label}
-          </button>
-        ))}
+      {/* Navigation & Global Actions Bar */}
+      <div className="flex flex-col gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="flex bg-zinc-100/80 dark:bg-zinc-900/80 backdrop-blur-md p-1 rounded-2xl w-full sm:w-fit border border-zinc-200 dark:border-zinc-800 overflow-x-auto no-scrollbar transition-colors shadow-sm">
+            {[
+              { id: 'general', icon: Globe, label: 'Dati Generali' },
+              { id: 'incentives', icon: TrendingUp, label: 'Ripartizione Incentivi' },
+            ].map(tab => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id as any)}
+                className={`flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 rounded-xl text-[11px] sm:text-sm font-bold transition-all whitespace-nowrap ${activeTab === tab.id ? 'bg-white dark:bg-zinc-800 text-indigo-700 dark:text-indigo-400 shadow-sm border border-zinc-100 dark:border-zinc-700' : 'text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200'}`}
+              >
+                <tab.icon className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> {tab.label}
+              </button>
+            ))}
+          </div>
+        </div>
       </div>
 
       {/* ── Page Content Container ── */}
-      <div className="bg-white dark:bg-zinc-900 rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.04)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.2)] border border-zinc-200 dark:border-zinc-800 overflow-hidden min-h-[600px] mx-4 sm:mx-0 transition-colors">
+      <div className="bg-white dark:bg-zinc-900 rounded-2xl sm:rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.04)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.2)] border border-zinc-200 dark:border-zinc-800 overflow-hidden min-h-[600px] transition-colors">
 
         {/* ── TAB: GENERAL (Dati Generali & Asset) ── */}
         {activeTab === 'general' && (
@@ -138,16 +150,10 @@ export default function AdminCER() {
               </div>
             </div>
 
-            {/* MIDDLE SECTION: Forms */}
-            <div className="bg-white rounded-3xl p-8 border border-zinc-100 shadow-sm">
-              <div className="flex items-center justify-between mb-6">
-                <h3 className="text-lg font-bold text-zinc-900 flex items-center gap-2">
-                  <Settings2 className="w-5 h-5 text-indigo-500" /> Anagrafica CER
-                </h3>
-                <button className="text-[11px] font-bold text-white bg-zinc-900 px-4 py-2 rounded-xl flex items-center gap-1.5 hover:bg-zinc-800 transition-colors">
-                  Salva modifiche
-                </button>
-              </div>
+            <div className="bg-white dark:bg-zinc-800 rounded-3xl p-4 sm:p-8 border border-zinc-100 dark:border-zinc-700 shadow-sm transition-colors">
+              <h3 className="text-lg font-bold text-zinc-900 flex items-center gap-2 mb-6">
+                <Settings2 className="w-5 h-5 text-indigo-500" /> Anagrafica CER
+              </h3>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-1.5">
@@ -171,12 +177,17 @@ export default function AdminCER() {
                   <textarea rows={4} placeholder="Scrivi qui una descrizione dettagliata della CER Sole..." className="w-full bg-zinc-50 border border-zinc-200 rounded-xl px-4 py-3 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:bg-white transition-colors resize-none"></textarea>
                 </div>
               </div>
+
+              <div className="flex justify-start mt-6 pt-4 border-t border-zinc-100 dark:border-zinc-700">
+                <button className="text-[11px] font-bold text-white bg-zinc-900 dark:bg-zinc-100 dark:text-zinc-900 px-5 py-2.5 rounded-xl flex items-center gap-1.5 hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-colors shadow-sm">
+                  <Save className="w-3.5 h-3.5" /> Salva modifiche
+                </button>
+              </div>
             </div>
 
             {/* BOTTOM SECTION: Asset & POD Collegati */}
             <div className="space-y-8 pt-4 border-t border-zinc-100">
 
-              {/* 1. Unico Impianto */}
               <div className="space-y-6">
                 <div className="flex items-center justify-between">
                   <h3 className="text-xl font-bold text-zinc-900 px-1">Impianto di Produzione</h3>
@@ -228,7 +239,6 @@ export default function AdminCER() {
                 </div>
               </div>
 
-              {/* 2. POD Associati */}
               <div className="space-y-6 pt-4 border-t border-zinc-100">
                 <div className="flex items-center justify-between px-1">
                   <h3 className="text-lg font-bold text-zinc-900">POD Collegati alla CER</h3>
@@ -276,7 +286,6 @@ export default function AdminCER() {
         {activeTab === 'incentives' && (
           <div className="p-4 sm:p-8 space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500 relative">
 
-            {/* Header with Edit Button */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-2">
               <div>
                 <h3 className="text-xl font-bold text-zinc-900 flex items-center gap-2">
@@ -286,14 +295,13 @@ export default function AdminCER() {
                   Visualizza il modello di ripartizione e l'allocazione stimata per i membri.
                 </p>
               </div>
-              <button onClick={handleOpenModal} className="px-5 py-3 h-fit whitespace-nowrap bg-zinc-900 text-white rounded-xl text-sm font-bold flex items-center gap-2 shadow-lg shadow-zinc-900/20 hover:-translate-y-0.5 transition-all">
-                <Settings2 className="w-4 h-4" /> Modifica Regolamento
+              <button onClick={handleOpenModal} className="text-[11px] font-bold text-white bg-indigo-600 px-5 py-2.5 rounded-xl flex items-center gap-1.5 hover:bg-indigo-700 transition-colors shadow-lg shadow-indigo-200 active:scale-95">
+                 <Settings2 className="w-3.5 h-3.5" /> Modifica Regolamento
               </button>
             </div>
 
             {/* KPI SECTION: TOP BOXES */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              {/* Mature Incentives Card */}
               <div className="bg-[#FFFBEB] p-5 rounded-[1.5rem] border border-amber-100 shadow-sm relative overflow-hidden group hover:shadow-md transition-all">
                 <div className="flex items-start justify-between relative z-10">
                   <div className="flex items-center gap-3">
@@ -312,10 +320,8 @@ export default function AdminCER() {
                 <div className="mt-5 relative z-10">
                   <p className="text-3xl font-bold text-[#451A03] tracking-tighter">€ 1.250,00</p>
                 </div>
-                <div className="absolute -right-4 -bottom-4 w-24 h-24 bg-amber-200/20 rounded-full blur-2xl group-hover:bg-amber-200/30 transition-colors" />
               </div>
 
-              {/* Investment Recovery Card */}
               <div className="bg-white p-5 rounded-[1.5rem] border border-zinc-100 shadow-sm hover:shadow-md transition-all relative overflow-hidden group">
                 <div className="flex items-start gap-3 relative z-10">
                   <div className="w-9 h-9 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center flex-shrink-0 border border-indigo-100">
@@ -329,11 +335,10 @@ export default function AdminCER() {
                 <div className="mt-5 relative z-10">
                   <p className="text-3xl font-bold text-zinc-900 tracking-tighter">{fixedFee.toFixed(2).replace('.', ',')} €</p>
                 </div>
-                <div className="absolute -right-4 -bottom-4 w-24 h-24 bg-zinc-50 rounded-full blur-2xl group-hover:bg-indigo-50 transition-colors" />
               </div>
             </div>
 
-            {/* Progress Bar Model View */}
+            {/* Modello Proporzionale Box */}
             <div className="bg-white rounded-[1.25rem] p-6 sm:p-8 border border-zinc-100 shadow-sm">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
                 <div className="flex items-center gap-3">
@@ -342,124 +347,164 @@ export default function AdminCER() {
                 </div>
                 <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-3 py-1.5 rounded-full uppercase tracking-wider border border-emerald-100 w-fit">Attivo</span>
               </div>
-              <p className="text-sm text-zinc-500 mb-8 sm:pl-9">
+              <p className="text-sm text-zinc-500 mb-10 sm:pl-9">
                 L'incentivo viene distribuito in base all'energia effettivamente condivisa nel periodo di riferimento (sharing).
               </p>
 
-              <div className="sm:pl-9">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-3">
-                  <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-400">Suddivisione del Ricavo Totale</p>
-                  <div className="flex flex-wrap items-center gap-4 text-xs font-bold text-zinc-700">
-                    <span className="flex items-center gap-1.5"><div className="w-2 h-2 rounded-full bg-blue-400"></div>Produttori {allocation.produttore}%</span>
-                    <span className="flex items-center gap-1.5"><div className="w-2 h-2 rounded-full bg-emerald-400"></div>Consumatori {allocation.comunita}%</span>
-                    <span className="flex items-center gap-1.5"><div className="w-2 h-2 rounded-full bg-slate-400"></div>CER {allocation.cer}%</span>
+              <div className="sm:pl-9 space-y-12">
+                <div>
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-5">
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-400">Suddivisione del Ricavo Totale</p>
+                    <div className="flex items-center gap-4 text-[10px] font-bold">
+                       <span className="flex items-center gap-2 text-amber-600"><span className="w-2 h-2 rounded-full bg-amber-400" /> Produttori {producer}%</span>
+                       <span className="flex items-center gap-2 text-emerald-600"><span className="w-2 h-2 rounded-full bg-emerald-500" /> Consumatori {consumer}%</span>
+                       <span className="flex items-center gap-2 text-indigo-600"><span className="w-2 h-2 rounded-full bg-indigo-500" /> CER {ente}%</span>
+                    </div>
+                  </div>
+
+                  <div className="h-2 w-full bg-zinc-100 rounded-full flex overflow-hidden border border-zinc-100 shadow-inner">
+                    <div style={{ width: `${producer}%` }} className="h-full bg-amber-400 transition-all duration-1000" />
+                    <div style={{ width: `${consumer}%` }} className="h-full bg-emerald-500 transition-all duration-1000" />
+                    <div style={{ width: `${ente}%` }} className="h-full bg-indigo-500 transition-all duration-1000" />
                   </div>
                 </div>
-                <div className="w-full h-4 rounded-full flex overflow-hidden bg-zinc-100">
-                  <div className="h-full bg-blue-400 transition-all duration-500" style={{ width: `${allocation.produttore}%` }}></div>
-                  <div className="h-full bg-emerald-400 transition-all duration-500" style={{ width: `${allocation.comunita}%` }}></div>
-                  <div className="h-full bg-slate-400 transition-all duration-500" style={{ width: `${allocation.cer}%` }}></div>
+
+                {/* Individual Quotes Sections */}
+                <div className="space-y-6">
+                  <h4 className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 px-1">Quote Individuali dei Membri</h4>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {members.map((m, i) => (
+                      <div key={i} className="bg-white p-5 rounded-2xl border border-zinc-100 shadow-sm flex items-center justify-between hover:shadow-md transition-all group">
+                        <div className="flex items-center gap-4">
+                           <div className="w-12 h-12 rounded-full bg-zinc-50 border border-zinc-100 flex items-center justify-center text-sm font-black text-zinc-600 shadow-sm group-hover:bg-indigo-50 group-hover:text-indigo-600 transition-colors">
+                              {m.initials}
+                           </div>
+                           <div>
+                              <p className="text-sm font-bold text-zinc-900">{m.name}</p>
+                              <p className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest">{m.type}</p>
+                           </div>
+                        </div>
+                        <div className="flex gap-8 text-right">
+                           <div>
+                              <p className="text-[8px] font-bold text-zinc-400 uppercase tracking-widest mb-0.5">Ripartizione</p>
+                              <p className="text-xs font-bold text-zinc-900">{m.quota}</p>
+                           </div>
+                           <div>
+                              <p className="text-[8px] font-bold text-zinc-400 uppercase tracking-widest mb-0.5">Stima Mensile</p>
+                              <p className="text-sm font-black text-indigo-600">{m.stima}</p>
+                           </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
 
-            {/* Quote Individuali section (now full width) */}
-            <div className="space-y-6">
-              <h4 className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest pl-1">Quote Individuali dei Membri</h4>
-              <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
-                {[
-                  { name: 'Azienda Sole Srl', initials: 'AS', role: 'PRODUCER', type: 'producer', weight: 100, memberId: 'MEM-005' },
-                  { name: 'Sofia Gentile', initials: 'SG', role: 'PROSUMER', type: 'community', weight: 30, memberId: 'MEM-004' },
-                  { name: 'Marco Bianchi', initials: 'MB', role: 'CONSUMER', type: 'community', weight: 30, memberId: 'MEM-001' },
-                  { name: 'Laura Ferretti', initials: 'LF', role: 'CONSUMER', type: 'community', weight: 30, memberId: 'MEM-002' },
-                  { name: 'Giovanni Mazza', initials: 'GM', role: 'CONSUMER', type: 'community', weight: 30, memberId: 'MEM-003' },
-                ].map((member, i) => {
-                  const totalSim = 1250; // Use the matured value for estimation context
-                  let myQuote = 0;
-                  let textPerc = '';
-                  if (member.type === 'producer') {
-                    myQuote = totalSim * (allocation.produttore / 100);
-                    textPerc = `Quota Fissa (${allocation.produttore}%)`;
-                  } else {
-                    const communityTotal = totalSim * (allocation.comunita / 100);
-                    myQuote = communityTotal * (member.weight / 100);
-                    textPerc = `${member.weight}%`;
-                  }
-
-                  return (
-                    <div key={i} onClick={() => navigate(`/admin/community/${member.memberId}`)} className="bg-white rounded-[1.25rem] p-5 lg:px-8 border border-zinc-100 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-6 hover:shadow-md transition-shadow cursor-pointer group">
-                      <div className="flex items-center gap-5">
-                        <div className="w-12 h-12 rounded-full border border-zinc-200 flex items-center justify-center bg-zinc-50 text-xs font-bold text-zinc-400 flex-shrink-0">
-                          {member.initials}
-                        </div>
-                        <div>
-                          <p className="font-bold text-zinc-900 group-hover:text-indigo-600 transition-colors">{member.name}</p>
-                          <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-900 mt-1">{member.role}</p>
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-8 sm:gap-12">
-                        <div className="text-left sm:text-right">
-                          <p className="text-[9px] font-bold uppercase tracking-widest text-zinc-300 mb-1">Ripartizione</p>
-                          <p className="text-sm font-bold text-zinc-900">{textPerc}</p>
-                        </div>
-                        <div className="text-left sm:text-right">
-                          <p className="text-[9px] font-bold uppercase tracking-widest text-zinc-300 mb-1">Stima Mensile</p>
-                          <p className="text-lg font-bold text-indigo-900">{myQuote.toFixed(2).replace('.', ',')} €</p>
-                        </div>
-                      </div>
-                    </div>
-                  )
-                })}
-              </div>
-            </div>
-
-            {/* Modale Modifica Regolamento */}
-            {isModalOpen && (
-              <div className="fixed inset-0 z-[100] flex items-center justify-center bg-zinc-900/60 backdrop-blur-sm animate-in fade-in duration-200 p-4">
-                <div className="bg-white p-8 rounded-[2rem] w-full max-w-lg shadow-2xl relative animate-in zoom-in-95 duration-200 border border-zinc-100">
-                  <button onClick={() => setIsModalOpen(false)} className="absolute top-6 right-6 text-zinc-400 hover:text-zinc-900 hover:rotate-90 transition-all bg-zinc-50 hover:bg-zinc-100 p-2 rounded-full">
-                    <X className="w-5 h-5" />
-                  </button>
-
-                  <h3 className="text-2xl font-bold text-zinc-900 mb-2 pr-10">Regolamento CER</h3>
-                  <p className="text-sm text-zinc-500 mb-8 leading-relaxed">Aggiorna le percentuali per il riparto degli incentivi tra i soci. La somma deve essere 100%.</p>
-
-                  <div className="space-y-4">
-                    <div className="space-y-2">
-                      <label className="text-[10px] font-bold text-blue-700 uppercase tracking-widest pl-1">Quota Produttori (%)</label>
-                      <input type="number" step="1" max="100" min="0" value={tempAllocation.produttore} onChange={e => setTempAllocation({ ...tempAllocation, produttore: parseInt(e.target.value) || 0 })} className="w-full bg-blue-50/50 border border-blue-100 rounded-xl px-4 py-3 text-sm font-bold text-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all shadow-sm" />
-                    </div>
-                    <div className="space-y-2">
-                      <label className="text-[10px] font-bold text-emerald-700 uppercase tracking-widest pl-1">Quota Consumatori (%)</label>
-                      <input type="number" step="1" max="100" min="0" value={tempAllocation.comunita} onChange={e => setTempAllocation({ ...tempAllocation, comunita: parseInt(e.target.value) || 0 })} className="w-full bg-emerald-50/50 border border-emerald-100 rounded-xl px-4 py-3 text-sm font-bold text-emerald-900 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 transition-all shadow-sm" />
-                    </div>
-                    <div className="space-y-2">
-                      <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest pl-1">Quota CER (%)</label>
-                      <input type="number" step="1" max="100" min="0" value={tempAllocation.cer} onChange={e => setTempAllocation({ ...tempAllocation, cer: parseInt(e.target.value) || 0 })} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-500/20 transition-all shadow-sm" />
-                    </div>
-
-                    {(tempAllocation.comunita + tempAllocation.produttore + tempAllocation.cer) !== 100 && (
-                      <div className="text-xs font-bold text-red-500 bg-red-50 p-3 rounded-lg border border-red-100 flex items-center justify-between">
-                        <span>Somma attuale: {tempAllocation.comunita + tempAllocation.produttore + tempAllocation.cer}%</span>
-                        <span>Deve essere 100%</span>
-                      </div>
-                    )}
-
-                    <div className="pt-6 mt-6 border-t border-zinc-100 space-y-2">
-                      <label className="text-[10px] font-bold text-amber-600 uppercase tracking-widest pl-1 flex items-center gap-1.5"><Lock className="w-3 h-3" /> Quota Mensile Trattenuta (€)</label>
-                      <input type="number" step="1" value={tempFee} onChange={e => setTempFee(parseFloat(e.target.value) || 0)} className="w-full bg-amber-50 text-amber-900 border border-amber-200 rounded-xl px-4 py-3 text-lg font-black focus:outline-none focus:ring-2 focus:ring-amber-500/20 shadow-sm" />
-                    </div>
-
-                    <button onClick={handleSaveRules} className="w-full mt-4 py-4 bg-indigo-600 text-white rounded-xl text-sm font-bold shadow-lg shadow-indigo-600/20 hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2">
-                      <Save className="w-4 h-4" /> Applica Modifiche
-                    </button>
-                  </div>
-                </div>
-              </div>
-            )}
           </div>
         )}
+
       </div>
+
+      {/* Rules Configuration Modal */}
+      {isModalOpen && (
+        <div className="fixed inset-0 bg-zinc-900/40 backdrop-blur-md z-[100] flex items-center justify-center p-4 animate-in fade-in duration-300">
+          <div className="bg-white rounded-[2rem] w-full max-w-lg shadow-2xl overflow-hidden border border-zinc-200 animate-in zoom-in-95 duration-200">
+            <div className="p-6 border-b border-zinc-100 flex items-center justify-between bg-zinc-50/50">
+              <div className="flex items-center gap-3">
+                <div className="p-2 bg-indigo-100 text-indigo-600 rounded-xl">
+                  <Settings2 className="w-5 h-5" />
+                </div>
+                <h3 className="text-lg font-bold text-zinc-900">Configura Ripartizione</h3>
+              </div>
+              <button onClick={() => setIsModalOpen(false)} className="p-2 hover:bg-zinc-200 rounded-full transition-colors text-zinc-400">
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <div className="p-8 space-y-8">
+              <div className="space-y-6">
+                <div>
+                  <div className="flex justify-between items-center mb-3">
+                    <label className="text-xs font-bold text-zinc-400 uppercase tracking-widest px-1">Quota Consumer (%)</label>
+                    <span className="text-lg font-black text-emerald-600">{tempAllocation.produttore}%</span>
+                  </div>
+                  <input
+                    type="range"
+                    min="0" max="100"
+                    value={tempAllocation.produttore}
+                    onChange={(e) => setTempAllocation({...tempAllocation, produttore: parseInt(e.target.value)})}
+                    className="w-full h-2 bg-zinc-100 rounded-lg appearance-none cursor-pointer accent-emerald-500"
+                  />
+                </div>
+                <div>
+                  <div className="flex justify-between items-center mb-3">
+                    <label className="text-xs font-bold text-zinc-400 uppercase tracking-widest px-1">Quota Producer (%)</label>
+                    <span className="text-lg font-black text-amber-600">{tempAllocation.comunita}%</span>
+                  </div>
+                  <input
+                    type="range"
+                    min="0" max="100"
+                    value={tempAllocation.comunita}
+                    onChange={(e) => setTempAllocation({...tempAllocation, comunita: parseInt(e.target.value)})}
+                    className="w-full h-2 bg-zinc-100 rounded-lg appearance-none cursor-pointer accent-amber-500"
+                  />
+                </div>
+                <div>
+                  <div className="flex justify-between items-center mb-3">
+                    <label className="text-xs font-bold text-zinc-400 uppercase tracking-widest px-1">Quota CER (%)</label>
+                    <span className="text-lg font-black text-indigo-600">{tempAllocation.cer}%</span>
+                  </div>
+                  <input
+                    type="range"
+                    min="0" max="100"
+                    value={tempAllocation.cer}
+                    onChange={(e) => setTempAllocation({...tempAllocation, cer: parseInt(e.target.value)})}
+                    className="w-full h-2 bg-zinc-100 rounded-lg appearance-none cursor-pointer accent-indigo-500"
+                  />
+                </div>
+              </div>
+
+              <div className="p-4 bg-zinc-50 rounded-2xl border border-zinc-100 flex items-center justify-between">
+                <div>
+                  <p className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest mb-1">Totale Allocazione</p>
+                  <p className={`text-xl font-black ${tempAllocation.comunita + tempAllocation.produttore + tempAllocation.cer === 100 ? 'text-emerald-600' : 'text-rose-500'}`}>
+                    {tempAllocation.comunita + tempAllocation.produttore + tempAllocation.cer}%
+                  </p>
+                </div>
+                {tempAllocation.comunita + tempAllocation.produttore + tempAllocation.cer !== 100 && (
+                  <p className="text-[10px] font-bold text-rose-500 border border-rose-200 bg-rose-50 px-2 py-1 rounded-md">Deve essere 100%</p>
+                )}
+              </div>
+
+              <div className="space-y-4">
+                 <label className="text-xs font-bold text-zinc-400 uppercase tracking-widest px-1">Spese Gestione Fisse (€/mese)</label>
+                 <div className="relative">
+                   <Euro className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400" />
+                   <input
+                     type="number"
+                     value={tempFee}
+                     onChange={(e) => setTempFee(parseFloat(e.target.value))}
+                     className="w-full bg-zinc-50 border border-zinc-200 rounded-xl pl-10 pr-4 py-3 text-sm font-bold focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:bg-white transition-colors"
+                   />
+                 </div>
+              </div>
+            </div>
+
+            <div className="p-6 border-t border-zinc-100 bg-zinc-50/50 flex gap-3">
+              <button onClick={() => setIsModalOpen(false)} className="flex-1 px-6 py-3 rounded-xl text-sm font-bold text-zinc-600 hover:bg-zinc-200 transition-colors">Annulla</button>
+              <button
+                onClick={handleSaveRules}
+                disabled={tempAllocation.comunita + tempAllocation.produttore + tempAllocation.cer !== 100}
+                className="flex-1 px-6 py-3 rounded-xl text-sm font-bold text-white bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors shadow-lg shadow-indigo-200"
+              >
+                Conferma Regole
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
     </div>
   )
 }

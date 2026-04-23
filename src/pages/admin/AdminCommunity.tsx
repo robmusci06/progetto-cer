@@ -153,7 +153,7 @@ export default function AdminCommunity() {
     <div className="space-y-8 max-w-7xl mx-auto pb-10">
 
       {/* Page Header */}
-      <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-5 px-4 sm:px-0">
+      <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-5">
         <div>
           <h1 className="text-2xl lg:text-3xl font-bold tracking-tight text-zinc-900">Comunità &amp; Membri</h1>
           <p className="text-zinc-500 mt-1 text-xs lg:text-sm">Gestisci l'anagrafica, verifica le adesioni e monitora lo stato dei nodi.</p>
@@ -170,7 +170,7 @@ export default function AdminCommunity() {
       </div>
 
       {/* Search + Filters */}
-      <div className="px-4 sm:px-0 flex flex-col lg:flex-row gap-4 items-start lg:items-center">
+      <div className="flex flex-col lg:flex-row gap-4 items-start lg:items-center">
         <div className="relative w-full lg:w-80">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-400" />
           <input
@@ -208,7 +208,7 @@ export default function AdminCommunity() {
       </div>
 
       {/* ── Cards Grid ── */}
-      <div className="px-4 sm:px-0 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-5">
         {filtered.length === 0 ? (
           <div className="col-span-3 flex flex-col items-center justify-center py-20 text-zinc-400">
             <Search className="h-10 w-10 mb-3 opacity-30" />
@@ -228,9 +228,9 @@ export default function AdminCommunity() {
                 {/* Glassmorphism hover glow */}
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none bg-gradient-to-br from-indigo-50/40 to-transparent" />
 
-                <div className="p-6">
+                <div className="p-4 sm:p-6">
                   {/* Header: avatar + name + role badge */}
-                  <div className="flex items-start gap-4 mb-5">
+                  <div className="flex items-start gap-3 sm:gap-4 mb-4 sm:mb-5">
                     <div className={`h-12 w-12 rounded-xl bg-gradient-to-br ${rc.avatar} flex items-center justify-center text-white font-bold text-sm flex-shrink-0 shadow-sm`}>
                       {member.name.split(' ').map((n) => n[0]).join('').substring(0, 2).toUpperCase()}
                     </div>
@@ -302,10 +302,10 @@ export default function AdminCommunity() {
                   </div>
 
                   {/* Divider */}
-                  <div className="border-t border-zinc-100 -mx-6 mb-4" />
+                  <div className="border-t border-zinc-100 dark:border-zinc-800 -mx-4 sm:-mx-6 mb-4" />
 
                   {/* Footer: status + CTA */}
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-center justify-between flex-row-reverse">
                     <span className={`inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full ${sc.pill} ${sc.text}`}>
                       <span className={`h-1.5 w-1.5 rounded-full flex-shrink-0 ${sc.dot} ${sc.pulse ? 'animate-pulse' : ''}`} />
                       {sc.icon}

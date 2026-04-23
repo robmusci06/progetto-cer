@@ -26,16 +26,18 @@ export default function AdminCommunications() {
 
   return (
     <div className="space-y-8 max-w-5xl mx-auto h-full pb-10">
-      <div>
-        <h1 className="text-3xl font-bold tracking-tight text-zinc-900">Centro Comunicazioni</h1>
-        <p className="text-zinc-500 mt-1">Gestisci l'alerting alla Community ("Smart Comms") tramite Notifiche Push.</p>
+      <div className="flex flex-col sm:flex-row justify-between items-start md:items-end gap-4">
+        <div>
+          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-zinc-900">Centro Comunicazioni</h1>
+          <p className="text-zinc-500 mt-1">Gestisci l'alerting alla Community ("Smart Comms").</p>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         
         {/* Composer */}
         <div className="lg:col-span-2 space-y-6">
-          <div className="bg-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-zinc-200 overflow-hidden relative">
+          <div className="bg-white rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.04)] border border-zinc-200 overflow-hidden relative">
             <div className="p-6 border-b border-zinc-100 bg-zinc-50/50 flex items-center justify-between">
               <div className="flex items-center gap-3">
                  <div className="p-2.5 bg-indigo-100 text-indigo-600 rounded-lg">
@@ -43,9 +45,9 @@ export default function AdminCommunications() {
                  </div>
                  <h2 className="text-lg font-bold text-zinc-900">Nuovo Broadcast</h2>
               </div>
-              <div className="flex items-center gap-2 text-sm font-medium text-zinc-600 bg-white px-3 py-1.5 rounded-full border border-zinc-200">
+              <div className="flex items-center gap-2 text-xs font-bold text-zinc-600 bg-white px-3 py-1.5 rounded-full border border-zinc-200">
                  <Users className="w-4 h-4 text-indigo-500" />
-                 Destinatari: 144 Membri
+                 144 Membri
               </div>
             </div>
 
@@ -53,13 +55,13 @@ export default function AdminCommunications() {
               <div className="flex gap-3">
                  <button 
                    onClick={() => setType('alert')}
-                   className={`flex-1 py-2.5 px-4 rounded-xl border flex items-center justify-center gap-2 font-medium transition-all ${type === 'alert' ? 'bg-rose-50 border-rose-200 text-rose-700 shadow-sm' : 'bg-white border-zinc-200 text-zinc-600 hover:bg-zinc-50'}`}
+                   className={`flex-1 py-2.5 px-4 rounded-xl border flex items-center justify-center gap-2 font-bold text-xs transition-all ${type === 'alert' ? 'bg-rose-50 border-rose-200 text-rose-700 shadow-sm' : 'bg-white border-zinc-200 text-zinc-600 hover:bg-zinc-50'}`}
                  >
                    <MessageSquareWarning className="w-4 h-4" /> Critico
                  </button>
                  <button 
                    onClick={() => setType('info')}
-                   className={`flex-1 py-2.5 px-4 rounded-xl border flex items-center justify-center gap-2 font-medium transition-all ${type === 'info' ? 'bg-blue-50 border-blue-200 text-blue-700 shadow-sm' : 'bg-white border-zinc-200 text-zinc-600 hover:bg-zinc-50'}`}
+                   className={`flex-1 py-2.5 px-4 rounded-xl border flex items-center justify-center gap-2 font-bold text-xs transition-all ${type === 'info' ? 'bg-blue-50 border-blue-200 text-blue-700 shadow-sm' : 'bg-white border-zinc-200 text-zinc-600 hover:bg-zinc-50'}`}
                  >
                    <BellRing className="w-4 h-4" /> Informativo
                  </button>
@@ -70,24 +72,24 @@ export default function AdminCommunications() {
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   placeholder="Scrivi il messaggio da inviare alla community..."
-                  className="w-full h-40 p-4 border border-zinc-200 rounded-xl bg-zinc-50 text-zinc-900 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 resize-none transition-all"
+                  className="w-full h-48 p-4 border border-zinc-200 rounded-2xl bg-zinc-50 text-zinc-900 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 resize-none transition-all font-medium"
                 />
+                <p className="text-[10px] text-right text-zinc-400 font-bold mt-2 uppercase tracking-widest">{message.length}/250 caratteri</p>
               </div>
 
-              <div className="flex justify-between items-center">
-                 <span className="text-xs text-zinc-400 font-medium">{message.length}/250 caratteri</span>
-                 <button 
-                   onClick={handleSend}
-                   disabled={isSending || !message.trim()}
-                   className="flex items-center gap-2 bg-zinc-900 hover:bg-zinc-800 disabled:opacity-50 disabled:cursor-not-allowed text-white px-6 py-3 rounded-xl font-medium transition-all shadow-md"
-                 >
-                    {isSending ? (
-                      <span className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent inline-block"></span>
-                    ) : (
-                      <Send className="w-4 h-4" />
-                    )}
-                    Invia Push Notification
-                 </button>
+              <div className="pt-4 border-t border-zinc-100 flex justify-start">
+                <button 
+                  onClick={handleSend}
+                  disabled={isSending || !message.trim()}
+                  className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed text-white px-6 py-3 rounded-xl text-xs font-bold transition-all shadow-lg active:scale-95"
+                >
+                   {isSending ? (
+                     <span className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent inline-block"></span>
+                   ) : (
+                     <Send className="w-4 h-4" />
+                   )}
+                   Invia Notifica Push
+                </button>
               </div>
             </div>
 
@@ -98,7 +100,7 @@ export default function AdminCommunications() {
                     <Send className="w-8 h-8 text-emerald-600" />
                  </div>
                  <h3 className="text-xl font-bold text-emerald-700">Notifiche Inviate!</h3>
-                 <p className="text-emerald-600/80 font-medium">144 membri hanno ricevuto l'alert sul loro dispositivo.</p>
+                 <p className="text-emerald-600/80 font-medium">144 membri hanno ricevuto l'alert.</p>
               </div>
             )}
           </div>
@@ -107,7 +109,7 @@ export default function AdminCommunications() {
         {/* Quick Actions & History */}
         <div className="space-y-6">
            <div className="bg-white rounded-2xl p-6 shadow-sm border border-zinc-200">
-              <h3 className="text-sm font-bold text-zinc-900 uppercase tracking-wider mb-4">Modelli Rapidi (Quick-Alert)</h3>
+              <h3 className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest mb-4">Modelli Rapidi</h3>
               <div className="space-y-3">
                  {quickAlerts.map((qa, i) => (
                     <button 
@@ -123,15 +125,15 @@ export default function AdminCommunications() {
 
            <div className="bg-white rounded-2xl p-6 shadow-sm border border-zinc-200">
               <div className="flex justify-between items-center mb-4">
-                 <h3 className="text-sm font-bold text-zinc-900 uppercase tracking-wider">Cronologia Recenti</h3>
+                 <h3 className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest">Cronologia</h3>
                  <button className="text-zinc-400 hover:text-indigo-600 transition-colors">
                     <Search className="w-4 h-4" />
                  </button>
               </div>
               <div className="space-y-4">
                  {[
-                   { msg: "Riunione condominiale CER domani", time: "Ieri, 18:00", type: "info" },
-                   { msg: "Produzione ferma per guasto Inverter 02", time: "3 gg fa", type: "alert" }
+                   { msg: "Riunione condominiale CER", time: "Ieri, 18:00", type: "info" },
+                   { msg: "Guasto Inverter 02", time: "3 gg fa", type: "alert" }
                  ].map((log, i) => (
                     <div key={i} className="flex gap-3 border-b border-zinc-100 pb-3 last:border-0 last:pb-0">
                        <div className={`mt-1 flex-shrink-0 w-2 h-2 rounded-full ${log.type === 'alert' ? 'bg-rose-500' : 'bg-blue-500'}`} />

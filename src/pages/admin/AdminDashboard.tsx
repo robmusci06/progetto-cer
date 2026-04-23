@@ -46,13 +46,13 @@ export default function AdminDashboard() {
   const navigate = useNavigate()
   return (
     <div className="space-y-6 max-w-7xl mx-auto">
-      <div className="flex justify-between items-end">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-3">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">Dashboard</h1>
-          <p className="text-zinc-500 dark:text-zinc-400 mt-1">Visione d'insieme aggregata della Comunità Energetica Rinnovabile.</p>
+          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">Dashboard</h1>
+          <p className="text-zinc-500 dark:text-zinc-400 mt-1 text-sm">Visione d'insieme aggregata della Comunità Energetica Rinnovabile.</p>
         </div>
-        <div className="bg-white dark:bg-zinc-900 px-4 py-2 rounded-lg border border-zinc-200 dark:border-zinc-800 shadow-sm text-sm font-medium text-zinc-600 dark:text-zinc-400">
-          Ultimo aggiornamento: <span className="text-zinc-900 dark:text-zinc-100">Oggi, 14:30</span>
+        <div className="bg-white dark:bg-zinc-900 px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg border border-zinc-200 dark:border-zinc-800 shadow-sm text-xs sm:text-sm font-medium text-zinc-600 dark:text-zinc-400 shrink-0">
+          Ultimo agg: <span className="text-zinc-900 dark:text-zinc-100">Oggi, 14:30</span>
         </div>
       </div>
 
@@ -250,41 +250,41 @@ export default function AdminDashboard() {
         </div>
 
         {/* Box Risparmio in Bolletta */}
-        <div className="bg-indigo-50/80 rounded-2xl p-5 shadow-sm border border-indigo-200/80 flex items-center justify-between">
+        <div className="bg-indigo-50/80 dark:bg-indigo-950/20 rounded-2xl p-5 shadow-sm border border-indigo-200/80 dark:border-indigo-900/50 flex items-center justify-between transition-colors">
           <div>
-            <h3 className="text-xs font-bold text-indigo-900 mb-1 flex items-center gap-1.5">
-              <Euro className="w-3.5 h-3.5 text-indigo-600" />
+            <h3 className="text-xs font-bold text-indigo-900 dark:text-indigo-100 mb-1 flex items-center gap-1.5">
+              <Euro className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" />
               Risparmio in Bolletta
             </h3>
-            <p className="text-[11px] text-indigo-700/70 mb-2">Stima complessiva comunità</p>
-            <h4 className="text-2xl font-bold text-indigo-900">€ 3.420,00</h4>
+            <p className="text-[11px] text-indigo-700/70 dark:text-indigo-500/70 mb-2">Stima complessiva comunità</p>
+            <h4 className="text-2xl font-bold text-indigo-900 dark:text-indigo-100">€ 3.420,00</h4>
           </div>
-          <span className="text-[10px] font-semibold text-indigo-600 bg-indigo-100 px-2.5 py-1 rounded-md self-start flex items-center gap-1">
+          <span className="text-[10px] font-semibold text-indigo-600 dark:text-indigo-400 bg-indigo-100 dark:bg-indigo-900/40 px-2.5 py-1 rounded-md self-start flex items-center gap-1">
             <ArrowDownToLine className="w-3 h-3" />
             -16%
           </span>
         </div>
 
         {/* Box Efficienza e Sincronismo */}
-        <div className="bg-sky-50/80 rounded-2xl p-5 shadow-sm border border-sky-200/80 flex items-center justify-between">
+        <div className="bg-sky-50/80 dark:bg-sky-950/20 rounded-2xl p-5 shadow-sm border border-sky-200/80 dark:border-sky-900/50 flex items-center justify-between transition-colors">
           <div>
-            <h3 className="text-xs font-bold text-sky-900 mb-1 flex items-center gap-1.5">
-              <BarChart3 className="w-3.5 h-3.5 text-sky-600" />
+            <h3 className="text-xs font-bold text-sky-900 dark:text-sky-100 mb-1 flex items-center gap-1.5">
+              <BarChart3 className="w-3.5 h-3.5 text-sky-600 dark:text-sky-400" />
               Efficienza & Sincronismo
             </h3>
             <div className="flex items-baseline gap-3 mt-2">
               <div>
-                <p className="text-[11px] text-zinc-500 mb-0.5">Indice</p>
-                <h4 className="text-2xl font-bold text-zinc-900">42%</h4>
+                <p className="text-[11px] text-zinc-500 dark:text-zinc-400 mb-0.5">Indice</p>
+                <h4 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">42%</h4>
               </div>
-              <div className="w-px h-8 bg-zinc-200"></div>
+              <div className="w-px h-8 bg-zinc-200 dark:bg-zinc-700"></div>
               <div>
-                <p className="text-[11px] text-zinc-500 mb-0.5">Non incentivata</p>
-                <h4 className="text-2xl font-bold text-zinc-900">320 kWh</h4>
+                <p className="text-[11px] text-zinc-500 dark:text-zinc-400 mb-0.5">Non incentivata</p>
+                <h4 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">320 kWh</h4>
               </div>
             </div>
           </div>
-          <span className="text-rose-500 flex items-center gap-1 text-xs font-bold self-start bg-rose-50 px-2.5 py-1 rounded-md">
+          <span className="text-rose-500 dark:text-rose-400 flex items-center gap-1 text-xs font-bold self-start bg-rose-50 dark:bg-rose-900/30 px-2.5 py-1 rounded-md">
             <AlertTriangle className="w-3 h-3" />
             Basso
           </span>
@@ -293,9 +293,9 @@ export default function AdminDashboard() {
 
       {/* Charts Area + Membri */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="col-span-1 lg:col-span-2 bg-white rounded-2xl p-6 shadow-sm border border-zinc-200 flex flex-col h-full">
-          <h3 className="text-lg font-bold text-zinc-900 mb-6">Andamento Settimanale (kWh)</h3>
-          <div className="flex-1 w-full min-h-[400px]">
+        <div className="col-span-1 lg:col-span-2 bg-white dark:bg-zinc-900 rounded-2xl p-4 sm:p-6 shadow-sm border border-zinc-200 dark:border-zinc-800 flex flex-col h-full transition-colors">
+          <h3 className="text-base sm:text-lg font-bold text-zinc-900 dark:text-zinc-100 mb-4 sm:mb-6">Andamento Settimanale (kWh)</h3>
+          <div className="flex-1 w-full min-h-[280px] md:min-h-[400px]">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={mockData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e4e4e7" />
@@ -313,8 +313,8 @@ export default function AdminDashboard() {
           </div>
         </div>
 
-        <div className="bg-white rounded-2xl p-6 shadow-sm border border-zinc-200 flex flex-col">
-          <h3 className="text-lg font-bold text-zinc-900 mb-6">Membri CER</h3>
+        <div className="bg-white dark:bg-zinc-900 rounded-2xl p-4 sm:p-6 shadow-sm border border-zinc-200 dark:border-zinc-800 flex flex-col transition-colors">
+          <h3 className="text-base sm:text-lg font-bold text-zinc-900 dark:text-zinc-100 mb-4 sm:mb-6">Membri CER</h3>
 
           <div className="space-y-4 flex-1">
             {[
@@ -324,30 +324,30 @@ export default function AdminDashboard() {
               { id: 'MEM-004', name: 'Sofia Gentile', role: 'Prosumer', status: 'Attivo', color: 'bg-emerald-500', incentive: '€ 34,20' },
               { id: 'MEM-005', name: 'Azienda Sole Srl', role: 'Producer', status: 'Offline', color: 'bg-rose-500', incentive: null },
             ].map(member => (
-              <div key={member.id} onClick={() => navigate(`/admin/community/${member.id}`)} className="flex items-center justify-between p-3 hover:bg-zinc-50 rounded-xl transition-colors border border-transparent hover:border-zinc-100 cursor-pointer group">
-                <div className="flex items-center gap-3">
+              <div key={member.id} onClick={() => navigate(`/admin/community/${member.id}`)} className="flex items-center justify-between p-3 hover:bg-zinc-50 dark:hover:bg-zinc-800 rounded-xl transition-colors border border-transparent hover:border-zinc-100 dark:hover:border-zinc-700 cursor-pointer group">
+                <div className="flex items-center gap-3 min-w-0">
                   <div className={`w-2.5 h-2.5 rounded-full ${member.color} flex-shrink-0`} />
                   <div className="min-w-0">
-                    <p className="font-semibold text-zinc-900 text-sm truncate group-hover:text-indigo-600 transition-colors">{member.name}</p>
+                    <p className="font-semibold text-zinc-900 dark:text-zinc-100 text-sm truncate group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">{member.name}</p>
                     <div className="flex items-center gap-2">
-                      <p className="text-xs text-zinc-500 truncate">{member.role}</p>
+                      <p className="text-xs text-zinc-500 dark:text-zinc-400 truncate">{member.role}</p>
                       {member.incentive && (
                         <>
-                          <span className="text-zinc-300">•</span>
-                          <p className="text-xs font-bold text-emerald-600">{member.incentive}</p>
+                          <span className="text-zinc-300 dark:text-zinc-600">•</span>
+                          <p className="text-xs font-bold text-emerald-600 dark:text-emerald-400">{member.incentive}</p>
                         </>
                       )}
                     </div>
                   </div>
                 </div>
-                <div className="text-xs font-medium text-zinc-700 whitespace-nowrap bg-zinc-100 px-2.5 py-1 rounded-md ml-3">
+                <div className="text-xs font-medium text-zinc-700 dark:text-zinc-300 whitespace-nowrap bg-zinc-100 dark:bg-zinc-800 px-2.5 py-1 rounded-md ml-3 shrink-0">
                   {member.status}
                 </div>
               </div>
             ))}
           </div>
 
-          <button onClick={() => navigate('/admin/community')} className="w-full mt-4 py-2 border border-zinc-200 rounded-lg text-sm font-medium text-indigo-600 hover:bg-indigo-50 transition-colors">
+          <button onClick={() => navigate('/admin/community')} className="w-full mt-4 py-2 border border-zinc-200 dark:border-zinc-700 rounded-lg text-sm font-medium text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 transition-colors">
             Vedi tutti i membri
           </button>
         </div>
@@ -355,14 +355,37 @@ export default function AdminDashboard() {
 
 
       {/* ── Flussi Energetici Real-time ── */}
-      <div className="bg-white rounded-2xl p-6 shadow-sm border border-zinc-200 animate-in fade-in duration-500">
-        <div className="mb-10">
-          <h3 className="text-xl font-bold text-zinc-900">Ultimi flussi rilevati</h3>
-          <p className="text-xs text-zinc-400 mt-0.5 font-medium tracking-tight">Ultimo aggiornamento: Oggi, 14:30:00</p>
+      <div className="bg-white dark:bg-zinc-900 rounded-2xl p-4 sm:p-6 shadow-sm border border-zinc-200 dark:border-zinc-800 animate-in fade-in duration-500 transition-colors">
+        <div className="mb-6 sm:mb-10">
+          <h3 className="text-lg sm:text-xl font-bold text-zinc-900 dark:text-zinc-100">Ultimi flussi rilevati</h3>
+          <p className="text-xs text-zinc-400 dark:text-zinc-500 mt-0.5 font-medium tracking-tight">Ultimo aggiornamento: Oggi, 14:30:00</p>
         </div>
 
-        {/* Flow Diagram */}
-        <div className="relative w-full" style={{ height: '320px' }}>
+        {/* Mobile: Card-based energy flow */}
+        <div className="md:hidden space-y-3">
+          {[
+            { emoji: '☀️', label: 'Prodotta', value: '24.54 kW', color: 'border-blue-300 bg-blue-50 dark:bg-blue-950/30 dark:border-blue-800', textColor: 'text-blue-700 dark:text-blue-300' },
+            { emoji: '🏘️', label: 'Consumata', value: '28.6 kW', color: 'border-rose-300 bg-rose-50 dark:bg-rose-950/30 dark:border-rose-800', textColor: 'text-rose-700 dark:text-rose-300' },
+            { emoji: '⚡', label: 'Immessa in rete', value: '18.28 kW', color: 'border-amber-300 bg-amber-50 dark:bg-amber-950/30 dark:border-amber-800', textColor: 'text-amber-700 dark:text-amber-300' },
+            { emoji: '🔄', label: 'Autoconsumata', value: '6.26 kW', color: 'border-sky-300 bg-sky-50 dark:bg-sky-950/30 dark:border-sky-800', textColor: 'text-sky-700 dark:text-sky-300' },
+            { emoji: '🔋', label: 'Accumulo', value: '0 kW', color: 'border-zinc-300 bg-zinc-50 dark:bg-zinc-800 dark:border-zinc-700', textColor: 'text-zinc-600 dark:text-zinc-300' },
+            { emoji: '🔵', label: 'Prelevata', value: '22.34 kW', color: 'border-red-300 bg-red-50 dark:bg-red-950/30 dark:border-red-800', textColor: 'text-red-700 dark:text-red-300', sub: 'di cui 18.28 kW autocons. virt.' },
+          ].map((flow) => (
+            <div key={flow.label} className={`flex items-center justify-between p-3.5 rounded-xl border-2 ${flow.color} transition-colors`}>
+              <div className="flex items-center gap-3">
+                <span className="text-xl">{flow.emoji}</span>
+                <div>
+                  <p className="text-xs font-bold text-zinc-600 dark:text-zinc-300 uppercase tracking-wider">{flow.label}</p>
+                  {flow.sub && <p className="text-[10px] text-emerald-600 dark:text-emerald-400 font-semibold mt-0.5">{flow.sub}</p>}
+                </div>
+              </div>
+              <span className={`text-lg font-black tracking-tight ${flow.textColor}`}>{flow.value}</span>
+            </div>
+          ))}
+        </div>
+
+        {/* Desktop: SVG Flow Diagram */}
+        <div className="hidden md:block relative w-full" style={{ height: '320px' }}>
           <svg className="absolute inset-0 w-full h-full" viewBox="0 0 900 320" preserveAspectRatio="xMidYMid meet">
             <defs>
               <style>{`
