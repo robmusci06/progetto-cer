@@ -79,7 +79,7 @@ export default function AdminCommunity() {
   const countByRole = (role: string) => mockMembers.filter((m) => m.role === role).length
 
   return (
-    <div className="space-y-8 max-w-7xl mx-auto pb-10">
+    <div className="space-y-5 md:space-y-8 max-w-7xl mx-auto pb-6 md:pb-10">
 
       {/* Page Header */}
       <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-5">
@@ -101,13 +101,13 @@ export default function AdminCommunity() {
       {/* Search + Filters */}
       <div className="flex flex-col lg:flex-row gap-4 items-start lg:items-center">
         <div className="relative w-full lg:w-80">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-400" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-500" />
           <input
             type="text"
             placeholder="Cerca per nome, POD o ruolo..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="pl-9 pr-4 py-2 w-full border border-zinc-200 dark:border-zinc-800 rounded-xl bg-white dark:bg-zinc-900 text-sm dark:text-zinc-100 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all shadow-sm"
+            className="pl-9 pr-4 h-11 w-full border border-zinc-200 dark:border-zinc-800 rounded-xl bg-white dark:bg-zinc-900 text-base md:text-sm dark:text-zinc-100 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all shadow-sm touch-manipulation"
           />
         </div>
 
@@ -119,27 +119,27 @@ export default function AdminCommunity() {
               <button
                 key={f}
                 onClick={() => setActiveFilter(f)}
-                className={`inline-flex items-center gap-1.5 px-3 py-1 lg:px-3.5 lg:py-1.5 rounded-full text-[11px] lg:text-sm font-medium transition-all border ${
+                className={`inline-flex items-center gap-1.5 px-3 py-2 lg:px-3.5 rounded-full text-xs lg:text-sm font-medium transition-all border touch-manipulation ${
                   isActive
                     ? 'bg-indigo-600 text-white border-indigo-600 shadow-sm'
                     : 'bg-white dark:bg-zinc-900 text-zinc-600 dark:text-zinc-400 border-zinc-200 dark:border-zinc-800 hover:border-indigo-300 dark:hover:border-indigo-700 hover:text-indigo-600 dark:hover:text-indigo-400'
                 }`}
               >
                 {f}
-                <span className={`text-[10px] rounded-full px-1.5 py-0.5 font-semibold ${isActive ? 'bg-white/20 text-white' : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-500'}`}>
+                <span className={`text-xs rounded-full px-1.5 py-0.5 font-semibold ${isActive ? 'bg-white/20 text-white' : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-500'}`}>
                   {count}
                 </span>
               </button>
             )
           })}
-          <span className="ml-0 lg:ml-2 text-[10px] lg:text-xs text-zinc-400 dark:text-zinc-500">{filtered.length} risultat{filtered.length === 1 ? 'o' : 'i'}</span>
+          <span className="ml-0 lg:ml-2 text-xs text-zinc-500 dark:text-zinc-400">{filtered.length} risultat{filtered.length === 1 ? 'o' : 'i'}</span>
         </div>
       </div>
 
       {/* ── Cards Grid ── */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-5">
         {filtered.length === 0 ? (
-          <div className="col-span-3 flex flex-col items-center justify-center py-20 text-zinc-400">
+          <div className="col-span-3 flex flex-col items-center justify-center py-20 text-zinc-500 dark:text-zinc-400">
             <Search className="h-10 w-10 mb-3 opacity-30" />
             <p className="text-lg font-medium">Nessun membro trovato</p>
             <p className="text-sm mt-1">Prova a modificare il filtro o la ricerca</p>
@@ -164,17 +164,19 @@ export default function AdminCommunity() {
                       {member.name.split(' ').map((n) => n[0]).join('').substring(0, 2).toUpperCase()}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <h3 className="font-semibold text-zinc-900 text-base leading-tight truncate group-hover:text-indigo-700 transition-colors">
-                        {member.name}
-                      </h3>
-                      <p className="text-xs text-zinc-400 mt-0.5 flex items-center gap-1 truncate">
+                      <div className="flex items-start justify-between gap-2 mb-0.5">
+                        <h3 className="font-semibold text-zinc-900 text-base leading-tight truncate group-hover:text-indigo-700 transition-colors">
+                          {member.name}
+                        </h3>
+                        <span className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold flex-shrink-0 ${rc.badge}`}>
+                          {rc.icon}{member.role}
+                        </span>
+                      </div>
+                      <p className="text-xs text-zinc-500 dark:text-zinc-400 flex items-center gap-1 truncate">
                         <MapPin className="h-3 w-3 flex-shrink-0" />
                         {member.address}
                       </p>
                     </div>
-                    <span className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold flex-shrink-0 ${rc.badge}`}>
-                      {rc.icon}{member.role}
-                    </span>
                   </div>
 
                   {/* Info rows */}
@@ -182,7 +184,7 @@ export default function AdminCommunity() {
 
                     {/* POD */}
                     <div className="flex items-center justify-between">
-                      <span className="text-xs text-zinc-400 flex items-center gap-1.5">
+                      <span className="text-xs text-zinc-500 dark:text-zinc-400 flex items-center gap-1.5">
                         <Cpu className="h-3.5 w-3.5" /> ID POD
                       </span>
                       <code className="text-xs font-mono text-zinc-700 bg-zinc-50 border border-zinc-200 px-2 py-0.5 rounded-md">
@@ -192,7 +194,7 @@ export default function AdminCommunity() {
 
                     {/* Tipologia */}
                     <div className="flex items-center justify-between">
-                      <span className="text-xs text-zinc-400 flex items-center gap-1.5">
+                      <span className="text-xs text-zinc-500 dark:text-zinc-400 flex items-center gap-1.5">
                         <LayoutDashboard className="h-3.5 w-3.5" /> Tipologia
                       </span>
                       <span className="text-xs font-medium text-zinc-700">{member.type}</span>
@@ -200,7 +202,7 @@ export default function AdminCommunity() {
 
                     {/* Consumo/Produzione */}
                     <div className="flex items-center justify-between">
-                      <span className="text-xs text-zinc-400 flex items-center gap-1.5">
+                      <span className="text-xs text-zinc-500 dark:text-zinc-400 flex items-center gap-1.5">
                         <Zap className="h-3.5 w-3.5" />
                         {member.role === 'Producer' ? 'Produzione' : 'Consumo'} (oggi)
                       </span>
@@ -209,7 +211,7 @@ export default function AdminCommunity() {
 
                     {/* Incentivo maturato */}
                     <div className="flex items-center justify-between">
-                      <span className="text-xs text-zinc-400 flex items-center gap-1.5">
+                      <span className="text-xs text-zinc-500 dark:text-zinc-400 flex items-center gap-1.5">
                         <Euro className="h-3.5 w-3.5" /> Incentivo (mese)
                       </span>
                       {member.incentive ? (
@@ -217,13 +219,13 @@ export default function AdminCommunity() {
                           {member.incentive}
                         </span>
                       ) : (
-                        <span className="text-xs text-zinc-400 italic">Sospeso</span>
+                        <span className="text-xs text-zinc-500 dark:text-zinc-400 italic">Sospeso</span>
                       )}
                     </div>
 
                     {/* Ultimo aggiornamento */}
                     <div className="flex items-center justify-between">
-                      <span className="text-xs text-zinc-400 flex items-center gap-1.5">
+                      <span className="text-xs text-zinc-500 dark:text-zinc-400 flex items-center gap-1.5">
                         <Clock className="h-3.5 w-3.5" /> Ultimo agg.
                       </span>
                       <span className="text-xs text-zinc-500">{member.lastUpdate}</span>

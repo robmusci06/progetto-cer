@@ -18,7 +18,7 @@ export default function Dashboard() {
   return (
     <div className="flex min-h-screen bg-zinc-50 font-sans">
       {/* Sidebar */}
-      <aside className="w-64 bg-zinc-950 text-zinc-400 flex flex-col transition-all duration-300">
+      <aside className="hidden md:flex w-64 bg-zinc-950 text-zinc-400 flex-col transition-all duration-300">
         <div className="p-6 flex items-center gap-3 text-white">
           <div className="h-8 w-8 rounded-lg bg-gradient-to-tr from-indigo-500 to-cyan-400 flex items-center justify-center p-[1px]">
              <div className="h-full w-full bg-zinc-950 rounded-[7px] flex items-center justify-center">
@@ -62,14 +62,14 @@ export default function Dashboard() {
       {/* Main Content */}
       <main className="flex-1 flex flex-col overflow-hidden">
         {/* Top Header */}
-        <header className="h-16 bg-white border-b border-zinc-200 flex items-center justify-between px-8 z-10 sticky top-0">
-           <div className="flexitems-center w-96 relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-400" />
+        <header className="h-16 bg-white border-b border-zinc-200 flex items-center justify-between px-4 md:px-8 z-10 sticky top-0">
+           <div className="flex items-center w-full max-w-xs md:w-96 relative">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-500" />
               <Input placeholder="Cerca POD, utenti o comunità..." className="pl-10 bg-zinc-50 border-none focus-visible:ring-1 focus-visible:ring-zinc-300" />
            </div>
            
            <div className="flex items-center gap-4">
-              <button className="relative p-2 text-zinc-400 hover:bg-zinc-100 rounded-full transition-colors">
+              <button className="relative p-2 text-zinc-500 hover:bg-zinc-100 rounded-full transition-colors">
                  <Bell className="h-5 w-5" />
                  <span className="absolute top-1 right-1 h-2 w-2 rounded-full bg-indigo-500"></span>
               </button>
@@ -80,19 +80,19 @@ export default function Dashboard() {
         </header>
 
         {/* Dashboard Content */}
-        <div className="flex-1 overflow-auto p-8">
-           <div className="flex justify-between items-end mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+        <div className="flex-1 overflow-auto p-4 md:p-8">
+           <div className="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-3 mb-5 md:mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
              <div>
-               <h1 className="text-3xl font-bold tracking-tight text-zinc-900">Dashboard Overview</h1>
-               <p className="text-zinc-500 mt-1">Benvenuto! Ecco la situazione energetica di oggi.</p>
+               <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-zinc-900">Dashboard Overview</h1>
+               <p className="text-zinc-500 mt-1 text-sm">Benvenuto! Ecco la situazione energetica di oggi.</p>
              </div>
-             <Button className="bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm transition-all h-10">
+             <Button className="bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm transition-all w-full sm:w-auto">
                <Zap className="mr-2 h-4 w-4" /> Esporta Report
              </Button>
            </div>
-           
+
            {/* Metric Cards */}
-           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 animate-in fade-in slide-in-from-bottom-6 duration-700 delay-100">
+           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-5 md:mb-8 animate-in fade-in slide-in-from-bottom-6 duration-700 delay-100">
               <Card className="border-none shadow-[0_2px_10px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all">
                 <CardHeader className="flex flex-row items-center justify-between pb-2">
                   <CardTitle className="text-sm font-medium text-zinc-500">Energia Condivisa</CardTitle>
@@ -140,14 +140,14 @@ export default function Dashboard() {
            </div>
            
            {/* Chart Section */}
-           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-200">
+           <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6 mb-5 md:mb-8 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-200">
              <Card className="lg:col-span-2 border-none shadow-[0_2px_10px_rgb(0,0,0,0.04)]">
                <CardHeader>
                  <CardTitle className="text-lg text-zinc-900">Andamento Produzione (kWh)</CardTitle>
                  <CardDescription>Visualizzazione della produzione aggregata nell'ultima settimana</CardDescription>
                </CardHeader>
                <CardContent>
-                 <div className="h-[300px] w-full mt-4">
+                 <div className="h-[200px] md:h-[300px] w-full mt-4">
                    <ResponsiveContainer width="100%" height="100%">
                      <AreaChart data={chartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                        <defs>
@@ -157,7 +157,7 @@ export default function Dashboard() {
                          </linearGradient>
                        </defs>
                        <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{fill: '#a1a1aa', fontSize: 12}} dy={10} />
-                       <YAxis axisLine={false} tickLine={false} tick={{fill: '#a1a1aa', fontSize: 12}} />
+                       <YAxis axisLine={false} tickLine={false} tick={{fill: '#a1a1aa', fontSize: 12}} width={30} />
                        <Tooltip 
                          contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 25px rgba(0,0,0,0.1)' }}
                          itemStyle={{ color: '#4f46e5', fontWeight: 600 }}
@@ -200,7 +200,7 @@ export default function Dashboard() {
                        </div>
                        <div>
                          <p className="text-sm font-medium text-zinc-900 group-hover:text-indigo-600 transition-colors">{item.title}</p>
-                         <p className="text-xs text-zinc-500 mt-1">{item.time}</p>
+                         <p className="text-xs text-zinc-500 mt-1 text-xs">{item.time}</p>
                        </div>
                      </div>
                    ))}

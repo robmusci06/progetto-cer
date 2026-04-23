@@ -58,14 +58,14 @@ export default function AdminCER() {
       {/* Header View */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-zinc-900">Gestione CER</h1>
-          <p className="text-zinc-500 mt-1">Configurazione tecnica, monitoraggio asset e regole finanziarie.</p>
+          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">Gestione CER</h1>
+          <p className="text-zinc-500 dark:text-zinc-400 mt-1">Configurazione tecnica, monitoraggio asset e regole finanziarie.</p>
         </div>
         <div className="flex items-center gap-3">
-          <div className="bg-white px-4 py-2 rounded-xl border border-zinc-200 shadow-sm flex items-center gap-2">
-            <Shield className="w-4 h-4 text-emerald-600" />
-            <span className="text-xs font-bold text-zinc-400 uppercase tracking-wider">ID CER:</span>
-            <span className="text-sm font-black text-zinc-900 tracking-tight">CER-SOLE-2026</span>
+          <div className="bg-white dark:bg-zinc-900 px-4 py-2 rounded-xl border border-zinc-200 dark:border-zinc-700 shadow-sm flex items-center gap-2">
+            <Shield className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+            <span className="text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">ID CER:</span>
+            <span className="text-sm font-black text-zinc-900 dark:text-zinc-100 tracking-tight">CER-SOLE-2026</span>
           </div>
         </div>
       </div>
@@ -81,7 +81,7 @@ export default function AdminCER() {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id as any)}
-                className={`flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 rounded-xl text-[11px] sm:text-sm font-bold transition-all whitespace-nowrap ${activeTab === tab.id ? 'bg-white dark:bg-zinc-800 text-indigo-700 dark:text-indigo-400 shadow-sm border border-zinc-100 dark:border-zinc-700' : 'text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200'}`}
+                className={`flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all whitespace-nowrap ${activeTab === tab.id ? 'bg-white dark:bg-zinc-800 text-indigo-700 dark:text-indigo-400 shadow-sm border border-zinc-100 dark:border-zinc-700' : 'text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200'}`}
               >
                 <tab.icon className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> {tab.label}
               </button>
@@ -124,11 +124,11 @@ export default function AdminCER() {
 
                 <div className="space-y-4 border-t border-zinc-50 dark:border-zinc-700 pt-4 transition-colors">
                   <div className="flex items-center flex-wrap gap-2">
-                    <span className="text-[10px] font-bold text-zinc-400 dark:text-zinc-500 uppercase tracking-widest min-w-[140px]">Stato della Comunità:</span>
+                    <span className="text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-widest min-w-[140px]">Stato della Comunità:</span>
                     <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/30 px-3 py-1 rounded-full">active</span>
                   </div>
                   <div className="flex items-center flex-wrap gap-2">
-                    <span className="text-[10px] font-bold text-zinc-400 dark:text-zinc-500 uppercase tracking-widest min-w-[140px]">Struttura Legale:</span>
+                    <span className="text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-widest min-w-[140px]">Struttura Legale:</span>
                     <span className="text-xs font-bold text-white bg-emerald-500 dark:bg-emerald-600 px-3 py-1 rounded-full">Associazione di diritto civile riconosciuta</span>
                   </div>
                 </div>
@@ -139,139 +139,136 @@ export default function AdminCER() {
                 <iframe
                   width="100%"
                   height="100%"
-                  frameBorder="0"
-                  scrolling="no"
-                  marginHeight={0}
-                  marginWidth={0}
                   title="Matera Map"
                   src="https://www.openstreetmap.org/export/embed.html?bbox=16.58,40.65,16.62,40.68&layer=mapnik&marker=40.66,16.60"
+                  style={{ border: 0 }}
                   className="filter brightness-100 dark:brightness-75 contrast-125 saturate-50 dark:saturate-100"
                 ></iframe>
               </div>
             </div>
 
             <div className="bg-white dark:bg-zinc-800 rounded-3xl p-4 sm:p-8 border border-zinc-100 dark:border-zinc-700 shadow-sm transition-colors">
-              <h3 className="text-lg font-bold text-zinc-900 flex items-center gap-2 mb-6">
+              <h3 className="text-lg font-bold text-zinc-900 dark:text-zinc-100 flex items-center gap-2 mb-6">
                 <Settings2 className="w-5 h-5 text-indigo-500" /> Anagrafica CER
               </h3>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest px-1">Nome CER</label>
-                  <input type="text" defaultValue="Sole" className="w-full bg-zinc-50 border border-zinc-200 rounded-xl px-4 py-3 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:bg-white transition-colors" />
+                  <label className="text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-widest px-1">Nome CER</label>
+                  <input type="text" defaultValue="Sole" className="w-full bg-zinc-50 dark:bg-zinc-700 border border-zinc-200 dark:border-zinc-600 text-zinc-900 dark:text-zinc-100 rounded-xl px-4 py-3 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:bg-white dark:focus:bg-zinc-600 transition-colors" />
                 </div>
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest px-1">Codice Fiscale CER</label>
-                  <input type="text" defaultValue="AHDYEISBEUE7483" className="w-full bg-zinc-50 border border-zinc-200 rounded-xl px-4 py-3 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:bg-white transition-colors" />
+                  <label className="text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-widest px-1">Codice Fiscale CER</label>
+                  <input type="text" defaultValue="AHDYEISBEUE7483" className="w-full bg-zinc-50 dark:bg-zinc-700 border border-zinc-200 dark:border-zinc-600 text-zinc-900 dark:text-zinc-100 rounded-xl px-4 py-3 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:bg-white dark:focus:bg-zinc-600 transition-colors" />
                 </div>
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest px-1">Codice Area</label>
-                  <input type="text" defaultValue="AC5673638288" className="w-full bg-zinc-50 border border-zinc-200 rounded-xl px-4 py-3 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:bg-white transition-colors" />
+                  <label className="text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-widest px-1">Codice Area</label>
+                  <input type="text" defaultValue="AC5673638288" className="w-full bg-zinc-50 dark:bg-zinc-700 border border-zinc-200 dark:border-zinc-600 text-zinc-900 dark:text-zinc-100 rounded-xl px-4 py-3 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:bg-white dark:focus:bg-zinc-600 transition-colors" />
                 </div>
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest px-1">Indirizzo</label>
-                  <input type="text" defaultValue="Via Roma 123, 75100 Matera (MT)" className="w-full bg-zinc-50 border border-zinc-200 rounded-xl px-4 py-3 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:bg-white transition-colors" />
+                  <label className="text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-widest px-1">Indirizzo</label>
+                  <input type="text" defaultValue="Via Roma 123, 75100 Matera (MT)" className="w-full bg-zinc-50 dark:bg-zinc-700 border border-zinc-200 dark:border-zinc-600 text-zinc-900 dark:text-zinc-100 rounded-xl px-4 py-3 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:bg-white dark:focus:bg-zinc-600 transition-colors" />
                 </div>
                 <div className="md:col-span-2 space-y-1.5">
-                  <label className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest px-1">Descrizione</label>
-                  <textarea rows={4} placeholder="Scrivi qui una descrizione dettagliata della CER Sole..." className="w-full bg-zinc-50 border border-zinc-200 rounded-xl px-4 py-3 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:bg-white transition-colors resize-none"></textarea>
+                  <label className="text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-widest px-1">Descrizione</label>
+                  <textarea rows={4} placeholder="Scrivi qui una descrizione dettagliata della CER Sole..." className="w-full bg-zinc-50 dark:bg-zinc-700 border border-zinc-200 dark:border-zinc-600 text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400 dark:placeholder:text-zinc-500 rounded-xl px-4 py-3 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:bg-white dark:focus:bg-zinc-600 transition-colors resize-none"></textarea>
                 </div>
               </div>
 
               <div className="flex justify-start mt-6 pt-4 border-t border-zinc-100 dark:border-zinc-700">
-                <button className="text-[11px] font-bold text-white bg-zinc-900 dark:bg-zinc-100 dark:text-zinc-900 px-5 py-2.5 rounded-xl flex items-center gap-1.5 hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-colors shadow-sm">
+                <button className="w-full sm:w-auto text-xs font-bold text-white bg-zinc-900 dark:bg-zinc-100 dark:text-zinc-900 px-5 py-3 rounded-xl flex items-center justify-center gap-1.5 hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-colors shadow-sm touch-manipulation">
                   <Save className="w-3.5 h-3.5" /> Salva modifiche
                 </button>
               </div>
             </div>
 
             {/* BOTTOM SECTION: Asset & POD Collegati */}
-            <div className="space-y-8 pt-4 border-t border-zinc-100">
+            <div className="space-y-8 pt-4 border-t border-zinc-100 dark:border-zinc-700">
 
               <div className="space-y-6">
                 <div className="flex items-center justify-between">
-                  <h3 className="text-xl font-bold text-zinc-900 px-1">Impianto di Produzione</h3>
-                  <div className="flex items-center gap-1.5 text-xs font-bold text-emerald-600 bg-emerald-50 px-3 py-1.5 rounded-full border border-emerald-100">
+                  <h3 className="text-xl font-bold text-zinc-900 dark:text-zinc-100 px-1">Impianto di Produzione</h3>
+                  <div className="flex items-center gap-1.5 text-xs font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/30 px-3 py-1.5 rounded-full border border-emerald-100 dark:border-emerald-800">
                     <CheckCircle2 className="w-3.5 h-3.5" /> Online
                   </div>
                 </div>
 
-                <div className="p-6 rounded-3xl bg-white border border-zinc-100 shadow-sm transition-all">
+                <div className="p-6 rounded-3xl bg-white dark:bg-zinc-800 border border-zinc-100 dark:border-zinc-700 shadow-sm transition-all">
                   <div className="flex items-center justify-between mb-6">
                     <div className="flex items-center gap-4">
-                      <div className="h-12 w-12 rounded-2xl flex items-center justify-center bg-emerald-50 text-emerald-600">
+                      <div className="h-12 w-12 rounded-2xl flex items-center justify-center bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400">
                         <Zap className="w-6 h-6" />
                       </div>
                       <div>
-                        <p className="font-bold text-zinc-900 uppercase tracking-tight text-sm">Impianto FV CER Sole</p>
-                        <p className="text-[10px] text-zinc-400 font-bold uppercase tracking-widest">Pannelli Fotovoltaici • 54 kWp</p>
+                        <p className="font-bold text-zinc-900 dark:text-zinc-100 uppercase tracking-tight text-sm">Impianto FV CER Sole</p>
+                        <p className="text-xs text-zinc-500 dark:text-zinc-400 font-bold uppercase tracking-widest">Pannelli Fotovoltaici • 54 kWp</p>
                       </div>
                     </div>
                     <div className="text-right hidden sm:block">
-                      <p className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest mb-1">Energia Real-time</p>
-                      <p className="text-2xl font-black text-indigo-600 tracking-tighter">24.5 kW</p>
+                      <p className="text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-widest mb-1">Energia Real-time</p>
+                      <p className="text-2xl font-black text-indigo-600 dark:text-indigo-400 tracking-tighter">24.5 kW</p>
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4 border-t border-zinc-50">
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4 border-t border-zinc-100 dark:border-zinc-700">
                     <div>
-                      <p className="text-[9px] font-bold text-zinc-400 uppercase tracking-widest mb-1">Inverter</p>
-                      <p className="text-xs font-semibold text-zinc-700 truncate">HUAWEI SUN2000-50KTL</p>
+                      <p className="text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-widest mb-1">Inverter</p>
+                      <p className="text-xs font-semibold text-zinc-700 dark:text-zinc-300 truncate">HUAWEI SUN2000-50KTL</p>
                     </div>
                     <div>
-                      <p className="text-[9px] font-bold text-zinc-400 uppercase tracking-widest mb-1">Stato</p>
-                      <p className="text-xs font-bold text-emerald-600">Produzione Attiva</p>
+                      <p className="text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-widest mb-1">Stato</p>
+                      <p className="text-xs font-bold text-emerald-600 dark:text-emerald-400">Produzione Attiva</p>
                     </div>
                     <div className="sm:hidden">
-                      <p className="text-[9px] font-bold text-zinc-400 uppercase tracking-widest mb-1">Real-time</p>
-                      <p className="text-sm font-bold text-indigo-600">24.5 kW</p>
+                      <p className="text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-widest mb-1">Real-time</p>
+                      <p className="text-sm font-bold text-indigo-600 dark:text-indigo-400">24.5 kW</p>
                     </div>
                     <div className="text-right md:col-span-2 md:col-start-3">
-                      <p className="text-[9px] font-bold text-zinc-400 uppercase tracking-widest mb-1">Health Score</p>
+                      <p className="text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-widest mb-1">Health Score</p>
                       <div className="flex items-center justify-end gap-2">
-                        <div className="w-24 h-1.5 bg-zinc-100 rounded-full overflow-hidden">
+                        <div className="w-24 h-1.5 bg-zinc-100 dark:bg-zinc-700 rounded-full overflow-hidden">
                           <div className="h-full bg-emerald-500" style={{ width: '98%' }} />
                         </div>
-                        <span className="text-[10px] font-bold text-zinc-900">98%</span>
+                        <span className="text-xs font-bold text-zinc-900 dark:text-zinc-100">98%</span>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
 
-              <div className="space-y-6 pt-4 border-t border-zinc-100">
+              <div className="space-y-6 pt-4 border-t border-zinc-100 dark:border-zinc-700">
                 <div className="flex items-center justify-between px-1">
-                  <h3 className="text-lg font-bold text-zinc-900">POD Collegati alla CER</h3>
-                  <span className="text-[10px] font-bold text-zinc-400 bg-zinc-100 px-3 py-1 rounded-full uppercase tracking-widest">
+                  <h3 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">POD Collegati alla CER</h3>
+                  <span className="text-xs font-bold text-zinc-500 dark:text-zinc-400 bg-zinc-100 dark:bg-zinc-800 px-3 py-1 rounded-full uppercase tracking-widest">
                     5 Membri attivi
                   </span>
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                   {[
-                    { name: 'Azienda Sole Srl', type: 'Producer', pod: 'IT001E12388822', status: 'Online', icon: <Zap className="w-4 h-4" />, color: 'text-amber-600', bg: 'bg-amber-50', memberId: 'MEM-005' },
-                    { name: 'Sofia Gentile', type: 'Prosumer', pod: 'IT001E87654321', status: 'Online', icon: <Battery className="w-4 h-4" />, color: 'text-indigo-600', bg: 'bg-indigo-50', memberId: 'MEM-004' },
-                    { name: 'Marco Bianchi', type: 'Consumer', pod: 'IT001E11223344', status: 'Online', icon: <Users className="w-4 h-4" />, color: 'text-emerald-600', bg: 'bg-emerald-50', memberId: 'MEM-001' },
-                    { name: 'Laura Ferretti', type: 'Consumer', pod: 'IT001E55667788', status: 'Online', icon: <Users className="w-4 h-4" />, color: 'text-emerald-600', bg: 'bg-emerald-50', memberId: 'MEM-002' },
-                    { name: 'Giovanni Mazza', type: 'Consumer', pod: 'IT001E99001122', status: 'Online', icon: <Users className="w-4 h-4" />, color: 'text-emerald-600', bg: 'bg-emerald-50', memberId: 'MEM-003' },
+                    { name: 'Azienda Sole Srl', type: 'Producer', pod: 'IT001E12388822', status: 'Online', icon: <Zap className="w-4 h-4" />, color: 'text-amber-600 dark:text-amber-400', bg: 'bg-amber-50 dark:bg-amber-900/30', memberId: 'MEM-005' },
+                    { name: 'Sofia Gentile', type: 'Prosumer', pod: 'IT001E87654321', status: 'Online', icon: <Battery className="w-4 h-4" />, color: 'text-indigo-600 dark:text-indigo-400', bg: 'bg-indigo-50 dark:bg-indigo-900/30', memberId: 'MEM-004' },
+                    { name: 'Marco Bianchi', type: 'Consumer', pod: 'IT001E11223344', status: 'Online', icon: <Users className="w-4 h-4" />, color: 'text-emerald-600 dark:text-emerald-400', bg: 'bg-emerald-50 dark:bg-emerald-900/30', memberId: 'MEM-001' },
+                    { name: 'Laura Ferretti', type: 'Consumer', pod: 'IT001E55667788', status: 'Online', icon: <Users className="w-4 h-4" />, color: 'text-emerald-600 dark:text-emerald-400', bg: 'bg-emerald-50 dark:bg-emerald-900/30', memberId: 'MEM-002' },
+                    { name: 'Giovanni Mazza', type: 'Consumer', pod: 'IT001E99001122', status: 'Online', icon: <Users className="w-4 h-4" />, color: 'text-emerald-600 dark:text-emerald-400', bg: 'bg-emerald-50 dark:bg-emerald-900/30', memberId: 'MEM-003' },
                   ].map((pod, i) => (
-                    <div key={i} onClick={() => navigate(`/admin/community/${pod.memberId}`)} className="flex items-center justify-between p-4 rounded-2xl border border-zinc-100 bg-zinc-50/50 hover:bg-white hover:shadow-sm transition-all cursor-pointer group">
+                    <div key={i} onClick={() => navigate(`/admin/community/${pod.memberId}`)} className="flex items-center justify-between p-4 rounded-2xl border border-zinc-100 dark:border-zinc-700 bg-zinc-50/50 dark:bg-zinc-800/50 hover:bg-white dark:hover:bg-zinc-800 hover:shadow-sm transition-all cursor-pointer group">
                       <div className="flex items-center gap-3">
                         <div className={`w-8 h-8 rounded-xl flex items-center justify-center ${pod.bg} ${pod.color}`}>
                           {pod.icon}
                         </div>
                         <div>
-                          <p className="text-sm font-bold text-zinc-900 group-hover:text-indigo-600 transition-colors">{pod.name}</p>
+                          <p className="text-sm font-bold text-zinc-900 dark:text-zinc-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">{pod.name}</p>
                           <div className="flex items-center gap-1.5 mt-0.5">
-                            <span className="text-[9px] font-black uppercase text-zinc-400">{pod.type}</span>
-                            <span className="text-zinc-300">•</span>
-                            <span className="text-[10px] font-mono text-zinc-500">{pod.pod}</span>
+                            <span className="text-xs font-bold uppercase text-zinc-500 dark:text-zinc-400">{pod.type}</span>
+                            <span className="text-zinc-300 dark:text-zinc-600">•</span>
+                            <span className="text-xs font-mono text-zinc-500 dark:text-zinc-400">{pod.pod}</span>
                           </div>
                         </div>
                       </div>
                       <div className="flex items-center gap-1.5 flex-shrink-0">
                         <div className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]"></div>
-                        <span className="text-[10px] font-bold text-zinc-600 uppercase hidden sm:block">{pod.status}</span>
+                        <span className="text-xs font-bold text-zinc-600 dark:text-zinc-400 uppercase hidden sm:block">{pod.status}</span>
                       </div>
                     </div>
                   ))}
@@ -288,14 +285,14 @@ export default function AdminCER() {
 
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-2">
               <div>
-                <h3 className="text-xl font-bold text-zinc-900 flex items-center gap-2">
+                <h3 className="text-xl font-bold text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
                   <TrendingUp className="w-6 h-6 text-indigo-500" /> Analisi e Riparto Incentivi
                 </h3>
-                <p className="text-sm text-zinc-500 mt-1">
+                <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-1">
                   Visualizza il modello di ripartizione e l'allocazione stimata per i membri.
                 </p>
               </div>
-              <button onClick={handleOpenModal} className="self-end md:self-auto text-[11px] font-bold text-white bg-zinc-900 px-5 py-2.5 rounded-xl flex items-center gap-1.5 hover:bg-zinc-800 transition-all shadow-lg active:scale-95">
+              <button onClick={handleOpenModal} className="w-full sm:w-auto text-xs font-bold text-white bg-zinc-900 dark:bg-zinc-100 dark:text-zinc-900 px-5 py-3 rounded-xl flex items-center justify-center gap-1.5 hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-all shadow-lg active:scale-95 touch-manipulation">
                  <Settings2 className="w-3.5 h-3.5" /> Modifica Regolamento
               </button>
             </div>
@@ -310,7 +307,7 @@ export default function AdminCER() {
                     </div>
                     <div>
                       <p className="text-sm font-bold text-[#451A03]">Incentivi Maturati</p>
-                      <p className="text-[10px] text-[#92400E] opacity-60">Energia condivisa e consumata</p>
+                      <p className="text-xs text-amber-800">Energia condivisa e consumata</p>
                     </div>
                   </div>
                   <div className="bg-amber-100/50 text-[#92400E] text-[9px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider border border-amber-200">
@@ -322,40 +319,40 @@ export default function AdminCER() {
                 </div>
               </div>
 
-              <div className="bg-white p-5 rounded-[1.5rem] border border-zinc-100 shadow-sm hover:shadow-md transition-all relative overflow-hidden group">
+              <div className="bg-white dark:bg-zinc-800 p-5 rounded-[1.5rem] border border-zinc-100 dark:border-zinc-700 shadow-sm hover:shadow-md transition-all relative overflow-hidden group">
                 <div className="flex items-start gap-3 relative z-10">
-                  <div className="w-9 h-9 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center flex-shrink-0 border border-indigo-100">
+                  <div className="w-9 h-9 rounded-xl bg-indigo-50 dark:bg-indigo-900/40 text-indigo-600 dark:text-indigo-400 flex items-center justify-center flex-shrink-0 border border-indigo-100 dark:border-indigo-800">
                     <Lock className="w-4 h-4" />
                   </div>
                   <div>
-                    <p className="text-sm font-bold text-zinc-900">Recupero Investimento</p>
-                    <p className="text-[10px] text-zinc-400 opacity-80 leading-relaxed">Quota mensile per fondo e gestione.</p>
+                    <p className="text-sm font-bold text-zinc-900 dark:text-zinc-100">Recupero Investimento</p>
+                    <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed">Quota mensile per fondo e gestione.</p>
                   </div>
                 </div>
                 <div className="mt-5 relative z-10">
-                  <p className="text-3xl font-bold text-zinc-900 tracking-tighter">{fixedFee.toFixed(2).replace('.', ',')} €</p>
+                  <p className="text-3xl font-bold text-zinc-900 dark:text-zinc-100 tracking-tighter">{fixedFee.toFixed(2).replace('.', ',')} €</p>
                 </div>
               </div>
             </div>
 
             {/* Modello Proporzionale Box */}
-            <div className="bg-white rounded-[1.25rem] p-6 sm:p-8 border border-zinc-100 shadow-sm">
+            <div className="bg-white dark:bg-zinc-800 rounded-[1.25rem] p-6 sm:p-8 border border-zinc-100 dark:border-zinc-700 shadow-sm">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
                 <div className="flex items-center gap-3">
                   <CheckCircle2 className="w-6 h-6 text-emerald-500" />
-                  <h3 className="text-lg font-bold text-zinc-900">Modello Proporzionale</h3>
+                  <h3 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">Modello Proporzionale</h3>
                 </div>
-                <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-3 py-1.5 rounded-full uppercase tracking-wider border border-emerald-100 w-fit">Attivo</span>
+                <span className="text-xs font-bold text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/30 px-3 py-1.5 rounded-full uppercase tracking-wider border border-emerald-100 dark:border-emerald-800 w-fit">Attivo</span>
               </div>
-              <p className="text-sm text-zinc-500 mb-10 sm:pl-9">
+              <p className="text-sm text-zinc-500 dark:text-zinc-400 mb-10 sm:pl-9">
                 L'incentivo viene distribuito in base all'energia effettivamente condivisa nel periodo di riferimento (sharing).
               </p>
 
               <div className="sm:pl-9 space-y-12">
                 <div>
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-5">
-                    <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-400">Suddivisione del Ricavo Totale</p>
-                    <div className="flex items-center gap-4 text-[10px] font-bold">
+                    <p className="text-xs font-bold uppercase tracking-widest text-zinc-500">Suddivisione del Ricavo Totale</p>
+                    <div className="flex items-center gap-4 text-xs font-bold">
                        <span className="flex items-center gap-2 text-amber-600"><span className="w-2 h-2 rounded-full bg-amber-400" /> Produttori {producer}%</span>
                        <span className="flex items-center gap-2 text-emerald-600"><span className="w-2 h-2 rounded-full bg-emerald-500" /> Consumatori {consumer}%</span>
                        <span className="flex items-center gap-2 text-indigo-600"><span className="w-2 h-2 rounded-full bg-indigo-500" /> CER {ente}%</span>
@@ -370,29 +367,32 @@ export default function AdminCER() {
                 </div>
 
                 {/* Individual Quotes Sections */}
-                <div className="space-y-6">
-                  <h4 className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 px-1">Quote Individuali dei Membri</h4>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-4">
+                  <h4 className="text-xs font-bold uppercase tracking-widest text-zinc-500 px-1">Quote Individuali dei Membri</h4>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                     {members.map((m, i) => (
-                      <div key={i} className="bg-white p-5 rounded-2xl border border-zinc-100 shadow-sm flex items-center justify-between hover:shadow-md transition-all group">
-                        <div className="flex items-center gap-4">
-                           <div className="w-12 h-12 rounded-full bg-zinc-50 border border-zinc-100 flex items-center justify-center text-sm font-black text-zinc-600 shadow-sm group-hover:bg-indigo-50 group-hover:text-indigo-600 transition-colors">
-                              {m.initials}
-                           </div>
-                           <div>
-                              <p className="text-sm font-bold text-zinc-900">{m.name}</p>
-                              <p className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest">{m.type}</p>
-                           </div>
+                      <div key={i} className="bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-100 dark:border-zinc-700 shadow-sm hover:shadow-md transition-all group overflow-hidden">
+                        {/* Row 1: avatar + nome + tipo */}
+                        <div className="flex items-center gap-3 p-4 pb-3">
+                          <div className="w-11 h-11 rounded-full bg-zinc-50 dark:bg-zinc-800 border border-zinc-100 dark:border-zinc-700 flex items-center justify-center text-sm font-black text-zinc-600 dark:text-zinc-300 shadow-sm group-hover:bg-indigo-50 dark:group-hover:bg-indigo-900/30 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors flex-shrink-0">
+                            {m.initials}
+                          </div>
+                          <div className="min-w-0">
+                            <p className="text-sm font-bold text-zinc-900 dark:text-zinc-100 truncate">{m.name}</p>
+                            <p className="text-xs font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">{m.type}</p>
+                          </div>
                         </div>
-                        <div className="flex gap-8 text-right">
-                           <div>
-                              <p className="text-[8px] font-bold text-zinc-400 uppercase tracking-widest mb-0.5">Ripartizione</p>
-                              <p className="text-xs font-bold text-zinc-900">{m.quota}</p>
-                           </div>
-                           <div>
-                              <p className="text-[8px] font-bold text-zinc-400 uppercase tracking-widest mb-0.5">Stima Mensile</p>
-                              <p className="text-sm font-black text-indigo-600">{m.stima}</p>
-                           </div>
+                        {/* Row 2: dati su due colonne */}
+                        <div className="flex items-stretch border-t border-zinc-100 dark:border-zinc-700">
+                          <div className="flex-1 px-4 py-3">
+                            <p className="text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-widest mb-1">Ripartizione</p>
+                            <p className="text-sm font-bold text-zinc-900 dark:text-zinc-100">{m.quota}</p>
+                          </div>
+                          <div className="w-px bg-zinc-100 dark:bg-zinc-700" />
+                          <div className="flex-1 px-4 py-3">
+                            <p className="text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-widest mb-1">Stima Mensile</p>
+                            <p className="text-base font-black text-indigo-600 dark:text-indigo-400">{m.stima}</p>
+                          </div>
                         </div>
                       </div>
                     ))}

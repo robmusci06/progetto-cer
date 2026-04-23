@@ -20,7 +20,7 @@ export default function Login() {
              <h1 className="text-5xl font-bold tracking-tight mb-6 leading-tight text-white">
                  Gestisci l'energia del futuro con <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400">precisione</span>.
              </h1>
-             <p className="text-zinc-400 text-lg leading-relaxed">
+             <p className="text-zinc-400 text-base leading-relaxed">
                  Monitora i consumi, amministra le comunità energetiche e ottimizza le risorse. Tutto in un'unica piattaforma potente e intuitiva.
              </p>
          </div>
@@ -36,12 +36,12 @@ export default function Login() {
       </div>
       
       {/* Right Panel */}
-      <div className="flex flex-1 items-center justify-center p-8 bg-zinc-50 relative">
+      <div className="flex flex-1 items-center justify-center p-5 sm:p-8 bg-zinc-50 relative">
         <div className="w-full max-w-md space-y-8 animate-in fade-in slide-in-from-bottom-8 duration-700">
            
            <div className="text-center">
-             <h2 className="text-3xl font-bold tracking-tight text-zinc-900">Accedi all'Area Admin</h2>
-             <p className="text-zinc-500 mt-2">Inserisci le tue credenziali per proseguire.</p>
+             <h2 className="text-2xl font-bold tracking-tight text-zinc-900">Accedi all'Area Admin</h2>
+             <p className="text-zinc-500 mt-2 text-sm">Inserisci le tue credenziali per proseguire.</p>
            </div>
            
            <div className="bg-white p-8 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-zinc-100">
@@ -50,13 +50,13 @@ export default function Login() {
                <div className="space-y-2">
                  <Label htmlFor="email" className="text-zinc-700 font-medium">Email</Label>
                  <div className="relative">
-                   <Mail className="absolute left-3 top-3 h-4 w-4 text-zinc-400" />
-                   <Input 
-                      id="email" 
-                      type="email" 
-                      placeholder="admin@brilla.it" 
-                      className="pl-10 bg-zinc-50 border-zinc-200 focus-visible:ring-indigo-500 focus-visible:border-indigo-500 transition-colors h-10" 
-                      required 
+                   <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-400" />
+                   <Input
+                      id="email"
+                      type="email"
+                      placeholder="admin@brilla.it"
+                      className="pl-10 bg-zinc-50 border-zinc-200 focus-visible:ring-indigo-500 focus-visible:border-indigo-500 transition-colors"
+                      required
                    />
                  </div>
                </div>
@@ -69,13 +69,13 @@ export default function Login() {
                    </a>
                  </div>
                  <div className="relative">
-                   <Lock className="absolute left-3 top-3 h-4 w-4 text-zinc-400" />
-                   <Input 
-                      id="password" 
-                      type="password" 
-                      placeholder="••••••••" 
-                      className="pl-10 bg-zinc-50 border-zinc-200 focus-visible:ring-indigo-500 focus-visible:border-indigo-500 transition-colors h-10" 
-                      required 
+                   <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-400" />
+                   <Input
+                      id="password"
+                      type="password"
+                      placeholder="••••••••"
+                      className="pl-10 bg-zinc-50 border-zinc-200 focus-visible:ring-indigo-500 focus-visible:border-indigo-500 transition-colors"
+                      required
                    />
                  </div>
                </div>

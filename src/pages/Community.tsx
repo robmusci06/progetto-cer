@@ -137,7 +137,7 @@ export default function Community() {
   return (
     <div className="flex min-h-screen bg-zinc-50 font-sans">
       {/* ── Sidebar ── */}
-      <aside className="w-64 bg-zinc-950 text-zinc-400 flex flex-col transition-all duration-300">
+      <aside className="hidden md:flex w-64 bg-zinc-950 text-zinc-400 flex-col transition-all duration-300">
         <div className="p-6 flex items-center gap-3 text-white">
           <div className="h-8 w-8 rounded-lg bg-gradient-to-tr from-indigo-500 to-cyan-400 flex items-center justify-center p-[1px]">
             <div className="h-full w-full bg-zinc-950 rounded-[7px] flex items-center justify-center">
@@ -184,9 +184,9 @@ export default function Community() {
       {/* ── Main ── */}
       <main className="flex-1 flex flex-col overflow-hidden">
         {/* Top Header */}
-        <header className="h-16 bg-white border-b border-zinc-200 flex items-center justify-between px-8 z-10 sticky top-0">
+        <header className="h-16 bg-white border-b border-zinc-200 flex items-center justify-between px-4 md:px-8 z-10 sticky top-0">
           <div className="flex items-center w-96 relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-400" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-500" />
             <Input
               placeholder="Cerca per nome, POD o ruolo..."
               value={search}
@@ -195,7 +195,7 @@ export default function Community() {
             />
           </div>
           <div className="flex items-center gap-4">
-            <button className="relative p-2 text-zinc-400 hover:bg-zinc-100 rounded-full transition-colors">
+            <button className="relative p-2 text-zinc-500 hover:bg-zinc-100 rounded-full transition-colors">
               <Bell className="h-5 w-5" />
             </button>
             <div className="h-8 w-8 rounded-full bg-gradient-to-r from-indigo-400 to-cyan-400 flex items-center justify-center text-white font-medium text-sm shadow-sm cursor-pointer">
@@ -205,21 +205,21 @@ export default function Community() {
         </header>
 
         {/* ── Content ── */}
-        <div className="flex-1 overflow-auto p-8">
+        <div className="flex-1 overflow-auto p-4 md:p-8">
 
           {/* Page Header */}
-          <div className="flex justify-between items-end mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-3 mb-5 md:mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
             <div>
-              <h1 className="text-3xl font-bold tracking-tight text-zinc-900">Gestione Comunità</h1>
-              <p className="text-zinc-500 mt-1">Supervisiona i membri della CER e approva nuove richieste.</p>
+              <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-zinc-900">Gestione Comunità</h1>
+              <p className="text-zinc-500 mt-1 text-sm">Supervisiona i membri della CER e approva nuove richieste.</p>
             </div>
-            <Button className="bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm transition-all h-10">
+            <Button className="bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm transition-all w-full sm:w-auto">
               <Plus className="mr-2 h-4 w-4" /> Nuovo Membro
             </Button>
           </div>
 
           {/* KPI Strip */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 animate-in fade-in slide-in-from-bottom-6 duration-700 delay-100">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-5 md:mb-8 animate-in fade-in slide-in-from-bottom-6 duration-700 delay-100">
             {[
               { label: "Totale Membri", value: "5", sub: "+12 questo mese", icon: <Users className="h-5 w-5 text-indigo-600" />, bg: "bg-indigo-50", color: "text-emerald-600" },
               { label: "Attivi", value: "3", sub: "60% del totale", icon: <Wifi className="h-5 w-5 text-emerald-600" />, bg: "bg-emerald-50", color: "text-emerald-600" },
@@ -242,8 +242,8 @@ export default function Community() {
           </div>
 
           {/* Filter row */}
-          <div className="flex items-center gap-3 mb-6 animate-in fade-in slide-in-from-bottom-6 duration-700 delay-150">
-            <span className="text-sm font-medium text-zinc-500 mr-1">Filtra per ruolo:</span>
+          <div className="flex flex-wrap items-center gap-2 md:gap-3 mb-4 md:mb-6 animate-in fade-in slide-in-from-bottom-6 duration-700 delay-150">
+            <span className="text-xs font-medium text-zinc-500 mr-1">Filtra per ruolo:</span>
             {(["Tutti", "Consumer", "Prosumer", "Producer"] as RoleFilter[]).map((f) => {
               const count = f === "Tutti" ? members.length : countByRole(f)
               const isActive = activeFilter === f
@@ -251,7 +251,7 @@ export default function Community() {
                 <button
                   key={f}
                   onClick={() => setActiveFilter(f)}
-                  className={`inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-sm font-medium transition-all border ${
+                  className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium transition-all border ${
                     isActive
                       ? "bg-indigo-600 text-white border-indigo-600 shadow-sm"
                       : "bg-white text-zinc-600 border-zinc-200 hover:border-indigo-300 hover:text-indigo-600"
@@ -264,13 +264,13 @@ export default function Community() {
                 </button>
               )
             })}
-            <span className="ml-auto text-xs text-zinc-400">{filtered.length} risultat{filtered.length === 1 ? "o" : "i"}</span>
+            <span className="ml-auto text-xs text-zinc-500">{filtered.length} risultat{filtered.length === 1 ? "o" : "i"}</span>
           </div>
 
           {/* ── Member Cards Grid ── */}
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-200">
             {filtered.length === 0 ? (
-              <div className="col-span-3 flex flex-col items-center justify-center py-20 text-zinc-400">
+              <div className="col-span-3 flex flex-col items-center justify-center py-20 text-zinc-500">
                 <Search className="h-10 w-10 mb-3 opacity-30" />
                 <p className="text-lg font-medium">Nessun membro trovato</p>
                 <p className="text-sm mt-1">Prova a modificare il filtro o la ricerca</p>
@@ -290,26 +290,28 @@ export default function Community() {
                     <div className="p-6">
                       {/* Header: avatar + name + role badge */}
                       <div className="flex items-start gap-4 mb-5">
-                        <div className={`h-12 w-12 rounded-xl ${rc.avatar} flex items-center justify-center text-white font-bold text-sm flex-shrink-0 shadow-sm`}>
+                        <div className={`h-12 w-12 rounded-xl ${rc.avatar} flex items-center justify-center text-white font-bold text-xs flex-shrink-0 shadow-sm`}>
                           {member.name.split(" ").map((n) => n[0]).join("").substring(0, 2).toUpperCase()}
                         </div>
                         <div className="flex-1 min-w-0">
-                          <h3 className="font-semibold text-zinc-900 text-base leading-tight truncate">{member.name}</h3>
-                          <p className="text-xs text-zinc-400 mt-0.5 flex items-center gap-1">
+                          <div className="flex items-start justify-between gap-2 mb-0.5">
+                            <h3 className="font-semibold text-zinc-900 text-base leading-tight truncate">{member.name}</h3>
+                            <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold flex-shrink-0 ${rc.badge}`}>
+                              {rc.icon}{member.role}
+                            </span>
+                          </div>
+                          <p className="text-xs text-zinc-500 flex items-center gap-1">
                             <MapPin className="h-3 w-3 flex-shrink-0" />
                             <span className="truncate">{member.location}</span>
                           </p>
                         </div>
-                        <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold flex-shrink-0 ${rc.badge}`}>
-                          {rc.icon}{member.role}
-                        </span>
                       </div>
 
                       {/* Info rows */}
                       <div className="space-y-3 mb-5">
                         {/* POD */}
                         <div className="flex items-center justify-between">
-                          <span className="text-xs text-zinc-400 flex items-center gap-1.5">
+                          <span className="text-xs text-zinc-500 flex items-center gap-1.5">
                             <Cpu className="h-3.5 w-3.5" /> ID POD
                           </span>
                           <code className="text-xs font-mono text-zinc-700 bg-zinc-50 border border-zinc-200 px-2 py-0.5 rounded-md">
@@ -319,7 +321,7 @@ export default function Community() {
 
                         {/* Tipologia */}
                         <div className="flex items-center justify-between">
-                          <span className="text-xs text-zinc-400 flex items-center gap-1.5">
+                          <span className="text-xs text-zinc-500 flex items-center gap-1.5">
                             <LayoutDashboard className="h-3.5 w-3.5" /> Tipologia
                           </span>
                           <span className="text-xs font-medium text-zinc-700">{member.type}</span>
@@ -327,7 +329,7 @@ export default function Community() {
 
                         {/* Consumo / Produzione */}
                         <div className="flex items-center justify-between">
-                          <span className="text-xs text-zinc-400 flex items-center gap-1.5">
+                          <span className="text-xs text-zinc-500 flex items-center gap-1.5">
                             <Zap className="h-3.5 w-3.5" /> {member.role === "Producer" ? "Produzione" : "Consumo"} (oggi)
                           </span>
                           <span className="text-xs font-semibold text-zinc-800">{member.consumption}</span>
@@ -335,7 +337,7 @@ export default function Community() {
 
                         {/* Ultimo aggiornamento */}
                         <div className="flex items-center justify-between">
-                          <span className="text-xs text-zinc-400 flex items-center gap-1.5">
+                          <span className="text-xs text-zinc-500 flex items-center gap-1.5">
                             <Clock className="h-3.5 w-3.5" /> Ultimo agg.
                           </span>
                           <span className="text-xs text-zinc-500">{member.lastUpdate}</span>

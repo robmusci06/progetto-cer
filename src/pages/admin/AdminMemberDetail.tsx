@@ -1,78 +1,90 @@
 import { useParams } from 'react-router-dom'
+import { useEffect, useState } from 'react'
 import { mockMembers } from '../../data/mockMembers'
-import { 
-  Mail, Phone, MapPin, 
-  TrendingUp, Zap, 
-  Calendar, Euro, Activity, 
+import {
+  Mail, Phone, MapPin,
+  TrendingUp, Zap,
+  Calendar, Euro, Activity,
   Send, FileText, Cpu, Info, Users
 } from 'lucide-react'
-import { 
+import {
   AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend
 } from 'recharts'
 
 export default function AdminMemberDetail() {
   const { id } = useParams()
-
-  // Find the member by ID or fallback to the first one
   const member = mockMembers.find(m => m.id === id) || mockMembers[0]
-
   const isProducerRole = member.role === 'Producer' || member.role === 'Prosumer'
+
+  const [isDark, setIsDark] = useState(() => document.documentElement.classList.contains('dark'))
+
+  useEffect(() => {
+    const observer = new MutationObserver(() => {
+      setIsDark(document.documentElement.classList.contains('dark'))
+    })
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] })
+    return () => observer.disconnect()
+  }, [])
 
   return (
     <div className="space-y-6 animate-in fade-in duration-700 pb-10">
-      
+
       {/* Main Header Card */}
-      <div className="bg-white p-6 rounded-3xl border border-zinc-100 shadow-sm flex flex-col md:flex-row items-center justify-between gap-6">
+      <div className="bg-white dark:bg-zinc-900 p-6 rounded-3xl border border-zinc-100 dark:border-zinc-800 shadow-sm flex flex-col md:flex-row items-center justify-between gap-6">
         <div className="flex items-center gap-5">
-          <div className="w-16 h-16 rounded-2xl bg-blue-500 text-white flex items-center justify-center text-2xl font-bold">
+          <div className="w-16 h-16 rounded-2xl bg-blue-500 text-white flex items-center justify-center text-2xl font-bold shrink-0">
             {member.name.split(' ').map(n => n[0]).join('')}
           </div>
           <div>
-            <h1 className="text-3xl font-bold text-zinc-900 tracking-tight">{member.name}</h1>
-            <div className="flex items-center gap-2 mt-1">
-              <span className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-indigo-50 text-indigo-600 text-[10px] font-bold uppercase tracking-wider">
+            <h1 className="text-2xl md:text-3xl font-bold text-zinc-900 dark:text-zinc-100 tracking-tight">{member.name}</h1>
+            <div className="flex items-center gap-2 mt-1 flex-wrap">
+              <span className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-indigo-50 dark:bg-indigo-900/40 text-indigo-600 dark:text-indigo-400 text-xs font-bold uppercase tracking-wider">
                 <Users className="w-3 h-3" /> {member.role}
               </span>
-              <span className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-emerald-50 text-emerald-600 text-[10px] font-bold uppercase tracking-wider">
+              <span className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-emerald-50 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-400 text-xs font-bold uppercase tracking-wider">
                 <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" /> {member.status}
               </span>
             </div>
           </div>
         </div>
 
-        <div className="flex items-center gap-3">
-          <button className="bg-zinc-900 text-white px-6 py-3 rounded-xl text-xs font-bold flex items-center gap-2 hover:bg-black transition-all shadow-sm active:scale-95">
-             <Send className="w-4 h-4" /> Invia Messaggio
+        <div className="flex items-center gap-3 w-full md:w-auto">
+          <button className="flex-1 md:flex-none bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 px-6 py-3 rounded-xl text-xs font-bold flex items-center justify-center gap-2 hover:bg-black dark:hover:bg-white transition-all shadow-sm active:scale-95 touch-manipulation">
+            <Send className="w-4 h-4" /> Invia Messaggio
           </button>
-          <button className="bg-white text-zinc-600 border border-zinc-200 px-6 py-3 rounded-xl text-xs font-bold flex items-center gap-2 hover:bg-zinc-50 transition-all shadow-sm">
-             <FileText className="w-4 h-4" /> Esporta Report
+          <button className="flex-1 md:flex-none bg-white dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700 px-6 py-3 rounded-xl text-xs font-bold flex items-center justify-center gap-2 hover:bg-zinc-50 dark:hover:bg-zinc-700 transition-all shadow-sm touch-manipulation">
+            <FileText className="w-4 h-4" /> Esporta Report
           </button>
         </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        
+
         {/* ── Left Column: Registry ── */}
         <div className="lg:col-span-4">
-          <div className="bg-white p-8 rounded-[2rem] border border-zinc-100 shadow-sm h-fit">
-            <h3 className="text-lg font-bold text-zinc-900 mb-8 flex items-center gap-2 tracking-tight">
+          <div className="bg-white dark:bg-zinc-900 p-6 md:p-8 rounded-[2rem] border border-zinc-100 dark:border-zinc-800 shadow-sm h-fit">
+            <h3 className="text-lg font-bold text-zinc-900 dark:text-zinc-100 mb-8 flex items-center gap-2 tracking-tight">
               <Info className="w-5 h-5 text-indigo-500" /> Anagrafica membro
             </h3>
-            
+
             <div className="space-y-6">
               {[
-                { icon: <Cpu className="w-3.5 h-3.5" />, label: 'ID POD', value: member.pod, mono: true },
-                { icon: <MapPin className="w-3.5 h-3.5" />, label: 'Indirizzo', value: member.address },
-                { icon: <Mail className="w-3.5 h-3.5" />, label: 'Email', value: member.email },
-                { icon: <Phone className="w-3.5 h-3.5" />, label: 'Telefono', value: member.phone },
-                { icon: <Activity className="w-3.5 h-3.5" />, label: 'Tipologia', value: member.type },
-                { icon: <Calendar className="w-3.5 h-3.5" />, label: 'Membro dal', value: member.joinedAt },
+                { label: 'ID POD', value: member.pod, mono: true },
+                { label: 'Indirizzo', value: member.address },
+                { label: 'Email', value: member.email },
+                { label: 'Telefono', value: member.phone },
+                { label: 'Tipologia', value: member.type },
+                { label: 'Membro dal', value: member.joinedAt },
               ].map((item, idx) => (
                 <div key={idx} className="space-y-1">
-                  <div className="flex items-center gap-2 text-[10px] font-bold text-zinc-400 uppercase tracking-widest">
+                  <div className="text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-widest">
                     {item.label}
                   </div>
-                  <p className={`text-sm text-zinc-900 font-bold ${item.mono ? 'bg-zinc-50 px-2 py-0.5 rounded border border-zinc-100/50 w-fit font-mono' : ''}`}>
+                  <p className={`text-sm font-bold text-zinc-900 dark:text-zinc-100 ${
+                    item.mono
+                      ? 'font-mono bg-zinc-50 dark:bg-zinc-800 px-2 py-0.5 rounded border border-zinc-200 dark:border-zinc-700 w-fit'
+                      : ''
+                  }`}>
                     {item.value}
                   </p>
                 </div>
@@ -83,93 +95,106 @@ export default function AdminMemberDetail() {
 
         {/* ── Right Column: Analysis ── */}
         <div className="lg:col-span-8 space-y-6">
-          
+
           {/* KPIs */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {[
-              { label: 'Consumo oggi', value: member.consumption, icon: <Zap className="w-4 h-4" />, color: 'text-amber-500', trend: member.trends.consumption },
-              { label: 'Incentivo mese', value: member.incentive, icon: <Euro className="w-4 h-4" />, color: 'text-emerald-500', trend: member.trends.incentive },
-              { label: 'Energy score', value: '88/100', icon: <TrendingUp className="w-4 h-4" />, color: 'text-indigo-500', trend: member.trends.score },
+              { label: 'Consumo oggi', value: member.consumption, icon: <Zap className="w-4 h-4 text-amber-500" />, bg: 'bg-amber-50 dark:bg-amber-950/30', trend: member.trends.consumption },
+              { label: 'Incentivo mese', value: member.incentive, icon: <Euro className="w-4 h-4 text-emerald-500" />, bg: 'bg-emerald-50 dark:bg-emerald-950/30', trend: member.trends.incentive },
+              { label: 'Energy score', value: '88/100', icon: <TrendingUp className="w-4 h-4 text-indigo-500" />, bg: 'bg-indigo-50 dark:bg-indigo-950/30', trend: member.trends.score },
             ].map((kpi, idx) => (
-              <div key={idx} className="bg-white p-6 rounded-2xl border border-zinc-100 shadow-sm relative overflow-hidden group hover:shadow-md transition-all">
-                <div className="flex justify-between items-start mb-4">
-                   <div className={`w-8 h-8 rounded-xl bg-white border border-zinc-100 flex items-center justify-center shadow-sm ${kpi.color}`}>
-                      {kpi.icon}
-                   </div>
-                   <span className="text-[9px] font-bold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-lg">
-                      {kpi.trend}
-                   </span>
+              <div key={idx} className="bg-white dark:bg-zinc-900 px-4 py-3.5 rounded-2xl border border-zinc-100 dark:border-zinc-800 shadow-sm flex items-center gap-3 hover:shadow-md transition-all">
+                <div className={`p-2 rounded-xl ${kpi.bg} flex-shrink-0`}>
+                  {kpi.icon}
                 </div>
-                <div>
-                   <p className="text-xs font-medium text-zinc-400 mb-0.5">{kpi.label}</p>
-                   <p className="text-2xl font-bold text-zinc-900 tracking-tight">{kpi.value}</p>
+                <div className="flex-1 min-w-0">
+                  <p className="text-xs font-medium text-zinc-500 dark:text-zinc-400 truncate">{kpi.label}</p>
+                  <h3 className="text-xl font-bold text-zinc-900 dark:text-zinc-100 leading-tight">{kpi.value}</h3>
                 </div>
+                <span className={`text-xs font-bold px-2 py-0.5 rounded-full flex-shrink-0 ${
+                  kpi.trend.startsWith('+') ? 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400' :
+                  kpi.trend.startsWith('-') ? 'bg-rose-100 dark:bg-rose-900/30 text-rose-700 dark:text-rose-400' :
+                  'bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400'
+                }`}>
+                  {kpi.trend}
+                </span>
               </div>
             ))}
           </div>
 
           {/* Graph Card */}
-          <div className="bg-white p-8 rounded-[2rem] border border-zinc-100 shadow-sm flex flex-col">
-             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
-                <div>
-                  <h3 className="text-lg font-bold text-zinc-900 tracking-tight">Andamento energetico</h3>
-                  <p className="text-[10px] text-zinc-400 font-bold uppercase tracking-widest mt-1">Dettaglio flussi orari nelle ultime 24 ore</p>
-                </div>
-             </div>
-             
-             <div className="h-[280px] w-full">
-                <ResponsiveContainer width="100%" height="100%">
-                  <AreaChart data={member.energyData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-                    <defs>
-                      <linearGradient id="colorConsumo" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.1}/>
-                        <stop offset="95%" stopColor="#3b82f6" stopOpacity={0}/>
-                      </linearGradient>
-                      <linearGradient id="colorProduzione" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#f59e0b" stopOpacity={0.1}/>
-                        <stop offset="95%" stopColor="#f59e0b" stopOpacity={0}/>
-                      </linearGradient>
-                    </defs>
-                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f4f4f5" />
-                    <XAxis 
-                      dataKey="time" 
-                      axisLine={false} 
-                      tickLine={false} 
-                      tick={{ fill: '#a1a1aa', fontSize: 10, fontWeight: 700 }} 
-                      dy={10}
+          <div className="bg-white dark:bg-zinc-900 p-6 md:p-8 rounded-[2rem] border border-zinc-100 dark:border-zinc-800 shadow-sm flex flex-col">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
+              <div>
+                <h3 className="text-lg font-bold text-zinc-900 dark:text-zinc-100 tracking-tight">Andamento energetico</h3>
+                <p className="text-xs text-zinc-500 dark:text-zinc-400 font-bold uppercase tracking-widest mt-1">Dettaglio flussi orari nelle ultime 24 ore</p>
+              </div>
+            </div>
+
+            <div className="h-[240px] md:h-[280px] w-full">
+              <ResponsiveContainer width="100%" height="100%">
+                <AreaChart data={member.energyData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                  <defs>
+                    <linearGradient id="colorConsumo" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.15}/>
+                      <stop offset="95%" stopColor="#3b82f6" stopOpacity={0}/>
+                    </linearGradient>
+                    <linearGradient id="colorProduzione" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor="#f59e0b" stopOpacity={0.15}/>
+                      <stop offset="95%" stopColor="#f59e0b" stopOpacity={0}/>
+                    </linearGradient>
+                  </defs>
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={isDark ? '#27272a' : '#f4f4f5'} />
+                  <XAxis
+                    dataKey="time"
+                    axisLine={false}
+                    tickLine={false}
+                    tick={{ fill: isDark ? '#71717a' : '#a1a1aa', fontSize: 10, fontWeight: 700 }}
+                    dy={10}
+                  />
+                  <YAxis
+                    axisLine={false}
+                    tickLine={false}
+                    tick={{ fill: isDark ? '#71717a' : '#a1a1aa', fontSize: 10, fontWeight: 700 }}
+                  />
+                  <Tooltip
+                    contentStyle={{
+                      borderRadius: '16px',
+                      border: 'none',
+                      boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.2)',
+                      backgroundColor: isDark ? '#18181b' : '#ffffff',
+                      color: isDark ? '#f4f4f5' : '#09090b',
+                    }}
+                  />
+                  <Legend
+                    iconType="circle"
+                    verticalAlign="top"
+                    align="right"
+                    wrapperStyle={{ paddingBottom: '20px', fontSize: '10px', fontWeight: 'bold', textTransform: 'uppercase', color: isDark ? '#a1a1aa' : '#71717a' }}
+                  />
+                  <Area
+                    type="monotone"
+                    dataKey="consumo"
+                    name="Consumo (kWh)"
+                    stroke="#3b82f6"
+                    strokeWidth={3}
+                    fillOpacity={1}
+                    fill="url(#colorConsumo)"
+                  />
+                  {isProducerRole && (
+                    <Area
+                      type="monotone"
+                      dataKey="produzione"
+                      name="Produzione (kWh)"
+                      stroke="#f59e0b"
+                      strokeWidth={3}
+                      fillOpacity={1}
+                      fill="url(#colorProduzione)"
                     />
-                    <YAxis 
-                      axisLine={false} 
-                      tickLine={false} 
-                      tick={{ fill: '#a1a1aa', fontSize: 10, fontWeight: 700 }} 
-                    />
-                    <Tooltip 
-                      contentStyle={{ borderRadius: '16px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }}
-                    />
-                    <Legend iconType="circle" verticalAlign="top" align="right" wrapperStyle={{ paddingBottom: '20px', fontSize: '10px', fontWeight: 'bold', textTransform: 'uppercase' }} />
-                    <Area 
-                      type="monotone" 
-                      dataKey="consumo" 
-                      name="Consumo (kWh)" 
-                      stroke="#3b82f6" 
-                      strokeWidth={3} 
-                      fillOpacity={1} 
-                      fill="url(#colorConsumo)" 
-                    />
-                    {isProducerRole && (
-                      <Area 
-                        type="monotone" 
-                        dataKey="produzione" 
-                        name="Produzione (kWh)" 
-                        stroke="#f59e0b" 
-                        strokeWidth={3} 
-                        fillOpacity={1} 
-                        fill="url(#colorProduzione)" 
-                      />
-                    )}
-                  </AreaChart>
-                </ResponsiveContainer>
-             </div>
+                  )}
+                </AreaChart>
+              </ResponsiveContainer>
+            </div>
           </div>
         </div>
       </div>

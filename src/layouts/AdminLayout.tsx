@@ -192,11 +192,11 @@ export default function AdminLayout() {
             </button>
             
             <div className="flex items-center gap-2 lg:gap-4 flex-1">
-              <span className="hidden sm:inline text-[10px] lg:text-sm font-medium text-zinc-400 dark:text-zinc-500 uppercase tracking-wider shrink-0">Tenant Active:</span>
+              <span className="hidden sm:inline text-xs lg:text-sm font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider shrink-0">Tenant Active:</span>
               <select
                 value={tenant}
                 onChange={(e) => setTenant(e.target.value)}
-                className="bg-white dark:bg-zinc-900 border hover:bg-zinc-50 dark:hover:bg-zinc-800 transition border-zinc-200 dark:border-zinc-800 text-zinc-900 dark:text-zinc-100 text-[11px] lg:text-sm rounded-xl focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:w-64 p-1.5 lg:p-2 shadow-sm font-medium overflow-hidden text-ellipsis whitespace-nowrap"
+                className="bg-white dark:bg-zinc-900 border hover:bg-zinc-50 dark:hover:bg-zinc-800 transition border-zinc-200 dark:border-zinc-800 text-zinc-900 dark:text-zinc-100 text-xs lg:text-sm rounded-xl focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:w-64 p-1.5 lg:p-2 shadow-sm font-medium overflow-hidden text-ellipsis whitespace-nowrap"
               >
                 <option value="cer-centro">🏢 CER Centro Città</option>
                 <option value="cer-industriale">🏭 CER Ind. Est</option>
@@ -222,7 +222,7 @@ export default function AdminLayout() {
         </header>
 
         {/* Page Content */}
-        <main className="flex-1 p-4 lg:p-8">
+        <main className="flex-1 px-0 pt-3 pb-4 lg:p-8">
           <Breadcrumbs />
           <div className="mt-2 text-zinc-500 block lg:hidden">
             {/* Visual spacer for mobile */}
