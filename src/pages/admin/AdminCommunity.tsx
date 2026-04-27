@@ -88,11 +88,7 @@ export default function AdminCommunity() {
           <p className="text-zinc-500 mt-1 text-xs lg:text-sm">Gestisci l'anagrafica, verifica le adesioni e monitora lo stato dei nodi.</p>
         </div>
         <div className="flex items-center gap-2 sm:gap-3 w-full sm:w-auto">
-          <div className="flex-1 sm:flex-none justify-center bg-indigo-50 dark:bg-indigo-900/40 px-3 lg:px-4 py-2 rounded-xl border border-indigo-100 dark:border-indigo-800 flex items-center gap-2 whitespace-nowrap">
-            <Users className="w-3.5 h-3.5 lg:w-4 lg:h-4 text-indigo-600 dark:text-indigo-400" />
-            <span className="text-xs lg:text-sm font-bold text-indigo-900 dark:text-indigo-200">5 Membri CER</span>
-          </div>
-          <button className="flex-1 sm:flex-none justify-center bg-zinc-900 dark:bg-zinc-100 dark:text-zinc-900 hover:bg-zinc-800 dark:hover:bg-zinc-200 text-white px-3 lg:px-4 py-2 text-xs lg:text-sm font-medium rounded-xl transition-all shadow-sm flex items-center gap-1.5 whitespace-nowrap">
+          <button className="sm:flex-none justify-center bg-zinc-900 dark:bg-zinc-100 dark:text-zinc-900 hover:bg-zinc-800 dark:hover:bg-zinc-200 text-white px-3 lg:px-4 py-2 text-xs lg:text-sm font-medium rounded-xl transition-all shadow-sm flex items-center gap-1.5 whitespace-nowrap">
             <Plus className="w-3.5 h-3.5 lg:w-4 lg:h-4" /> Nuovo
           </button>
         </div>
@@ -151,7 +147,7 @@ export default function AdminCommunity() {
             return (
               <div
                 key={member.id}
-                className={`group relative bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-100 dark:border-zinc-800 border-t-4 ${rc.topBorder} shadow-[0_2px_16px_rgb(0,0,0,0.05)] hover:shadow-[0_8px_32px_rgb(0,0,0,0.20)] hover:-translate-y-1 transition-all duration-300 overflow-hidden cursor-pointer`}
+                className={`group relative bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-100 dark:border-zinc-800 border-t-4 ${rc.topBorder} shadow-[0_2px_16px_rgb(0,0,0,0.05)] transition-all duration-300 overflow-hidden cursor-pointer`}
                 onClick={() => navigate(`/admin/community/${member.id}`)}
               >
                 {/* Glassmorphism hover glow */}

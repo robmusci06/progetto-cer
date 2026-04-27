@@ -299,7 +299,7 @@ export default function AdminCER() {
 
             {/* KPI SECTION: TOP BOXES */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              <div className="bg-[#FFFBEB] p-5 rounded-[1.5rem] border border-amber-100 shadow-sm relative overflow-hidden group hover:shadow-md transition-all">
+              <div className="bg-[#FFFBEB] p-5 rounded-[1.5rem] border border-amber-100 shadow-sm relative overflow-hidden transition-all">
                 <div className="flex items-start justify-between relative z-10">
                   <div className="flex items-center gap-3">
                     <div className="w-9 h-9 bg-amber-500 text-white rounded-xl flex items-center justify-center flex-shrink-0 shadow-sm">
@@ -319,7 +319,7 @@ export default function AdminCER() {
                 </div>
               </div>
 
-              <div className="bg-white dark:bg-zinc-800 p-5 rounded-[1.5rem] border border-zinc-100 dark:border-zinc-700 shadow-sm hover:shadow-md transition-all relative overflow-hidden group">
+              <div className="bg-white dark:bg-zinc-800 p-5 rounded-[1.5rem] border border-zinc-100 dark:border-zinc-700 shadow-sm transition-all relative overflow-hidden">
                 <div className="flex items-start gap-3 relative z-10">
                   <div className="w-9 h-9 rounded-xl bg-indigo-50 dark:bg-indigo-900/40 text-indigo-600 dark:text-indigo-400 flex items-center justify-center flex-shrink-0 border border-indigo-100 dark:border-indigo-800">
                     <Lock className="w-4 h-4" />
@@ -371,7 +371,7 @@ export default function AdminCER() {
                   <h4 className="text-xs font-bold uppercase tracking-widest text-zinc-500 px-1">Quote Individuali dei Membri</h4>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                     {members.map((m, i) => (
-                      <div key={i} className="bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-100 dark:border-zinc-700 shadow-sm hover:shadow-md transition-all group overflow-hidden">
+                      <div key={i} className="bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-100 dark:border-zinc-700 shadow-sm transition-all group overflow-hidden">
                         {/* Row 1: avatar + nome + tipo */}
                         <div className="flex items-center gap-3 p-4 pb-3">
                           <div className="w-11 h-11 rounded-full bg-zinc-50 dark:bg-zinc-800 border border-zinc-100 dark:border-zinc-700 flex items-center justify-center text-sm font-black text-zinc-600 dark:text-zinc-300 shadow-sm group-hover:bg-indigo-50 dark:group-hover:bg-indigo-900/30 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors flex-shrink-0">

@@ -93,7 +93,7 @@ export default function Dashboard() {
 
            {/* Metric Cards */}
            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-5 md:mb-8 animate-in fade-in slide-in-from-bottom-6 duration-700 delay-100">
-              <Card className="border-none shadow-[0_2px_10px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all">
+              <Card className="border-none shadow-[0_2px_10px_rgb(0,0,0,0.04)] transition-all">
                 <CardHeader className="flex flex-row items-center justify-between pb-2">
                   <CardTitle className="text-sm font-medium text-zinc-500">Energia Condivisa</CardTitle>
                   <div className="h-8 w-8 rounded-full bg-indigo-50 flex items-center justify-center">
@@ -108,7 +108,7 @@ export default function Dashboard() {
                 </CardContent>
               </Card>
               
-              <Card className="border-none shadow-[0_2px_10px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all">
+              <Card className="border-none shadow-[0_2px_10px_rgb(0,0,0,0.04)] transition-all">
                 <CardHeader className="flex flex-row items-center justify-between pb-2">
                   <CardTitle className="text-sm font-medium text-zinc-500">Impianti Attivi</CardTitle>
                   <div className="h-8 w-8 rounded-full bg-cyan-50 flex items-center justify-center">
@@ -123,7 +123,7 @@ export default function Dashboard() {
                 </CardContent>
               </Card>
               
-              <Card className="border-none shadow-[0_2px_10px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all">
+              <Card className="border-none shadow-[0_2px_10px_rgb(0,0,0,0.04)] transition-all">
                 <CardHeader className="flex flex-row items-center justify-between pb-2">
                   <CardTitle className="text-sm font-medium text-zinc-500">Membri CER</CardTitle>
                   <div className="h-8 w-8 rounded-full bg-rose-50 flex items-center justify-center">

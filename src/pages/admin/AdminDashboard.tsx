@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom'
+import { useState } from 'react'
 import { XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line, Legend } from 'recharts'
-import { Zap, Battery, ArrowDownToLine, Activity, Leaf, Euro, BarChart3, AlertTriangle, Sun, Cloud, CloudRain, Wind, Thermometer, Lightbulb } from 'lucide-react'
+import { Zap, Battery, ArrowDownToLine, Activity, Leaf, Euro, BarChart3, AlertTriangle, Sun, Cloud, CloudRain, Wind, Thermometer, Lightbulb, RefreshCw } from 'lucide-react'
 
 const mockData = [
   { name: 'Lun', prelievo: 400, produzione: 240, autoconsumo: 240 },
@@ -44,6 +45,14 @@ const smartTips = [
 
 export default function AdminDashboard() {
   const navigate = useNavigate()
+  const [isRefreshing, setIsRefreshing] = useState(false)
+
+  const handleRefresh = async () => {
+    setIsRefreshing(true)
+    // Simulare il caricamento dei dati
+    await new Promise(resolve => setTimeout(resolve, 1000))
+    setIsRefreshing(false)
+  }
   return (
     <div className="space-y-6 max-w-7xl mx-auto">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-3">
@@ -51,8 +60,18 @@ export default function AdminDashboard() {
           <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">Dashboard</h1>
           <p className="text-zinc-500 dark:text-zinc-400 mt-1 text-sm">Visione d'insieme aggregata della Comunità Energetica Rinnovabile.</p>
         </div>
-        <div className="bg-white dark:bg-zinc-900 px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg border border-zinc-200 dark:border-zinc-800 shadow-sm text-xs sm:text-sm font-medium text-zinc-600 dark:text-zinc-400 shrink-0">
-          Ultimo agg: <span className="text-zinc-900 dark:text-zinc-100">Oggi, 14:30</span>
+        <div className="flex items-center gap-2 shrink-0">
+          <button
+            onClick={handleRefresh}
+            disabled={isRefreshing}
+            className="h-11 px-4 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-all disabled:opacity-50 flex items-center gap-2 text-sm font-medium text-zinc-700 dark:text-zinc-300 shadow-sm active:scale-95 touch-manipulation"
+          >
+            <RefreshCw className={`w-4 h-4 ${isRefreshing ? 'animate-spin' : ''}`} />
+            Aggiorna
+          </button>
+          <div className="bg-white dark:bg-zinc-900 px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg border border-zinc-200 dark:border-zinc-800 shadow-sm text-xs sm:text-sm font-medium text-zinc-600 dark:text-zinc-400 shrink-0">
+            Ultimo agg: <span className="text-zinc-900 dark:text-zinc-100">Oggi, 14:30</span>
+          </div>
         </div>
       </div>
 

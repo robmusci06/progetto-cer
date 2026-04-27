@@ -282,7 +282,7 @@ export default function Community() {
                 return (
                   <div
                     key={member.id}
-                    className={`group relative bg-white rounded-2xl border border-zinc-100 border-t-4 ${rc.border} shadow-[0_2px_16px_rgb(0,0,0,0.05)] hover:shadow-[0_8px_32px_rgb(0,0,0,0.10)] hover:-translate-y-1 transition-all duration-300 overflow-hidden`}
+                    className={`group relative bg-white rounded-2xl border border-zinc-100 border-t-4 ${rc.border} shadow-[0_2px_16px_rgb(0,0,0,0.05)] transition-all duration-300 overflow-hidden`}
                   >
                     {/* Glassmorphism accent */}
                     <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none bg-gradient-to-br from-white/60 to-transparent" />

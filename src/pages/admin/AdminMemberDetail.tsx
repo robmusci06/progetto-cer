@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import { mockMembers } from '../../data/mockMembers'
+import { mockMembers, type EnergyDataPoint } from '../../data/mockMembers'
 import {
   Mail, Phone, MapPin,
   TrendingUp, Zap,
@@ -11,10 +11,54 @@ import {
   AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend
 } from 'recharts'
 
+type PeriodFilter = 'settimana' | 'mese' | 'anno'
+
+const generatePeriodData = (period: PeriodFilter, baseData: EnergyDataPoint[]): EnergyDataPoint[] => {
+  if (period === 'settimana') {
+    return baseData
+  }
+  if (period === 'mese') {
+    const monthlyData: EnergyDataPoint[] = []
+    const days = ['Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab', 'Dom']
+    for (let week = 0; week < 4; week++) {
+      days.forEach(day => {
+        monthlyData.push({
+          time: `${day} ${week + 1}`,
+          consumo: Math.round((Math.random() * 4 + 1) * 10) / 10,
+          produzione: Math.round((Math.random() * 10) * 10) / 10,
+        })
+      })
+    }
+    return monthlyData
+  }
+  const yearlyData: EnergyDataPoint[] = [
+    { time: 'Gen', consumo: 45, produzione: 12 },
+    { time: 'Feb', consumo: 52, produzione: 18 },
+    { time: 'Mar', consumo: 48, produzione: 35 },
+    { time: 'Apr', consumo: 55, produzione: 48 },
+    { time: 'Mag', consumo: 62, produzione: 65 },
+    { time: 'Giu', consumo: 70, produzione: 82 },
+    { time: 'Lug', consumo: 75, produzione: 90 },
+    { time: 'Ago', consumo: 72, produzione: 85 },
+    { time: 'Set', consumo: 58, produzione: 62 },
+    { time: 'Ott', consumo: 45, produzione: 38 },
+    { time: 'Nov', consumo: 42, produzione: 15 },
+    { time: 'Dic', consumo: 38, produzione: 8 },
+  ]
+  return yearlyData
+}
+
 export default function AdminMemberDetail() {
   const { id } = useParams()
   const member = mockMembers.find(m => m.id === id) || mockMembers[0]
   const isProducerRole = member.role === 'Producer' || member.role === 'Prosumer'
+
+  const [period, setPeriod] = useState<PeriodFilter>('settimana')
+  const [chartData, setChartData] = useState<EnergyDataPoint[]>(() => generatePeriodData('settimana', member.energyData))
+
+  useEffect(() => {
+    setChartData(generatePeriodData(period, member.energyData))
+  }, [period, member.energyData])
 
   const [isDark, setIsDark] = useState(() => document.documentElement.classList.contains('dark'))
 
@@ -30,21 +74,16 @@ export default function AdminMemberDetail() {
     <div className="space-y-6 animate-in fade-in duration-700 pb-10">
 
       {/* Main Header Card */}
-      <div className="bg-white dark:bg-zinc-900 p-6 rounded-3xl border border-zinc-100 dark:border-zinc-800 shadow-sm flex flex-col md:flex-row items-center justify-between gap-6">
-        <div className="flex items-center gap-5">
-          <div className="w-16 h-16 rounded-2xl bg-blue-500 text-white flex items-center justify-center text-2xl font-bold shrink-0">
-            {member.name.split(' ').map(n => n[0]).join('')}
-          </div>
-          <div>
-            <h1 className="text-2xl md:text-3xl font-bold text-zinc-900 dark:text-zinc-100 tracking-tight">{member.name}</h1>
-            <div className="flex items-center gap-2 mt-1 flex-wrap">
-              <span className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-indigo-50 dark:bg-indigo-900/40 text-indigo-600 dark:text-indigo-400 text-xs font-bold uppercase tracking-wider">
-                <Users className="w-3 h-3" /> {member.role}
-              </span>
-              <span className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-emerald-50 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-400 text-xs font-bold uppercase tracking-wider">
-                <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" /> {member.status}
-              </span>
-            </div>
+      <div className="bg-white dark:bg-zinc-900 p-6 rounded-3xl border border-zinc-100 dark:border-zinc-800 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+        <div>
+          <h1 className="text-2xl md:text-3xl font-bold text-zinc-900 dark:text-zinc-100 tracking-tight">{member.name}</h1>
+          <div className="flex items-center gap-2 mt-3 flex-wrap">
+            <span className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-indigo-50 dark:bg-indigo-900/40 text-indigo-600 dark:text-indigo-400 text-xs font-bold uppercase tracking-wider">
+              <Users className="w-3 h-3" /> {member.role}
+            </span>
+            <span className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-emerald-50 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-400 text-xs font-bold uppercase tracking-wider">
+              <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" /> {member.status}
+            </span>
           </div>
         </div>
 
@@ -103,7 +142,7 @@ export default function AdminMemberDetail() {
               { label: 'Incentivo mese', value: member.incentive, icon: <Euro className="w-4 h-4 text-emerald-500" />, bg: 'bg-emerald-50 dark:bg-emerald-950/30', trend: member.trends.incentive },
               { label: 'Energy score', value: '88/100', icon: <TrendingUp className="w-4 h-4 text-indigo-500" />, bg: 'bg-indigo-50 dark:bg-indigo-950/30', trend: member.trends.score },
             ].map((kpi, idx) => (
-              <div key={idx} className="bg-white dark:bg-zinc-900 px-4 py-3.5 rounded-2xl border border-zinc-100 dark:border-zinc-800 shadow-sm flex items-center gap-3 hover:shadow-md transition-all">
+              <div key={idx} className="bg-white dark:bg-zinc-900 px-4 py-3.5 rounded-2xl border border-zinc-100 dark:border-zinc-800 shadow-sm flex items-center gap-3 transition-all">
                 <div className={`p-2 rounded-xl ${kpi.bg} flex-shrink-0`}>
                   {kpi.icon}
                 </div>

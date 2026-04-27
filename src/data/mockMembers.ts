@@ -1,4 +1,10 @@
 
+export type EnergyDataPoint = {
+  time: string
+  consumo: number
+  produzione: number
+}
+
 export const mockMembers = [
   {
     id: 'MEM-001',
